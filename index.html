@@ -1,0 +1,1917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FFF5F7">
+<title>Krishna Thakkar — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FFF5F7;
+    --warm: #FFE8EF;
+    --blush: #F5B8C8;
+    --terracotta: #D4608A;
+    --rust: #B5436E;
+    --deep: #2D1420;
+    --fig: #6B3050;
+    --sage: #E8A0B8;
+    --gold: #F4B8D0;
+    /* Breakpoints — see docs/MOBILE-STANDARDS.md */
+    --bp-xs: 380px;
+    --bp-sm: 600px;
+    --bp-md: 768px;
+    --bp-lg: 900px;
+    --bp-xl: 1200px;
+    --space-section: 7rem;
+    --space-section-sm: 4rem;
+    --space-gutter: 1.25rem;
+    --touch-min: 44px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    padding: 1.5rem 3rem;
+    padding-top: max(1.5rem, env(safe-area-inset-top));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    mix-blend-mode: normal;
+  }
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: var(--touch-min);
+    height: var(--touch-min);
+    padding: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .nav-toggle-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--deep);
+    border-radius: 1px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  body.nav-open .nav-toggle-bar:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  body.nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+  body.nav-open .nav-toggle-bar:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+  .nav-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(45, 20, 32, 0.45);
+    z-index: 150;
+  }
+  body.nav-open .nav-backdrop { display: block; }
+  .nav-menu { display: flex; align-items: center; }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--deep);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a, .nav-link {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--fig);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover, .nav-link:hover { color: var(--terracotta); }
+
+  /* Nav bar after scroll (class toggled in JS — do not use inline colors on drawer links) */
+  nav.nav-scrolled {
+    background: rgba(180, 60, 100, 0.95);
+    backdrop-filter: blur(16px);
+    box-shadow: 0 2px 30px rgba(180, 60, 100, 0.3);
+  }
+  nav.nav-scrolled .nav-logo {
+    color: var(--cream);
+  }
+  nav.nav-scrolled .nav-toggle-bar {
+    background: var(--cream);
+  }
+  @media (min-width: 601px) {
+    nav.nav-scrolled .nav-menu .nav-link {
+      color: var(--cream);
+    }
+    nav.nav-scrolled .nav-menu .nav-link:hover {
+      color: var(--warm);
+    }
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem 5rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    border: 1px solid var(--blush);
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 2rem;
+    width: fit-content;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 6vw, 6rem);
+    font-weight: 900;
+    line-height: 1;
+    color: var(--deep);
+    animation: fadeUp 0.8s ease 0.15s both;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+
+  .hero-desc {
+    margin-top: 2rem;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--fig);
+    max-width: 400px;
+    font-weight: 300;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: flex;
+    gap: 1rem;
+    animation: fadeUp 0.8s ease 0.45s both;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 2rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .btn-primary {
+    background: var(--deep);
+    color: var(--cream);
+    border: none;
+  }
+  .btn-primary:hover { background: var(--terracotta); transform: translateY(-2px); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--deep);
+    border: 1.5px solid var(--blush);
+  }
+  .btn-secondary:hover { border-color: var(--terracotta); color: var(--terracotta); transform: translateY(-2px); }
+
+  .hero-right {
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 1.2s ease 0.2s both;
+  }
+
+  .hero-img-wrap {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, var(--blush) 0%, var(--warm) 60%, var(--sage) 100%);
+  }
+
+  .hero-img-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(201,123,75,0.3) 0%, transparent 60%);
+  }
+
+  .hero-photo {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 380px;
+    filter: drop-shadow(0 20px 40px rgba(44,24,16,0.2));
+    object-fit: cover;
+  }
+
+  .hero-float-text {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(44,24,16,0.3);
+    white-space: nowrap;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 3rem;
+    left: 5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--fig);
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+  .hero-scroll::before {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 1px;
+    background: var(--blush);
+    animation: expand 2s ease infinite;
+  }
+
+  /* MARQUEE */
+  .marquee-section {
+    background: var(--deep);
+    padding: 1.2rem 0;
+    overflow: hidden;
+    display: flex;
+    gap: 0;
+  }
+  .marquee-track {
+    display: flex;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blush);
+    font-weight: 300;
+  }
+  .marquee-dot {
+    width: 4px; height: 4px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* SECTION COMMON */
+  section { padding: var(--space-section) 5rem; }
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--deep);
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--terracotta); }
+
+  /* ABOUT */
+  .about {
+    background: var(--warm);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .stat-card {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+  .stat-card:hover { transform: translateY(-4px); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--terracotta);
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--fig);
+    margin-top: 0.3rem;
+    font-weight: 300;
+  }
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--fig);
+    font-weight: 300;
+  }
+  .about-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+  }
+  .tag {
+    padding: 0.4rem 1.1rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    border: 1px solid var(--blush);
+    color: var(--fig);
+    letter-spacing: 0.05em;
+    transition: all 0.3s;
+  }
+  .tag:hover { background: var(--terracotta); color: var(--cream); border-color: var(--terracotta); }
+
+  /* SERVICES */
+  .services { background: var(--cream); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+  .service-card {
+    background: var(--warm);
+    border-radius: 20px;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+  }
+  .service-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--terracotta);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    transform-origin: left;
+  }
+  .service-card:hover::after { transform: scaleX(1); }
+  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(44,24,16,0.1); }
+  .service-icon {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  .service-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--deep);
+    margin-bottom: 1rem;
+  }
+  .service-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--fig);
+    font-weight: 300;
+  }
+  .service-list {
+    list-style: none;
+    margin-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .service-list li {
+    font-size: 0.8rem;
+    color: var(--fig);
+    padding-left: 1.2rem;
+    position: relative;
+    font-weight: 300;
+  }
+  .service-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--terracotta);
+  }
+
+  /* WORK / VIDEO */
+  .work { background: var(--deep); color: var(--cream); }
+  .work .section-label { color: var(--blush); }
+  .work .section-title { color: var(--cream); }
+  .work .section-title em { color: var(--gold); }
+
+  .work-filter {
+    display: flex;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    min-height: var(--touch-min);
+    padding: 0.5rem 1.4rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    border: 1px solid rgba(253,246,238,0.2);
+    color: var(--blush);
+    background: transparent;
+    transition: all 0.3s;
+    text-transform: uppercase;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--terracotta);
+    border-color: var(--terracotta);
+    color: var(--cream);
+  }
+
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .work-card {
+    background: rgba(253,246,238,0.05);
+    border: 1px solid rgba(253,246,238,0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s;
+  }
+  .work-card:hover {
+    background: rgba(253,246,238,0.1);
+    border-color: var(--terracotta);
+    transform: translateY(-4px);
+  }
+  .work-card-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+  }
+  .work-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--cream);
+    margin-bottom: 0.8rem;
+  }
+  .work-card-desc {
+    font-size: 0.82rem;
+    color: rgba(245,234,216,0.6);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .work-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.2rem;
+    font-size: 0.75rem;
+    color: var(--terracotta);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: gap 0.3s;
+  }
+  .work-card-link:hover { gap: 0.8rem; }
+
+  /* BLOG */
+  .blog { background: var(--warm); }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+  .blog-card {
+    background: var(--cream);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.4s;
+  }
+  .blog-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(44,24,16,0.12); }
+  .blog-card-img {
+    height: 160px;
+    background: var(--warm);
+    position: relative;
+    overflow: hidden;
+  }
+  .blog-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .blog-card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(44,24,16,0.15));
+    pointer-events: none;
+  }
+  .blog-card-body { padding: 1.5rem; }
+  .blog-card-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 0.6rem;
+  }
+  .blog-card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--deep);
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+  .blog-card-link {
+    font-size: 0.75rem;
+    color: var(--terracotta);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+  }
+  .blog-card-link:hover { text-decoration: underline; }
+
+  /* CONTACT */
+  .contact {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+  .form-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fig); }
+  .form-input, .form-textarea {
+    background: var(--warm);
+    border: 1.5px solid var(--blush);
+    border-radius: 10px;
+    padding: 0.9rem 1.2rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--deep);
+    transition: border-color 0.3s;
+    outline: none;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--terracotta); }
+  .form-textarea { resize: none; height: 130px; }
+  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
+  .contact-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--deep);
+  }
+  .contact-quote em { font-style: italic; color: var(--terracotta); }
+  .contact-detail {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--fig);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .contact-detail:hover { color: var(--terracotta); }
+  .contact-detail-icon {
+    width: 40px; height: 40px;
+    background: var(--warm);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  /* COLLATERAL */
+  .collateral {
+    padding: 7rem 3rem;
+    background: var(--warm);
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+  }
+  .collateral-brand { margin-bottom: 1rem; }
+  .collateral-brand-header {
+    padding-left: 1rem;
+    margin-bottom: 2rem;
+  }
+  .collateral-brand-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .collateral-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--deep);
+  }
+  .collateral-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.2rem;
+  }
+  .collateral-card {
+    cursor: pointer;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--cream);
+    box-shadow: 0 4px 20px rgba(44,20,32,0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .collateral-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(44,20,32,0.14); }
+  .collateral-thumb {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+  }
+  .collateral-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+  .collateral-card:hover .collateral-thumb img { transform: scale(1.05); }
+  .collateral-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(45,20,32,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: white;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+  }
+  .collateral-card:hover .collateral-overlay { opacity: 1; }
+  .collateral-info { padding: 0.9rem 1rem 1rem; }
+  .collateral-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.9rem;
+    color: var(--deep);
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+  }
+  .collateral-desc {
+    font-size: 0.75rem;
+    color: var(--fig);
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep);
+    padding: 2.5rem 5rem;
+    padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--cream);
+  }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(245,234,216,0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes expand {
+    0%, 100% { width: 40px; }
+    50% { width: 60px; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+
+  /* VIDEOS */
+  .videos { background: var(--cream); }
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+  .video-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+  }
+  .video-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    font-weight: 500;
+  }
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9000;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  #lightbox.lightbox-open { display: flex; }
+  .lightbox-close {
+    position: fixed;
+    top: 1.5rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 9001;
+  }
+  #lightboxImg {
+    max-height: 85vh;
+    max-width: 90vw;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  .lightbox-video-wrap {
+    display: none;
+    width: min(90vw, 960px);
+    aspect-ratio: 16 / 9;
+    max-height: 85vh;
+  }
+  .lightbox-video-wrap.is-active { display: block; }
+  .lightbox-video-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 8px;
+  }
+  #lightboxCaption {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.85rem;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .watch-video-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+  .video-wrap {
+    position: relative;
+    padding-top: 177.78%;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--warm);
+    box-shadow: 0 8px 30px rgba(45,20,32,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .video-wrap img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .video-item:hover .video-wrap {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 50px rgba(212,96,138,0.25);
+  }
+  .video-item:hover .video-wrap img { transform: scale(1.04); }
+  .video-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(45,20,32,0.55) 0%, transparent 50%);
+    transition: opacity 0.3s;
+  }
+  .video-play-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 52px; height: 52px;
+    background: rgba(212,96,138,0.9);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+    transition: transform 0.3s ease, background 0.3s;
+    z-index: 2;
+  }
+  .video-item:hover .video-play-btn {
+    transform: translate(-50%, -50%) scale(1.12);
+    background: var(--terracotta);
+  }
+  /* --- Responsive (docs/MOBILE-STANDARDS.md) --- */
+
+  /* --bp-xl: wide desktop */
+  @media (min-width: 1201px) {
+    section { padding-left: max(5rem, calc((100vw - 1200px) / 2 + 2rem)); padding-right: max(5rem, calc((100vw - 1200px) / 2 + 2rem)); }
+  }
+
+  /* --bp-lg: tablet (900px) */
+  @media (max-width: 900px) {
+    nav { padding: 1.5rem 2rem; padding-top: max(1.5rem, env(safe-area-inset-top)); }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { height: 50vh; }
+    .hero-left { padding: 7rem 2rem 3rem; }
+    .hero-scroll { left: 2rem; bottom: 2rem; }
+    section { padding: 5rem 2rem; }
+    .about, .contact { grid-template-columns: 1fr; gap: 3rem; }
+    .services-grid, .work-grid, .blog-grid { grid-template-columns: 1fr 1fr; }
+    .video-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    footer {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+      padding: 2rem;
+      padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    }
+  }
+
+  /* --bp-md: large phone (768px) */
+  @media (max-width: 768px) {
+    .marquee-item { font-size: 0.7rem; padding: 0 1.25rem; }
+    .collateral-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* --bp-sm: phone (600px) */
+  @media (max-width: 600px) {
+    nav { padding: 1rem var(--space-gutter); padding-top: max(1rem, env(safe-area-inset-top)); }
+    .nav-toggle {
+      display: flex;
+      position: relative;
+      z-index: 210;
+    }
+    .nav-menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(88vw, 320px);
+      height: 100%;
+      height: 100dvh;
+      background: var(--cream);
+      padding: calc(env(safe-area-inset-top) + 4.5rem) var(--space-gutter) var(--space-gutter);
+      padding-bottom: max(var(--space-gutter), env(safe-area-inset-bottom));
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 205;
+      box-shadow: -8px 0 40px rgba(45, 20, 32, 0.12);
+      align-items: stretch;
+      overflow-y: auto;
+    }
+    body.nav-open .nav-menu { transform: translateX(0); }
+    .nav-menu .nav-links {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      width: 100%;
+    }
+    .nav-menu .nav-links li {
+      border-bottom: 1px solid var(--warm);
+    }
+    .nav-menu .nav-link {
+      display: flex;
+      align-items: center;
+      min-height: var(--touch-min);
+      padding: 0.85rem 0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--deep);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .nav-menu .nav-link:hover,
+    .nav-menu .nav-link:active,
+    .nav-menu .nav-link:focus-visible {
+      color: var(--terracotta);
+    }
+    .nav-menu .nav-link:focus-visible {
+      outline: 2px solid var(--terracotta);
+      outline-offset: 4px;
+      border-radius: 4px;
+    }
+    /* Drawer links must stay dark even when header is nav-scrolled */
+    nav.nav-scrolled .nav-menu .nav-link,
+    body.nav-open .nav-menu .nav-link {
+      color: var(--deep);
+    }
+    body.nav-open nav.nav-scrolled .nav-logo,
+    body.nav-open .nav-logo {
+      color: var(--deep);
+    }
+    body.nav-open .nav-toggle-bar {
+      background: var(--deep);
+    }
+    body.nav-open nav {
+      background: var(--cream);
+      box-shadow: none;
+    }
+    .hero-right { height: 45vh; }
+    .hero-left {
+      padding: 6.5rem var(--space-gutter) 2.5rem;
+    }
+    .hero-name { font-size: clamp(2.5rem, 10vw, 4rem); }
+    .hero-desc { max-width: none; }
+    .hero-cta {
+      flex-direction: column;
+      width: 100%;
+    }
+    .hero-cta .btn { width: 100%; justify-content: center; }
+    .hero-scroll { display: none; }
+    .hero-float-text { display: none; }
+    section { padding: var(--space-section-sm) var(--space-gutter); }
+    .services-grid, .work-grid, .blog-grid { grid-template-columns: 1fr; }
+    .video-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .work-filter { margin: 1.5rem 0; gap: 0.6rem; }
+    .lightbox-close {
+      top: max(1rem, env(safe-area-inset-top));
+      right: max(1rem, env(safe-area-inset-right));
+    }
+    .lightbox-video-wrap {
+      width: 100vw;
+      max-width: 100%;
+      border-radius: 0;
+    }
+    .lightbox-video-wrap iframe { border-radius: 0; }
+    #lightboxImg {
+      max-width: 100vw;
+      border-radius: 0;
+    }
+    footer { padding: 2rem var(--space-gutter); }
+  }
+
+  /* --bp-xs: small phone (380px) */
+  @media (max-width: 380px) {
+    .hero-name { font-size: 2.35rem; }
+    .section-title { font-size: 1.75rem; }
+    .stat-num { font-size: 2rem; }
+    .collateral-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .marquee-track { animation: none; }
+    .reveal { transition: none; }
+    .nav-menu { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div class="nav-backdrop" id="navBackdrop" hidden></div>
+<nav>
+  <span class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})" style="cursor:pointer;">KT</span>
+  <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+  </button>
+  <div id="nav-menu" class="nav-menu">
+    <ul class="nav-links">
+      <li><span class="nav-link" data-target="about">About</span></li>
+      <li><span class="nav-link" data-target="services">Services</span></li>
+      <li><span class="nav-link" data-target="work">Work</span></li>
+      <li><span class="nav-link" data-target="social">Social</span></li>
+      <li><span class="nav-link" data-target="videos">Videos</span></li>
+      <li><span class="nav-link" data-target="blog">Writing</span></li>
+      <li><span class="nav-link" data-target="contact">Contact</span></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <span class="hero-tag">✦ Available for projects</span>
+    <h1 class="hero-name">
+      Krishna<br><em>Thakkar</em>
+    </h1>
+    <p class="hero-desc">
+      Social media strategist & brand storyteller helping small businesses come alive online — with content, visuals, and strategy that actually connect.
+    </p>
+    <div class="hero-cta">
+      <span class="btn btn-primary nav-link" data-target="work">View Work ↓</span>
+      <a href="https://www.linkedin.com/in/krishna-thakkar-53893a156/" target="_blank" class="btn btn-secondary">LinkedIn →</a>
+    </div>
+    <div class="hero-scroll">Scroll to explore</div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-img-wrap">
+      <img src="assets/images/hero.png" alt="Krishna Thakkar" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:100%;width:100%;object-fit:cover;object-position:center top;" />
+      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(255,245,247,0.15) 0%, transparent 30%), linear-gradient(to top, rgba(45,20,32,0.3) 0%, transparent 50%);"></div>
+    </div>
+    <div class="hero-float-text">Social Media · Content · Strategy · Branding</div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span>Social Media Strategy</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Content Creation</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Brand Storytelling</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>SEO & Blogs</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Video Editing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Lead Magnets</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UGC Content</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Visual Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Social Media Strategy</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Content Creation</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Brand Storytelling</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>SEO & Blogs</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Video Editing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Lead Magnets</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UGC Content</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Visual Design</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about reveal" id="about">
+  <div>
+    <p class="section-label">About me</p>
+    <h2 class="section-title">Where strategy<br>meets <em>soul</em></h2>
+    <div class="about-stats">
+      <div class="stat-card">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Brand Clients</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">SEO Blog Articles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Passions: Content & Food</div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <p class="about-text">
+      Hi! I'm Krishna — a freelancer helping small brands come to life online. I create content, design visuals, and build strategies that make brands connect with their audience in meaningful ways.
+      <br><br>
+      I love working with passionate small businesses, whether it's a cosy restaurant, a budding lifestyle brand, or any creative venture. Food has a special place in my heart, and I also work part-time as a chef, which fuels my creativity and hands-on approach.
+      <br><br>
+      One day, I hope to open my own restaurant, blending my love for storytelling, strategy, and culinary art. 🍽️
+    </p>
+    <div class="about-tags">
+      <span class="tag">Social Media</span>
+      <span class="tag">Content Strategy</span>
+      <span class="tag">Brand Storytelling</span>
+      <span class="tag">SEO Writing</span>
+      <span class="tag">Video Editing</span>
+      <span class="tag">Food & Hospitality</span>
+      <span class="tag">UGC</span>
+      <span class="tag">Freelancing</span>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="reveal">
+    <p class="section-label">What I do</p>
+    <h2 class="section-title">Services crafted<br>for <em>small brands</em></h2>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <div class="service-title">Social Media Campaigns</div>
+      <p class="service-desc">End-to-end social media management built around your brand's voice and goals.</p>
+      <ul class="service-list">
+        <li>Tailored brand strategy</li>
+        <li>Content creation & scheduling</li>
+        <li>Community engagement</li>
+        <li>Data-driven optimization</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✍️</div>
+      <div class="service-title">SEO Content & Blogs</div>
+      <p class="service-desc">Long-form content that ranks on Google and resonates with your readers.</p>
+      <ul class="service-list">
+        <li>Keyword research</li>
+        <li>On-page & off-page SEO</li>
+        <li>Blog writing & strategy</li>
+        <li>Lead magnet creation</li>
+      </ul>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎬</div>
+      <div class="service-title">Video Content & UGC</div>
+      <p class="service-desc">Compelling short-form video content for Instagram, TikTok, and beyond.</p>
+      <ul class="service-list">
+        <li>Reels & story edits</li>
+        <li>UGC-style content</li>
+        <li>Brand video campaigns</li>
+        <li>Multi-platform adaptation</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEOS -->
+<section class="videos" id="videos">
+  <div class="reveal">
+    <p class="section-label">Video Work</p>
+    <h2 class="section-title">Stories told<br>through <em>motion</em></h2>
+    <p style="color:var(--fig);font-size:0.95rem;font-weight:300;margin-top:1rem;max-width:500px;">Short-form video content created for restaurants, lifestyle brands, and cultural events.</p>
+  </div>
+  <div class="video-grid reveal" id="videoGrid">
+    <button type="button" class="video-item" data-vimeo-id="1169804875" data-title="Distillery District">
+      <div class="video-wrap">
+        <img 
+          src="assets/images/videos/distillery-district.jpg" 
+          alt="Distillery District" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
+        />
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Distillery District</div>
+        </div>
+        <div class="video-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Distillery District</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1169808802" data-title="Distillery District #2">
+      <div class="video-wrap">
+        <img 
+          src="assets/images/videos/distillery-district-2.jpg" 
+          alt="Distillery District #2" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
+        />
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Distillery District #2</div>
+        </div>
+        <div class="video-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Distillery District #2</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1169808809" data-title="Tamasha">
+      <div class="video-wrap">
+        <img 
+          src="assets/images/videos/tamasha.jpg" 
+          alt="Tamasha" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
+        />
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Tamasha</div>
+        </div>
+        <div class="video-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Tamasha</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1169808818" data-title="Anejo — UGC Story Edit">
+      <div class="video-wrap">
+        <img 
+          src="assets/images/videos/anejo-ugc.jpg" 
+          alt="Anejo — UGC Story Edit" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
+        />
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Anejo — UGC Story Edit</div>
+        </div>
+        <div class="video-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Anejo — UGC Story Edit</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1169808824" data-title="Oro">
+      <div class="video-wrap">
+        <img 
+          src="assets/images/videos/oro.jpg" 
+          alt="Oro" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
+        />
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Oro</div>
+        </div>
+        <div class="video-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Oro</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1169808834" data-title="Oro #2">
+      <div class="video-wrap">
+        <img 
+          src="assets/images/videos/oro-2.jpg" 
+          alt="Oro #2" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
+        />
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Oro #2</div>
+        </div>
+        <div class="video-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Oro #2</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1169808844" data-title="Oro #3">
+      <div class="video-wrap">
+        <img 
+          src="assets/images/videos/oro-3.jpg" 
+          alt="Oro #3" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
+        />
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Oro #3</div>
+        </div>
+        <div class="video-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Oro #3</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1169808849" data-title="Just Bought It Hair">
+      <div class="video-wrap">
+        <img 
+          src="assets/images/videos/just-bought-it-hair.jpg" 
+          alt="Just Bought It Hair" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
+        />
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Just Bought It Hair</div>
+        </div>
+        <div class="video-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Just Bought It Hair</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1169808854" data-title="Garba Ahmedabad">
+      <div class="video-wrap">
+        <img 
+          src="assets/images/videos/garba-ahmedabad.jpg" 
+          alt="Garba Ahmedabad" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
+        />
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Garba Ahmedabad</div>
+        </div>
+        <div class="video-play-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Garba Ahmedabad</div>
+    </button>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="work" id="work">
+  <div class="reveal">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">Work that<br>speaks <em>louder</em></h2>
+    <div class="work-filter">
+      <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
+      <button class="filter-btn" onclick="filterWork('video', this)">Video</button>
+      <button class="filter-btn" onclick="filterWork('social', this)">Social</button>
+      <button class="filter-btn" onclick="filterWork('blog', this)">Blog</button>
+    </div>
+  </div>
+  <div class="work-grid reveal" id="workGrid">
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">Video Content</div>
+      <div class="work-card-title">Distillery District</div>
+      <p class="work-card-desc">Short-form video content showcasing Toronto's iconic Distillery District brand.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169804875" data-title="Distillery District">Watch video →</button>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">Video Content</div>
+      <div class="work-card-title">Tamasha</div>
+      <p class="work-card-desc">Vibrant video content for Tamasha's brand storytelling across social platforms.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808809" data-title="Tamasha">Watch video →</button>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">UGC Story Edit</div>
+      <div class="work-card-title">Anejo</div>
+      <p class="work-card-desc">Authentic UGC-style story edits designed to drive engagement and brand awareness.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808818" data-title="Anejo">Watch video →</button>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">Video Content</div>
+      <div class="work-card-title">Oro</div>
+      <p class="work-card-desc">Polished video content for Oro restaurant, blending luxury aesthetic with food storytelling.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808824" data-title="Oro">Watch video →</button>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">Video Content</div>
+      <div class="work-card-title">Just Bought It Hair</div>
+      <p class="work-card-desc">Dynamic social video content for a beauty & hair brand targeting style-conscious audiences.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808849" data-title="Just Bought It Hair">Watch video →</button>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">Event Coverage</div>
+      <div class="work-card-title">Garba Ahmedabad</div>
+      <p class="work-card-desc">Festive event video content capturing the spirit and energy of Garba celebrations.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808854" data-title="Garba Ahmedabad">Watch video →</button>
+    </div>
+    <div class="work-card" data-type="social">
+      <div class="work-card-label">Social Media</div>
+      <div class="work-card-title">Clientjoy</div>
+      <p class="work-card-desc">Full social media management for a SaaS brand — strategy, content, and growth.</p>
+    </div>
+    <div class="work-card" data-type="social">
+      <div class="work-card-label">Social Media</div>
+      <div class="work-card-title">Scentido</div>
+      <p class="work-card-desc">Brand storytelling and visual content for a luxury fragrance brand.</p>
+    </div>
+    <div class="work-card" data-type="social">
+      <div class="work-card-label">Social Media</div>
+      <div class="work-card-title">EZI</div>
+      <p class="work-card-desc">Content strategy and creation for EZI, building brand presence across platforms.</p>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- SOCIAL COLLATERAL -->
+<section class="collateral" id="social">
+  <div class="reveal">
+    <p class="section-label">Social Media Collateral</p>
+    <h2 class="section-title">Content that<br><em>stops the scroll</em></h2>
+  </div>
+
+  <div class="collateral-brand reveal">
+    <div class="collateral-brand-header" style="border-left: 3px solid #4A6CF7;">
+      <span class="collateral-brand-label" style="color:#4A6CF7;">SaaS · CRM</span>
+      <h3 class="collateral-brand-name">Clientjoy</h3>
+    </div>
+    <div class="collateral-grid">
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/bulletproof-your-agency.jpg', 'Bulletproof Your Agency')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/bulletproof-your-agency.jpg" alt="Bulletproof Your Agency" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Bulletproof Your Agency</div>
+            <div class="collateral-desc">Clientjoy CRM campaign — bold, conversion-focused ad creative.</div>
+          </div>
+        </div>
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/freedom-from-monthly-payments.jpg', 'Freedom from Monthly Payments')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/freedom-from-monthly-payments.jpg" alt="Freedom from Monthly Payments" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Freedom from Monthly Payments</div>
+            <div class="collateral-desc">Highlighting Clientjoy's lifetime deal value proposition.</div>
+          </div>
+        </div>
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/agency-advocate-podcast.jpg', 'Agency Advocate Podcast')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/agency-advocate-podcast.jpg" alt="Agency Advocate Podcast" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Agency Advocate Podcast</div>
+            <div class="collateral-desc">Event graphic for a live podcast session on lead conversion.</div>
+          </div>
+        </div>
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/mission-driven-content.jpg', 'Mission-Driven Content')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/mission-driven-content.jpg" alt="Mission-Driven Content" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Mission-Driven Content</div>
+            <div class="collateral-desc">Brand awareness post for Clientjoy's creator-focused mission.</div>
+          </div>
+        </div>
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/designer-humour-series.jpg', 'Designer Humour Series')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/designer-humour-series.jpg" alt="Designer Humour Series" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Designer Humour Series</div>
+            <div class="collateral-desc">Relatable content collab with @canyoumakethismorewhite.</div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="collateral-brand reveal">
+    <div class="collateral-brand-header" style="border-left: 3px solid #B8860B;">
+      <span class="collateral-brand-label" style="color:#B8860B;">Niche Perfumery · Luxury</span>
+      <h3 class="collateral-brand-name">Scentido</h3>
+    </div>
+    <div class="collateral-grid">
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/fall-in-love-at-first-scent.jpg', 'Fall in Love at First Scent')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/fall-in-love-at-first-scent.jpg" alt="Fall in Love at First Scent" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Fall in Love at First Scent</div>
+            <div class="collateral-desc">Brand tagline story post for Scentido Niche Perfumery.</div>
+          </div>
+        </div>
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/roja-parfums-elixir.jpg', 'Roja Parfums — Elixir')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/roja-parfums-elixir.jpg" alt="Roja Parfums — Elixir" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Roja Parfums — Elixir</div>
+            <div class="collateral-desc">Luxury product feature with peach-toned editorial styling.</div>
+          </div>
+        </div>
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/somei-yoshino-berdoues.jpg', 'Somei Yoshino by Berdoues')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/somei-yoshino-berdoues.jpg" alt="Somei Yoshino by Berdoues" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Somei Yoshino by Berdoues</div>
+            <div class="collateral-desc">Cherry blossom collection product spotlight.</div>
+          </div>
+        </div>
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/durga-ds-durga.jpg', 'Durga by D.S. & Durga')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/durga-ds-durga.jpg" alt="Durga by D.S. & Durga" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Durga by D.S. & Durga</div>
+            <div class="collateral-desc">Jasmine-themed editorial product feature post.</div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="collateral-brand reveal">
+    <div class="collateral-brand-header" style="border-left: 3px solid #CC00CC;">
+      <span class="collateral-brand-label" style="color:#CC00CC;">Marketplace · App</span>
+      <h3 class="collateral-brand-name">EZI</h3>
+    </div>
+    <div class="collateral-grid">
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/solving-your-buying-needs.jpg', 'Solving Your Buying Needs')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/solving-your-buying-needs.jpg" alt="Solving Your Buying Needs" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Solving Your Buying Needs</div>
+            <div class="collateral-desc">App-focused brand awareness post — "Easy with EZI."</div>
+          </div>
+        </div>
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/verified-resellers.jpg', 'Verified ReSellers Under One Umbrella')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/verified-resellers.jpg" alt="Verified ReSellers Under One Umbrella" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Verified ReSellers Under One Umbrella</div>
+            <div class="collateral-desc">Educational brand content highlighting EZI's core value.</div>
+          </div>
+        </div>
+        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/seller-to-buyer.jpg', 'Seller to Buyer')">
+          <div class="collateral-thumb">
+            <img src="assets/images/collateral/seller-to-buyer.jpg" alt="Seller to Buyer" loading="lazy">
+            <div class="collateral-overlay">
+              <span>View ↗</span>
+            </div>
+          </div>
+          <div class="collateral-info">
+            <div class="collateral-title">Seller to Buyer</div>
+            <div class="collateral-desc">Bold visual storytelling for EZI's marketplace concept.</div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <button type="button" class="lightbox-close" onclick="event.stopPropagation(); closeLightbox();" aria-label="Close">✕</button>
+  <img id="lightboxImg" src="" alt="">
+  <div id="lightboxVideo" class="lightbox-video-wrap" onclick="event.stopPropagation()">
+    <iframe id="vimeoPlayer" title="Video player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+  </div>
+  <div id="lightboxCaption"></div>
+</div>
+
+<!-- BLOG -->
+<section class="blog" id="blog">
+  <div class="reveal">
+    <p class="section-label">Writing</p>
+    <h2 class="section-title">Words that<br><em>rank & resonate</em></h2>
+  </div>
+  <div class="blog-grid reveal">
+    <div class="blog-card">
+      <div class="blog-card-img">
+        <img src="assets/images/blog/influencer-marketing-strategies.png" alt="Best Influencer Marketing Strategies to Use in 2023" width="1920" height="1080" loading="lazy" decoding="async">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Social Media</div>
+        <div class="blog-card-title">Best Influencer Marketing Strategies to Use in 2023</div>
+        <a href="https://www.clientjoy.io/blog/influencer-marketing-strategies-2021" target="_blank" class="blog-card-link">Read article →</a>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img">
+        <img src="assets/images/blog/data-driven-social-media.jpeg" alt="Why You Need to Rely on Data Instead of Guesswork for Social Media" width="1280" height="853" loading="lazy" decoding="async">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Strategy</div>
+        <div class="blog-card-title">Why You Need to Rely on Data Instead of Guesswork for Social Media</div>
+        <a href="https://www.clientjoy.io/blog/data-driven-social-media-strategy" target="_blank" class="blog-card-link">Read article →</a>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img">
+        <img src="assets/images/blog/ultimate-guide-freelancer.png" alt="The Ultimate Guide To Being A Freelancer" width="937" height="522" loading="lazy" decoding="async">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Freelancing</div>
+        <div class="blog-card-title">The Ultimate Guide To Being A Freelancer</div>
+        <a href="https://www.clientjoy.io/blog/ultimate-guide-to-become-freelancer" target="_blank" class="blog-card-link">Read article →</a>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img">
+        <img src="assets/images/blog/start-agency-guide.png" alt="How To Start An Agency: The Ultimate Guide" width="1920" height="1080" loading="lazy" decoding="async">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Agency</div>
+        <div class="blog-card-title">How To Start An Agency: The Ultimate Guide</div>
+        <a href="https://www.clientjoy.io/blog/ultimate-guide-to-starting-an-agency" target="_blank" class="blog-card-link">Read article →</a>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img">
+        <img src="assets/images/blog/sales-funnel-guide.png" alt="Sales Funnel: The Ultimate Guide For Beginners [2023]" width="1920" height="1080" loading="lazy" decoding="async">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Marketing</div>
+        <div class="blog-card-title">Sales Funnel: The Ultimate Guide For Beginners [2023]</div>
+        <a href="https://www.clientjoy.io/blog/beginners-guide-to-sales-funnel" target="_blank" class="blog-card-link">Read article →</a>
+      </div>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img">
+        <img src="assets/images/blog/agency-freelancer-tools.jpeg" alt="Tools for Agencies & Freelancers To Scale Their Business" width="1920" height="1280" loading="lazy" decoding="async">
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-tag">Tools</div>
+        <div class="blog-card-title">Tools for Agencies & Freelancers To Scale Their Business</div>
+        <a href="https://www.clientjoy.io/blog/tools-for-agencies-and-freelancers-to-scale-their-business" target="_blank" class="blog-card-link">Read article →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact reveal" id="contact">
+  <div class="contact-info">
+    <div>
+      <p class="section-label">Let's work together</p>
+      <h2 class="contact-quote">
+        Ready to build something <em>memorable?</em>
+      </h2>
+      <p style="margin-top:1.5rem;color:var(--fig);font-size:0.95rem;line-height:1.7;font-weight:300;">
+        Whether it's a social media overhaul, a content strategy, or a video campaign — I'd love to hear about your project.
+      </p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1rem;">
+      <a href="https://www.linkedin.com/in/krishna-thakkar-53893a156/" target="_blank" class="contact-detail">
+        <div class="contact-detail-icon">in</div>
+        Krishna Thakkar on LinkedIn
+      </a>
+      <a href="#" class="contact-detail">
+        <div class="contact-detail-icon">✉️</div>
+        Available for freelance
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Krishna Thakkar</div>
+  <div class="footer-copy">© 2025 · Social Media & Content Strategist · Brand Storyteller · Food Lover 💖</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Work filter
+  function filterWork(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.work-card').forEach(card => {
+      if (type === 'all' || card.dataset.type === type) {
+        card.style.display = 'block';
+        card.style.animation = 'fadeUp 0.4s ease both';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Form
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('formMsg').style.display = 'block';
+    e.target.reset();
+    setTimeout(() => document.getElementById('formMsg').style.display = 'none', 4000);
+  }
+
+  // Mobile navigation
+  const navToggle = document.querySelector('.nav-toggle');
+  const navBackdrop = document.getElementById('navBackdrop');
+
+  function setNavOpen(open) {
+    document.body.classList.toggle('nav-open', open);
+    if (navToggle) {
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    if (navBackdrop) navBackdrop.hidden = !open;
+    if (open && !document.getElementById('lightbox').classList.contains('lightbox-open')) {
+      document.body.style.overflow = 'hidden';
+    } else if (!open && !document.getElementById('lightbox').classList.contains('lightbox-open')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      setNavOpen(!document.body.classList.contains('nav-open'));
+    });
+  }
+  if (navBackdrop) {
+    navBackdrop.addEventListener('click', () => setNavOpen(false));
+  }
+  // Lightbox & video modal
+  function openLightbox(src, caption) {
+    setNavOpen(false);
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    const videoWrap = document.getElementById('lightboxVideo');
+    const player = document.getElementById('vimeoPlayer');
+    player.src = '';
+    videoWrap.classList.remove('is-active');
+    img.style.display = 'block';
+    img.src = src;
+    document.getElementById('lightboxCaption').textContent = caption || '';
+    lb.classList.add('lightbox-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function openVideoModal(vimeoId, title) {
+    setNavOpen(false);
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    const videoWrap = document.getElementById('lightboxVideo');
+    const player = document.getElementById('vimeoPlayer');
+    img.style.display = 'none';
+    img.src = '';
+    videoWrap.classList.add('is-active');
+    player.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`;
+    document.getElementById('lightboxCaption').textContent = title || '';
+    lb.classList.add('lightbox-open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    const videoWrap = document.getElementById('lightboxVideo');
+    const player = document.getElementById('vimeoPlayer');
+    lb.classList.remove('lightbox-open');
+    img.src = '';
+    img.style.display = 'none';
+    videoWrap.classList.remove('is-active');
+    player.src = '';
+    document.getElementById('lightboxCaption').textContent = '';
+    if (!document.body.classList.contains('nav-open')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      closeLightbox();
+      setNavOpen(false);
+    }
+  });
+
+  document.getElementById('videoGrid').addEventListener('click', e => {
+    const item = e.target.closest('.video-item');
+    if (!item) return;
+    openVideoModal(item.dataset.vimeoId, item.dataset.title);
+  });
+
+  document.querySelectorAll('.watch-video-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      openVideoModal(btn.dataset.vimeoId, btn.dataset.title);
+    });
+  });
+
+  // Smooth scroll via data-target — no href, no sandbox popup
+  function scrollToSection(id) {
+    const target = document.getElementById(id);
+    if (!target) return;
+    const navHeight = document.querySelector('nav').offsetHeight;
+    const top = target.getBoundingClientRect().top + window.scrollY - navHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+  document.querySelectorAll('[data-target]').forEach(el => {
+    el.style.cursor = 'pointer';
+    el.addEventListener('click', function() {
+      setNavOpen(false);
+      scrollToSection(this.getAttribute('data-target'));
+    });
+  });
+
+  // Nav bar background on scroll (drawer link colors handled in CSS)
+  const nav = document.querySelector('nav');
+  function clearLegacyNavInline() {
+    nav.style.removeProperty('background');
+    nav.style.removeProperty('backdrop-filter');
+    nav.style.removeProperty('box-shadow');
+    nav.querySelectorAll('.nav-logo, .nav-link, .nav-toggle-bar').forEach(el => {
+      el.style.removeProperty('color');
+      el.style.removeProperty('background');
+    });
+  }
+  function updateNavScroll() {
+    nav.classList.toggle('nav-scrolled', window.scrollY > 80);
+  }
+  clearLegacyNavInline();
+  updateNavScroll();
+  window.addEventListener('scroll', updateNavScroll, { passive: true });
+</script>
+</body>
+</html>

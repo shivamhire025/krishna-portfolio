@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#FFF5F7">
 <title>Krishna Thakkar — Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --cream: #FFF5F7;
@@ -34,6 +36,15 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+
+  /* Skip rendering off-screen sections until needed */
+  section:not(.hero):not(.marquee-section) {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
   }
 
   body {
@@ -119,8 +130,7 @@
 
   /* Nav bar after scroll (class toggled in JS — do not use inline colors on drawer links) */
   nav.nav-scrolled {
-    background: rgba(180, 60, 100, 0.95);
-    backdrop-filter: blur(16px);
+    background: rgba(180, 60, 100, 0.97);
     box-shadow: 0 2px 30px rgba(180, 60, 100, 0.3);
   }
   nav.nav-scrolled .nav-logo {
@@ -189,7 +199,7 @@
     line-height: 1.7;
     color: var(--fig);
     max-width: 400px;
-    font-weight: 300;
+    font-weight: 400;
     animation: fadeUp 0.8s ease 0.3s both;
   }
 
@@ -301,6 +311,10 @@
     display: flex;
     animation: marquee 20s linear infinite;
     white-space: nowrap;
+    will-change: transform;
+  }
+  .marquee-section.is-paused .marquee-track {
+    animation-play-state: paused;
   }
   .marquee-item {
     display: inline-flex;
@@ -311,7 +325,7 @@
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--blush);
-    font-weight: 300;
+    font-weight: 400;
   }
   .marquee-dot {
     width: 4px; height: 4px;
@@ -372,13 +386,13 @@
     font-size: 0.8rem;
     color: var(--fig);
     margin-top: 0.3rem;
-    font-weight: 300;
+    font-weight: 400;
   }
   .about-text {
     font-size: 1rem;
     line-height: 1.85;
     color: var(--fig);
-    font-weight: 300;
+    font-weight: 400;
   }
   .about-tags {
     display: flex;
@@ -440,7 +454,7 @@
     font-size: 0.9rem;
     line-height: 1.7;
     color: var(--fig);
-    font-weight: 300;
+    font-weight: 400;
   }
   .service-list {
     list-style: none;
@@ -454,7 +468,7 @@
     color: var(--fig);
     padding-left: 1.2rem;
     position: relative;
-    font-weight: 300;
+    font-weight: 400;
   }
   .service-list li::before {
     content: '→';
@@ -527,7 +541,7 @@
     font-size: 0.82rem;
     color: rgba(245,234,216,0.6);
     line-height: 1.6;
-    font-weight: 300;
+    font-weight: 400;
   }
   .work-card-link {
     display: inline-flex;
@@ -563,11 +577,33 @@
     position: relative;
     overflow: hidden;
   }
-  .blog-card-img img {
+  .hero-img-wrap picture {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+  .hero-img-wrap picture img {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+  .blog-card-img picture {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
     display: block;
+  }
+  .blog-card-img picture img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
   }
   .blog-card-img::after {
     content: '';
@@ -736,7 +772,7 @@
     font-size: 0.75rem;
     color: var(--fig);
     line-height: 1.5;
-    font-weight: 300;
+    font-weight: 400;
   }
 
   /* FOOTER */
@@ -774,28 +810,48 @@
     50% { width: 60px; }
   }
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-50%, 0, 0); }
   }
 
   .reveal {
     opacity: 0;
-    transform: translateY(40px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transform: translate3d(0, 24px, 0);
+    transition: opacity 0.55s ease, transform 0.55s ease;
   }
   .reveal.visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0);
   }
 
 
   /* VIDEOS */
   .videos { background: var(--cream); }
+  .video-cluster {
+    margin-top: 4.5rem;
+  }
+  .video-cluster-header {
+    margin-bottom: 2rem;
+    max-width: 560px;
+  }
+  .video-cluster-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.45rem;
+    color: var(--deep);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .video-cluster-desc {
+    color: var(--fig);
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.55;
+  }
   .video-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    margin-top: 4rem;
+    margin-top: 0;
   }
   .video-item {
     display: flex;
@@ -809,6 +865,28 @@
     text-align: left;
     width: 100%;
     cursor: pointer;
+  }
+  .video-item.is-playing { cursor: default; }
+  .video-item.is-playing:hover .video-wrap {
+    transform: none;
+    box-shadow: 0 8px 30px rgba(45,20,32,0.1);
+  }
+  .video-inline-player {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-radius: 16px;
+    background: #000;
+  }
+  .video-wrap.is-playing img,
+  .video-wrap.is-playing .video-fallback,
+  .video-wrap.is-playing .video-play-btn,
+  .video-wrap.is-playing .video-overlay {
+    opacity: 0;
+    pointer-events: none;
   }
   .video-label {
     font-size: 0.75rem;
@@ -879,20 +957,34 @@
     overflow: hidden;
     background: var(--warm);
     box-shadow: 0 8px 30px rgba(45,20,32,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .video-wrap picture {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
   }
   .video-wrap img {
     position: absolute;
     inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
+    object-position: center;
   }
-  .video-item:hover .video-wrap {
-    transform: translateY(-4px);
-    box-shadow: 0 16px 50px rgba(212,96,138,0.25);
+  @media (hover: hover) {
+    .video-wrap {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-wrap img {
+      transition: transform 0.4s ease;
+    }
+    .video-item:hover .video-wrap {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(212,96,138,0.25);
+    }
+    .video-item:hover .video-wrap img { transform: scale(1.04); }
   }
-  .video-item:hover .video-wrap img { transform: scale(1.04); }
   .video-overlay {
     position: absolute;
     inset: 0;
@@ -907,7 +999,6 @@
     background: rgba(212,96,138,0.9);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    backdrop-filter: blur(4px);
     transition: transform 0.3s ease, background 0.3s;
     z-index: 2;
   }
@@ -1035,6 +1126,9 @@
     section { padding: var(--space-section-sm) var(--space-gutter); }
     .services-grid, .work-grid, .blog-grid { grid-template-columns: 1fr; }
     .video-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .video-cluster { margin-top: 3rem; }
+    .video-cluster-header { margin-bottom: 1.5rem; }
+    .video-cluster-title { font-size: 1.25rem; }
     .about-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
     .work-filter { margin: 1.5rem 0; gap: 0.6rem; }
     .lightbox-close {
@@ -1112,7 +1206,10 @@
   </div>
   <div class="hero-right">
     <div class="hero-img-wrap">
-      <img src="assets/images/hero.png" alt="Krishna Thakkar" style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);height:100%;width:100%;object-fit:cover;object-position:center top;" />
+      <picture>
+        <source srcset="assets/images/hero.webp" type="image/webp">
+        <img src="assets/images/hero.png" alt="Krishna Thakkar" fetchpriority="high" decoding="async" width="800" height="1000" />
+      </picture>
       <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(255,245,247,0.15) 0%, transparent 30%), linear-gradient(to top, rgba(45,20,32,0.3) 0%, transparent 50%);"></div>
     </div>
     <div class="hero-float-text">Social Media · Content · Strategy · Branding</div>
@@ -1234,163 +1331,454 @@
   <div class="reveal">
     <p class="section-label">Video Work</p>
     <h2 class="section-title">Stories told<br>through <em>motion</em></h2>
-    <p style="color:var(--fig);font-size:0.95rem;font-weight:300;margin-top:1rem;max-width:500px;">Short-form video content created for restaurants, lifestyle brands, and cultural events.</p>
+    <p style="color:var(--fig);font-size:0.95rem;font-weight:400;margin-top:1rem;max-width:500px;">Short-form video content grouped by theme — click any card to play inline.</p>
   </div>
-  <div class="video-grid reveal" id="videoGrid">
+  <div class="video-cluster reveal">
+    <div class="video-cluster-header">
+      <h3 class="video-cluster-title">Restaurants & Dining</h3>
+      <p class="video-cluster-desc">Short-form edits for restaurants, cafés, and food brands.</p>
+    </div>
+    <div class="video-grid">
     <button type="button" class="video-item" data-vimeo-id="1169804875" data-title="Distillery District">
       <div class="video-wrap">
-        <img 
-          src="assets/images/videos/distillery-district.jpg" 
-          alt="Distillery District" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
-        />
+        <picture>
+          <source srcset="assets/images/videos/distillery-district.webp" type="image/webp">
+          <img src="assets/images/videos/distillery-district.jpg" alt="Distillery District" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
         <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
           <div style="font-size:2.5rem;">🎬</div>
           <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Distillery District</div>
         </div>
-        <div class="video-play-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
       <div class="video-label">Distillery District</div>
     </button>
     <button type="button" class="video-item" data-vimeo-id="1169808802" data-title="Distillery District #2">
       <div class="video-wrap">
-        <img 
-          src="assets/images/videos/distillery-district-2.jpg" 
-          alt="Distillery District #2" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
-        />
+        <picture>
+          <source srcset="assets/images/videos/distillery-district-2.webp" type="image/webp">
+          <img src="assets/images/videos/distillery-district-2.jpg" alt="Distillery District #2" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
         <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
           <div style="font-size:2.5rem;">🎬</div>
           <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Distillery District #2</div>
         </div>
-        <div class="video-play-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
       <div class="video-label">Distillery District #2</div>
     </button>
     <button type="button" class="video-item" data-vimeo-id="1169808809" data-title="Tamasha">
       <div class="video-wrap">
-        <img 
-          src="assets/images/videos/tamasha.jpg" 
-          alt="Tamasha" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
-        />
+        <picture>
+          <source srcset="assets/images/videos/tamasha.webp" type="image/webp">
+          <img src="assets/images/videos/tamasha.jpg" alt="Tamasha" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
         <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
           <div style="font-size:2.5rem;">🎬</div>
           <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Tamasha</div>
         </div>
-        <div class="video-play-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
       <div class="video-label">Tamasha</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1169808818" data-title="Anejo — UGC Story Edit">
-      <div class="video-wrap">
-        <img 
-          src="assets/images/videos/anejo-ugc.jpg" 
-          alt="Anejo — UGC Story Edit" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
-        />
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Anejo — UGC Story Edit</div>
-        </div>
-        <div class="video-play-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">Anejo — UGC Story Edit</div>
-    </button>
     <button type="button" class="video-item" data-vimeo-id="1169808824" data-title="Oro">
       <div class="video-wrap">
-        <img 
-          src="assets/images/videos/oro.jpg" 
-          alt="Oro" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
-        />
+        <picture>
+          <source srcset="assets/images/videos/oro.webp" type="image/webp">
+          <img src="assets/images/videos/oro.jpg" alt="Oro" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
         <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
           <div style="font-size:2.5rem;">🎬</div>
           <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Oro</div>
         </div>
-        <div class="video-play-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
       <div class="video-label">Oro</div>
     </button>
     <button type="button" class="video-item" data-vimeo-id="1169808834" data-title="Oro #2">
       <div class="video-wrap">
-        <img 
-          src="assets/images/videos/oro-2.jpg" 
-          alt="Oro #2" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
-        />
+        <picture>
+          <source srcset="assets/images/videos/oro-2.webp" type="image/webp">
+          <img src="assets/images/videos/oro-2.jpg" alt="Oro #2" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
         <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
           <div style="font-size:2.5rem;">🎬</div>
           <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Oro #2</div>
         </div>
-        <div class="video-play-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
       <div class="video-label">Oro #2</div>
     </button>
     <button type="button" class="video-item" data-vimeo-id="1169808844" data-title="Oro #3">
       <div class="video-wrap">
-        <img 
-          src="assets/images/videos/oro-3.jpg" 
-          alt="Oro #3" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
-        />
+        <picture>
+          <source srcset="assets/images/videos/oro-3.webp" type="image/webp">
+          <img src="assets/images/videos/oro-3.jpg" alt="Oro #3" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
         <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
           <div style="font-size:2.5rem;">🎬</div>
           <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Oro #3</div>
         </div>
-        <div class="video-play-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
       <div class="video-label">Oro #3</div>
     </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274119" data-title="GreekTown Grill">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/greek-town-grill.webp" type="image/webp">
+          <img src="assets/images/videos/greek-town-grill.jpg" alt="GreekTown Grill" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Grill</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">GreekTown Grill</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274113" data-title="Sambal">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/sambal.webp" type="image/webp">
+          <img src="assets/images/videos/sambal.jpg" alt="Sambal" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Sambal</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Sambal</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274104" data-title="Bom Dia">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/bom-dia.webp" type="image/webp">
+          <img src="assets/images/videos/bom-dia.jpg" alt="Bom Dia" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Bom Dia</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Bom Dia</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274106" data-title="Freddo & Crepes">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/freddo-crepes.webp" type="image/webp">
+          <img src="assets/images/videos/freddo-crepes.jpg" alt="Freddo & Crepes" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Freddo & Crepes</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Freddo & Crepes</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274095" data-title="Menali">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/menali.webp" type="image/webp">
+          <img src="assets/images/videos/menali.jpg" alt="Menali" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Menali</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Menali</div>
+    </button>
+    </div>
+  </div>
+  <div class="video-cluster reveal">
+    <div class="video-cluster-header">
+      <h3 class="video-cluster-title">UGC & Social Reels</h3>
+      <p class="video-cluster-desc">Authentic, scroll-stopping content for Instagram and TikTok.</p>
+    </div>
+    <div class="video-grid">
+    <button type="button" class="video-item" data-vimeo-id="1169808818" data-title="Anejo — UGC Story Edit">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/anejo-ugc.webp" type="image/webp">
+          <img src="assets/images/videos/anejo-ugc.jpg" alt="Anejo — UGC Story Edit" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Anejo — UGC Story Edit</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Anejo — UGC Story Edit</div>
+    </button>
     <button type="button" class="video-item" data-vimeo-id="1169808849" data-title="Just Bought It Hair">
       <div class="video-wrap">
-        <img 
-          src="assets/images/videos/just-bought-it-hair.jpg" 
-          alt="Just Bought It Hair" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
-        />
+        <picture>
+          <source srcset="assets/images/videos/just-bought-it-hair.webp" type="image/webp">
+          <img src="assets/images/videos/just-bought-it-hair.jpg" alt="Just Bought It Hair" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
         <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
           <div style="font-size:2.5rem;">🎬</div>
           <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Just Bought It Hair</div>
         </div>
-        <div class="video-play-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
       <div class="video-label">Just Bought It Hair</div>
     </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274086" data-title="GreekTown Reel 1">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/greektown-reel-1.webp" type="image/webp">
+          <img src="assets/images/videos/greektown-reel-1.jpg" alt="GreekTown Reel 1" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 1</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">GreekTown Reel 1</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274087" data-title="GreekTown Reel 2">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/greektown-reel-2.webp" type="image/webp">
+          <img src="assets/images/videos/greektown-reel-2.jpg" alt="GreekTown Reel 2" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 2</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">GreekTown Reel 2</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274088" data-title="GreekTown Reel 3">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/greektown-reel-3.webp" type="image/webp">
+          <img src="assets/images/videos/greektown-reel-3.jpg" alt="GreekTown Reel 3" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 3</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">GreekTown Reel 3</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274085" data-title="GreekTown Reel 4">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/greektown-reel-4.webp" type="image/webp">
+          <img src="assets/images/videos/greektown-reel-4.jpg" alt="GreekTown Reel 4" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 4</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">GreekTown Reel 4</div>
+    </button>
+    </div>
+  </div>
+  <div class="video-cluster reveal">
+    <div class="video-cluster-header">
+      <h3 class="video-cluster-title">Retail & Lifestyle</h3>
+      <p class="video-cluster-desc">Brand stories for local shops, services, and everyday lifestyle.</p>
+    </div>
+    <div class="video-grid">
+    <button type="button" class="video-item" data-vimeo-id="1199274112" data-title="Carpe Diem Men">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/carpe-diem-men.webp" type="image/webp">
+          <img src="assets/images/videos/carpe-diem-men.jpg" alt="Carpe Diem Men" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Carpe Diem Men</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Carpe Diem Men</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274108" data-title="Skincare & Beauty">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/skincare-beauty.webp" type="image/webp">
+          <img src="assets/images/videos/skincare-beauty.jpg" alt="Skincare & Beauty" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Skincare & Beauty</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Skincare & Beauty</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274094" data-title="Home & Gifts">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/home-gifts.webp" type="image/webp">
+          <img src="assets/images/videos/home-gifts.jpg" alt="Home & Gifts" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Home & Gifts</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Home & Gifts</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274090" data-title="Garden Neighbours">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/garden-neighbours.webp" type="image/webp">
+          <img src="assets/images/videos/garden-neighbours.jpg" alt="Garden Neighbours" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Garden Neighbours</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Garden Neighbours</div>
+    </button>
+    </div>
+  </div>
+  <div class="video-cluster reveal">
+    <div class="video-cluster-header">
+      <h3 class="video-cluster-title">Health & Wellness</h3>
+      <p class="video-cluster-desc">Fitness studios, nutrition, and wellbeing-focused content.</p>
+    </div>
+    <div class="video-grid">
+    <button type="button" class="video-item" data-vimeo-id="1199274116" data-title="All Access Fitness">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/all-access-fitness.webp" type="image/webp">
+          <img src="assets/images/videos/all-access-fitness.jpg" alt="All Access Fitness" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">All Access Fitness</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">All Access Fitness</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274107" data-title="Soma Bone Broth">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/soma-bone-broth.webp" type="image/webp">
+          <img src="assets/images/videos/soma-bone-broth.jpg" alt="Soma Bone Broth" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Soma Bone Broth</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Soma Bone Broth</div>
+    </button>
+    </div>
+  </div>
+  <div class="video-cluster reveal">
+    <div class="video-cluster-header">
+      <h3 class="video-cluster-title">Community & Culture</h3>
+      <p class="video-cluster-desc">Events, neighbourhoods, and cultural moments brought to life.</p>
+    </div>
+    <div class="video-grid">
     <button type="button" class="video-item" data-vimeo-id="1169808854" data-title="Garba Ahmedabad">
       <div class="video-wrap">
-        <img 
-          src="assets/images/videos/garba-ahmedabad.jpg" 
-          alt="Garba Ahmedabad" loading="lazy" onerror="this.style.display='none';this.parentNode.querySelector('.video-fallback').style.display='flex';"
-        />
+        <picture>
+          <source srcset="assets/images/videos/garba-ahmedabad.webp" type="image/webp">
+          <img src="assets/images/videos/garba-ahmedabad.jpg" alt="Garba Ahmedabad" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
         <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
           <div style="font-size:2.5rem;">🎬</div>
           <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Garba Ahmedabad</div>
         </div>
-        <div class="video-play-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
       <div class="video-label">Garba Ahmedabad</div>
     </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274115" data-title="Westwood WAGO">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/westwood-wago.webp" type="image/webp">
+          <img src="assets/images/videos/westwood-wago.jpg" alt="Westwood WAGO" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Westwood WAGO</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Westwood WAGO</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274096" data-title="Sunny Greektown">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/sunny-greektown.webp" type="image/webp">
+          <img src="assets/images/videos/sunny-greektown.jpg" alt="Sunny Greektown" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Sunny Greektown</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Sunny Greektown</div>
+    </button>
+    <button type="button" class="video-item" data-vimeo-id="1199274100" data-title="Danforth Stroll">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/danforth-stroll.webp" type="image/webp">
+          <img src="assets/images/videos/danforth-stroll.jpg" alt="Danforth Stroll" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Danforth Stroll</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label">Danforth Stroll</div>
+    </button>
+    </div>
   </div>
+
 </section>
 
 <!-- WORK -->
@@ -1661,7 +2049,10 @@
   <div class="blog-grid reveal">
     <div class="blog-card">
       <div class="blog-card-img">
-        <img src="assets/images/blog/influencer-marketing-strategies.png" alt="Best Influencer Marketing Strategies to Use in 2023" width="1920" height="1080" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="assets/images/blog/influencer-marketing-strategies.webp" type="image/webp">
+          <img src="assets/images/blog/influencer-marketing-strategies.jpg" alt="Best Influencer Marketing Strategies to Use in 2023" width="1920" height="1080" loading="lazy" decoding="async" />
+        </picture>
       </div>
       <div class="blog-card-body">
         <div class="blog-card-tag">Social Media</div>
@@ -1671,7 +2062,10 @@
     </div>
     <div class="blog-card">
       <div class="blog-card-img">
-        <img src="assets/images/blog/data-driven-social-media.jpeg" alt="Why You Need to Rely on Data Instead of Guesswork for Social Media" width="1280" height="853" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="assets/images/blog/data-driven-social-media.webp" type="image/webp">
+          <img src="assets/images/blog/data-driven-social-media.jpg" alt="Why You Need to Rely on Data Instead of Guesswork for Social Media" width="1280" height="853" loading="lazy" decoding="async" />
+        </picture>
       </div>
       <div class="blog-card-body">
         <div class="blog-card-tag">Strategy</div>
@@ -1681,7 +2075,10 @@
     </div>
     <div class="blog-card">
       <div class="blog-card-img">
-        <img src="assets/images/blog/ultimate-guide-freelancer.png" alt="The Ultimate Guide To Being A Freelancer" width="937" height="522" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="assets/images/blog/ultimate-guide-freelancer.webp" type="image/webp">
+          <img src="assets/images/blog/ultimate-guide-freelancer.jpg" alt="The Ultimate Guide To Being A Freelancer" width="937" height="522" loading="lazy" decoding="async" />
+        </picture>
       </div>
       <div class="blog-card-body">
         <div class="blog-card-tag">Freelancing</div>
@@ -1691,7 +2088,10 @@
     </div>
     <div class="blog-card">
       <div class="blog-card-img">
-        <img src="assets/images/blog/start-agency-guide.png" alt="How To Start An Agency: The Ultimate Guide" width="1920" height="1080" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="assets/images/blog/start-agency-guide.webp" type="image/webp">
+          <img src="assets/images/blog/start-agency-guide.jpg" alt="How To Start An Agency: The Ultimate Guide" width="1920" height="1080" loading="lazy" decoding="async" />
+        </picture>
       </div>
       <div class="blog-card-body">
         <div class="blog-card-tag">Agency</div>
@@ -1701,7 +2101,10 @@
     </div>
     <div class="blog-card">
       <div class="blog-card-img">
-        <img src="assets/images/blog/sales-funnel-guide.png" alt="Sales Funnel: The Ultimate Guide For Beginners [2023]" width="1920" height="1080" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="assets/images/blog/sales-funnel-guide.webp" type="image/webp">
+          <img src="assets/images/blog/sales-funnel-guide.jpg" alt="Sales Funnel: The Ultimate Guide For Beginners [2023]" width="1920" height="1080" loading="lazy" decoding="async" />
+        </picture>
       </div>
       <div class="blog-card-body">
         <div class="blog-card-tag">Marketing</div>
@@ -1711,7 +2114,10 @@
     </div>
     <div class="blog-card">
       <div class="blog-card-img">
-        <img src="assets/images/blog/agency-freelancer-tools.jpeg" alt="Tools for Agencies & Freelancers To Scale Their Business" width="1920" height="1280" loading="lazy" decoding="async">
+        <picture>
+          <source srcset="assets/images/blog/agency-freelancer-tools.webp" type="image/webp">
+          <img src="assets/images/blog/agency-freelancer-tools.jpg" alt="Tools for Agencies & Freelancers To Scale Their Business" width="1920" height="1280" loading="lazy" decoding="async" />
+        </picture>
       </div>
       <div class="blog-card-body">
         <div class="blog-card-tag">Tools</div>
@@ -1730,7 +2136,7 @@
       <h2 class="contact-quote">
         Ready to build something <em>memorable?</em>
       </h2>
-      <p style="margin-top:1.5rem;color:var(--fig);font-size:0.95rem;line-height:1.7;font-weight:300;">
+      <p style="margin-top:1.5rem;color:var(--fig);font-size:0.95rem;line-height:1.7;font-weight:400;">
         Whether it's a social media overhaul, a content strategy, or a video campaign — I'd love to hear about your project.
       </p>
     </div>
@@ -1754,16 +2160,26 @@
 </footer>
 
 <script>
-  // Scroll reveal
+  // Scroll reveal — one rAF batch, no staggered timeouts
   const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, i) => {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => revealObserver.observe(el));
+
+  // Pause marquee when off-screen (saves GPU while scrolling)
+  const marqueeSection = document.querySelector('.marquee-section');
+  if (marqueeSection) {
+    const marqueeObserver = new IntersectionObserver(([entry]) => {
+      marqueeSection.classList.toggle('is-paused', !entry.isIntersecting);
+    }, { threshold: 0 });
+    marqueeObserver.observe(marqueeSection);
+  }
 
   // Work filter
   function filterWork(type, btn) {
@@ -1814,7 +2230,46 @@
     navBackdrop.addEventListener('click', () => setNavOpen(false));
   }
   // Lightbox & video modal
+  let activeInlineVideo = null;
+
+  function stopInlineVideo(item) {
+    if (!item) return;
+    const wrap = item.querySelector('.video-wrap');
+    const player = wrap.querySelector('.video-inline-player');
+    if (player) player.remove();
+    wrap.classList.remove('is-playing');
+    item.classList.remove('is-playing');
+    if (activeInlineVideo === item) activeInlineVideo = null;
+  }
+
+  function playInlineVideo(item) {
+    const vimeoId = item.dataset.vimeoId;
+    if (!vimeoId) return;
+
+    if (activeInlineVideo && activeInlineVideo !== item) {
+      stopInlineVideo(activeInlineVideo);
+    }
+
+    if (item.classList.contains('is-playing')) {
+      stopInlineVideo(item);
+      return;
+    }
+
+    const wrap = item.querySelector('.video-wrap');
+    const iframe = document.createElement('iframe');
+    iframe.className = 'video-inline-player';
+    iframe.title = item.dataset.title || 'Video';
+    iframe.allow = 'autoplay; fullscreen; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.src = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`;
+    wrap.appendChild(iframe);
+    wrap.classList.add('is-playing');
+    item.classList.add('is-playing');
+    activeInlineVideo = item;
+  }
+
   function openLightbox(src, caption) {
+    if (activeInlineVideo) stopInlineVideo(activeInlineVideo);
     setNavOpen(false);
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightboxImg');
@@ -1830,6 +2285,7 @@
   }
 
   function openVideoModal(vimeoId, title) {
+    if (activeInlineVideo) stopInlineVideo(activeInlineVideo);
     setNavOpen(false);
     const lb = document.getElementById('lightbox');
     const img = document.getElementById('lightboxImg');
@@ -1862,15 +2318,17 @@
 
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
+      if (activeInlineVideo) stopInlineVideo(activeInlineVideo);
       closeLightbox();
       setNavOpen(false);
     }
   });
 
-  document.getElementById('videoGrid').addEventListener('click', e => {
+  document.querySelector('.videos').addEventListener('click', e => {
     const item = e.target.closest('.video-item');
     if (!item) return;
-    openVideoModal(item.dataset.vimeoId, item.dataset.title);
+    if (e.target.closest('.video-inline-player')) return;
+    playInlineVideo(item);
   });
 
   document.querySelectorAll('.watch-video-btn').forEach(btn => {

@@ -47,9 +47,11 @@ assets/images/
 
 ## Video poster workflow
 
-1. Export a frame from the edit (or use Vimeo thumbnail as a starting point).
-2. Save as `assets/images/videos/{slug}.jpg`.
-3. Reference in the matching `.video-item` `<img src="...">`.
+1. Add the Vimeo ID and slug to `scripts/fetch-vimeo-thumbnails.py` and `scripts/generate-video-clusters.py`.
+2. Run `python3 scripts/fetch-vimeo-thumbnails.py` to pull **960×540** thumbnails from Vimeo.
+3. Run `npm run optimize:images` to resize/compress JPEGs and generate `.webp` siblings.
+4. Run `python3 scripts/wrap-webp-picture.py` after adding new `<img>` tags (wraps with `<picture>` if `.webp` exists).
+5. Reference in the matching `.video-item` (or regenerate clusters HTML via `scripts/generate-video-clusters.py`).
 
 ## Blog thumbnail workflow
 

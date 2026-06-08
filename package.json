@@ -1,0 +1,9 @@
+{
+  "name": "krishna-portfolio",
+  "private": true,
+  "scripts": {
+    "dev": "npx --yes serve . -l 8080",
+    "optimize:images": "python3 scripts/optimize-images.py && python3 scripts/convert-webp.py",
+    "fetch:thumbnails": "python3 scripts/fetch-vimeo-thumbnails.py && npm run optimize:images"
+  }
+}

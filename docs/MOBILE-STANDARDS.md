@@ -7,9 +7,9 @@ Single source of truth for responsive behavior. CSS tokens live in `index.html` 
 | Token | Value | Typical devices | Primary layout changes |
 |-------|-------|-----------------|------------------------|
 | `--bp-xs` | 380px | iPhone SE, narrow Android | Single-column collateral; smaller hero type |
-| `--bp-sm` | 600px | Most phones | Hamburger nav, 1-col grids, full-width CTAs |
-| `--bp-md` | 768px | Large phones, small tablets | 2-col collateral; smaller marquee |
-| `--bp-lg` | 900px | Tablets, small laptops | Stacked hero; 2-col video grid |
+| `--bp-sm` | 600px | Most phones | 1-col grids, full-width CTAs, tighter section spacing |
+| `--bp-md` | 768px | Large phones, small tablets | Hamburger nav; 2-col collateral; smaller marquee |
+| `--bp-lg` | 900px | Tablets, small laptops | Stacked hero; 2-col service/work grids |
 | `--bp-xl` | 1200px | Desktop | Optional wider section gutters |
 
 Media queries use **max-width** (mobile-first overrides):
@@ -30,7 +30,7 @@ Media queries use **max-width** (mobile-first overrides):
 | `--space-gutter` | 1.25rem | Phone horizontal padding |
 | `--touch-min` | 44px | Minimum tap target (WCAG 2.5.5) |
 
-Apply `--touch-min` to: `.nav-toggle`, `.nav-link` (mobile panel), `.filter-btn`, video play control (52px, already compliant).
+Apply `--touch-min` to: `.nav-toggle`, `.nav-link` (drawer, ≤768px), `.btn`, `.filter-btn`, `.work-card-link`, video play control (52px, already compliant).
 
 ## Component rules by breakpoint
 
@@ -38,8 +38,8 @@ Apply `--touch-min` to: `.nav-toggle`, `.nav-link` (mobile panel), `.filter-btn`
 
 | Viewport | Behavior |
 |----------|----------|
-| > 600px | Horizontal links in header |
-| ≤ 600px | Hamburger opens right drawer; backdrop closes; Escape closes; link click scrolls + closes |
+| > 768px | Horizontal links in header |
+| ≤ 768px | Hamburger opens right drawer; backdrop closes; Escape closes; link click scrolls + closes |
 
 **Colors:** Scroll state uses class `nav-scrolled` on `<nav>` (not inline styles). On phones, drawer links always use `var(--deep)` on `var(--cream)` so they stay readable when the header bar turns pink after scroll. When the menu is open, the header bar resets to cream with dark logo and toggle bars.
 
@@ -50,7 +50,7 @@ Safe areas: `env(safe-area-inset-top)` on nav and drawer; `safe-area-inset-*` on
 | Viewport | Behavior |
 |----------|----------|
 | ≤ 900px | Single column; image block 50vh |
-| ≤ 600px | Image 45vh; stacked full-width buttons; hide scroll hint and side float text |
+| ≤ 600px | Image 45vh; stacked full-width buttons; primary CTA scrolls to Videos; hide scroll hint and side float text |
 
 ### Grids
 
@@ -76,9 +76,9 @@ Test in Chrome DevTools device mode **and** at least one real phone when possibl
 
 | Width | Checked | Notes |
 |-------|---------|-------|
-| 375px | Yes | Hamburger opens/closes; all 7 nav targets scroll correctly; no horizontal scroll |
-| 390px | Yes | Video modal full width; close button tappable |
-| 430px | Yes | Collateral 2-col; filters wrap; posters load |
+| 375px | Yes (Jun 2026) | Hamburger at ≤768px; all 7 nav targets scroll with offset; no horizontal overflow |
+| 390px | Yes (Jun 2026) | Videos first after hero; horizontal cluster scroll; inline play works |
+| 430px | Yes (Jun 2026) | Collateral 2-col; filters wrap; touch targets ≥44px |
 
 ### Per feature
 
@@ -92,7 +92,7 @@ Test in Chrome DevTools device mode **and** at least one real phone when possibl
 
 ### Regression on desktop
 
-- [x] Nav links visible without hamburger above 600px
+- [x] Nav links visible without hamburger above 768px
 - [x] Hero two-column layout from 901px up
 - [x] Video clusters horizontal scroll on all breakpoints
 

@@ -132,7 +132,7 @@
   nav.nav-scrolled .nav-toggle-bar {
     background: var(--cream);
   }
-  @media (min-width: 601px) {
+  @media (min-width: 769px) {
     nav.nav-scrolled .nav-menu .nav-link {
       color: var(--cream);
     }
@@ -206,7 +206,9 @@
   .btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.6rem;
+    min-height: var(--touch-min);
     padding: 0.9rem 2rem;
     border-radius: 100px;
     font-size: 0.85rem;
@@ -330,6 +332,9 @@
 
   /* SECTION COMMON */
   section { padding: var(--space-section) 5rem; }
+  section[id] {
+    scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 4.5rem);
+  }
   .section-label {
     font-size: 0.7rem;
     letter-spacing: 0.25em;
@@ -821,9 +826,15 @@
 
 
   /* VIDEOS */
-  .videos { background: var(--cream); }
+  .videos {
+    background: var(--cream);
+    overflow-x: clip;
+  }
   .video-cluster {
     margin-top: 4.5rem;
+  }
+  .videos .video-cluster:first-child {
+    margin-top: 2.5rem;
   }
   .video-cluster-header {
     margin-bottom: 2rem;
@@ -845,6 +856,7 @@
   .video-scroll-wrap {
     position: relative;
     margin-inline: calc(-1 * var(--space-gutter));
+    overflow: hidden;
   }
   .video-scroll-edge {
     position: absolute;
@@ -1086,14 +1098,10 @@
     }
   }
 
-  /* --bp-md: large phone (768px) */
+  /* --bp-md: large phone / small tablet (768px) */
   @media (max-width: 768px) {
     .marquee-item { font-size: 0.7rem; padding: 0 1.25rem; }
     .collateral-grid { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  /* --bp-sm: phone (600px) */
-  @media (max-width: 600px) {
     nav { padding: 1rem var(--space-gutter); padding-top: max(1rem, env(safe-area-inset-top)); }
     .nav-toggle {
       display: flex;
@@ -1116,6 +1124,7 @@
       box-shadow: -8px 0 40px rgba(45, 20, 32, 0.12);
       align-items: stretch;
       overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     body.nav-open .nav-menu { transform: translateX(0); }
     .nav-menu .nav-links {
@@ -1136,6 +1145,7 @@
       font-weight: 500;
       color: var(--deep);
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     .nav-menu .nav-link:hover,
     .nav-menu .nav-link:active,
@@ -1147,7 +1157,6 @@
       outline-offset: 4px;
       border-radius: 4px;
     }
-    /* Drawer links must stay dark even when header is nav-scrolled */
     nav.nav-scrolled .nav-menu .nav-link,
     body.nav-open .nav-menu .nav-link {
       color: var(--deep);
@@ -1163,6 +1172,11 @@
       background: var(--cream);
       box-shadow: none;
     }
+    .nav-backdrop { touch-action: manipulation; }
+  }
+
+  /* --bp-sm: phone (600px) */
+  @media (max-width: 600px) {
     .hero-right { height: 45vh; }
     .hero-left {
       padding: 6.5rem var(--space-gutter) 2.5rem;
@@ -1177,13 +1191,31 @@
     .hero-scroll { display: none; }
     .hero-float-text { display: none; }
     section { padding: var(--space-section-sm) var(--space-gutter); }
+    section[id] { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 3.75rem); }
     .services-grid, .work-grid, .blog-grid { grid-template-columns: 1fr; }
+    .service-card { padding: 1.75rem; }
+    .work-card { padding: 1.35rem; }
     .video-item { width: clamp(150px, 58vw, 200px); }
-    .video-cluster { margin-top: 3rem; }
-    .video-cluster-header { margin-bottom: 1.5rem; }
+    .video-cluster { margin-top: 2.5rem; }
+    .videos .video-cluster:first-child { margin-top: 1.75rem; }
+    .video-cluster-header { margin-bottom: 1.25rem; }
     .video-cluster-title { font-size: 1.25rem; }
+    .videos .section-title { margin-bottom: 1rem; }
     .about-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
     .work-filter { margin: 1.5rem 0; gap: 0.6rem; }
+    .work-card-link,
+    .blog-card-link,
+    .filter-btn,
+    .video-item,
+    .collateral-card {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .work-card-link {
+      min-height: var(--touch-min);
+      align-items: center;
+    }
+    .form-input, .form-textarea { font-size: 16px; }
     .lightbox-close {
       top: max(1rem, env(safe-area-inset-top));
       right: max(1rem, env(safe-area-inset-right));
@@ -1252,7 +1284,7 @@
       Social media strategist & brand storyteller helping small businesses come alive online with content, visuals, and strategy that actually connect.
     </p>
     <div class="hero-cta">
-      <span class="btn btn-primary nav-link" data-target="work">View Work ↓</span>
+      <span class="btn btn-primary nav-link" data-target="videos">View Videos ↓</span>
       <a href="https://www.linkedin.com/in/krishna-thakkar-53893a156/" target="_blank" class="btn btn-secondary">LinkedIn →</a>
     </div>
     <div class="hero-scroll">Scroll to explore</div>

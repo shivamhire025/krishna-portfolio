@@ -34,17 +34,8 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     -webkit-text-size-adjust: 100%;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-  }
-
-  /* Skip rendering off-screen sections until needed */
-  section:not(.hero):not(.marquee-section) {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 600px;
   }
 
   body {
@@ -311,9 +302,12 @@
     display: flex;
     animation: marquee 20s linear infinite;
     white-space: nowrap;
-    will-change: transform;
   }
   .marquee-section.is-paused .marquee-track {
+    animation-play-state: paused;
+  }
+  body.is-scrolling .marquee-track,
+  body.is-scrolling .hero-scroll::before {
     animation-play-state: paused;
   }
   .marquee-item {
@@ -554,6 +548,10 @@
     letter-spacing: 0.08em;
     transition: gap 0.3s;
   }
+  .work-card-link + .work-card-link {
+    display: flex;
+    margin-top: 0.65rem;
+  }
   .work-card-link:hover { gap: 0.8rem; }
 
   /* BLOG */
@@ -695,7 +693,7 @@
 
   /* COLLATERAL */
   .collateral {
-    padding: 7rem 3rem;
+    padding-block: 7rem;
     background: var(--warm);
     display: flex;
     flex-direction: column;
@@ -816,12 +814,13 @@
 
   .reveal {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
-    transition: opacity 0.55s ease, transform 0.55s ease;
+    transition: opacity 0.4s ease;
   }
   .reveal.visible {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+  }
+  body.is-scrolling .reveal {
+    transition: none;
   }
 
 
@@ -847,23 +846,79 @@
     font-weight: 400;
     line-height: 1.55;
   }
+  .video-scroll-wrap {
+    position: relative;
+    margin-inline: calc(-1 * var(--space-gutter));
+  }
+  .video-scroll-edge {
+    position: absolute;
+    top: 0;
+    bottom: 0.75rem;
+    width: clamp(2.25rem, 9vw, 3.25rem);
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .video-scroll-wrap.can-scroll-left .video-scroll-edge--left,
+  .video-scroll-wrap.can-scroll-right .video-scroll-edge--right {
+    opacity: 1;
+  }
+  .video-scroll-edge--left {
+    left: 0;
+    justify-content: flex-start;
+    padding-left: max(0.4rem, env(safe-area-inset-left));
+    background: linear-gradient(90deg, var(--cream) 45%, transparent);
+  }
+  .video-scroll-edge--right {
+    right: 0;
+    justify-content: flex-end;
+    padding-right: max(0.4rem, env(safe-area-inset-right));
+    background: linear-gradient(270deg, var(--cream) 45%, transparent);
+  }
+  .video-scroll-edge svg {
+    flex-shrink: 0;
+    color: var(--terracotta);
+    opacity: 0.9;
+    filter: drop-shadow(0 1px 3px rgba(45, 20, 32, 0.12));
+  }
   .video-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.25rem;
     margin-top: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: max(var(--space-gutter), env(safe-area-inset-left));
+    padding-bottom: 0.75rem;
+    padding-inline: var(--space-gutter);
+    scrollbar-width: thin;
+    scrollbar-color: var(--blush) transparent;
+  }
+  .video-grid::-webkit-scrollbar {
+    height: 5px;
+  }
+  .video-grid::-webkit-scrollbar-thumb {
+    background: var(--blush);
+    border-radius: 4px;
   }
   .video-item {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    flex: 0 0 auto;
+    width: clamp(160px, 38vw, 220px);
+    scroll-snap-align: start;
     border: none;
     background: none;
     padding: 0;
     margin: 0;
     font: inherit;
     text-align: left;
-    width: 100%;
     cursor: pointer;
   }
   .video-item.is-playing { cursor: default; }
@@ -1010,7 +1065,11 @@
 
   /* --bp-xl: wide desktop */
   @media (min-width: 1201px) {
-    section { padding-left: max(5rem, calc((100vw - 1200px) / 2 + 2rem)); padding-right: max(5rem, calc((100vw - 1200px) / 2 + 2rem)); }
+    section,
+    section.collateral {
+      padding-left: max(5rem, calc((100vw - 1200px) / 2 + 2rem));
+      padding-right: max(5rem, calc((100vw - 1200px) / 2 + 2rem));
+    }
   }
 
   /* --bp-lg: tablet (900px) */
@@ -1023,7 +1082,6 @@
     section { padding: 5rem 2rem; }
     .about, .contact { grid-template-columns: 1fr; gap: 3rem; }
     .services-grid, .work-grid, .blog-grid { grid-template-columns: 1fr 1fr; }
-    .video-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
     footer {
       flex-direction: column;
       gap: 1rem;
@@ -1125,7 +1183,7 @@
     .hero-float-text { display: none; }
     section { padding: var(--space-section-sm) var(--space-gutter); }
     .services-grid, .work-grid, .blog-grid { grid-template-columns: 1fr; }
-    .video-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    .video-item { width: clamp(150px, 58vw, 200px); }
     .video-cluster { margin-top: 3rem; }
     .video-cluster-header { margin-bottom: 1.5rem; }
     .video-cluster-title { font-size: 1.25rem; }
@@ -1157,10 +1215,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
     .marquee-track { animation: none; }
-    .reveal { transition: none; }
+    .reveal { opacity: 1; transition: none; }
     .nav-menu { transition: none; }
+    .video-scroll-edge { transition: none; }
   }
 </style>
 </head>
@@ -1179,9 +1237,9 @@
     <ul class="nav-links">
       <li><span class="nav-link" data-target="about">About</span></li>
       <li><span class="nav-link" data-target="services">Services</span></li>
+      <li><span class="nav-link" data-target="videos">Videos</span></li>
       <li><span class="nav-link" data-target="work">Work</span></li>
       <li><span class="nav-link" data-target="social">Social</span></li>
-      <li><span class="nav-link" data-target="videos">Videos</span></li>
       <li><span class="nav-link" data-target="blog">Writing</span></li>
       <li><span class="nav-link" data-target="contact">Contact</span></li>
     </ul>
@@ -1333,12 +1391,14 @@
     <h2 class="section-title">Stories told<br>through <em>motion</em></h2>
     <p style="color:var(--fig);font-size:0.95rem;font-weight:400;margin-top:1rem;max-width:500px;">Short-form video content grouped by theme — click any card to play inline.</p>
   </div>
-  <div class="video-cluster reveal">
+  <div class="video-cluster">
     <div class="video-cluster-header">
       <h3 class="video-cluster-title">Restaurants & Dining</h3>
       <p class="video-cluster-desc">Short-form edits for restaurants, cafés, and food brands.</p>
     </div>
-    <div class="video-grid">
+    <div class="video-scroll-wrap">
+      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
+      <div class="video-grid">
     <button type="button" class="video-item" data-vimeo-id="1169804875" data-title="Distillery District">
       <div class="video-wrap">
         <picture>
@@ -1505,13 +1565,17 @@
       <div class="video-label">Menali</div>
     </button>
     </div>
+      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
+    </div>
   </div>
-  <div class="video-cluster reveal">
+  <div class="video-cluster">
     <div class="video-cluster-header">
       <h3 class="video-cluster-title">UGC & Social Reels</h3>
       <p class="video-cluster-desc">Authentic, scroll-stopping content for Instagram and TikTok.</p>
     </div>
-    <div class="video-grid">
+    <div class="video-scroll-wrap">
+      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
+      <div class="video-grid">
     <button type="button" class="video-item" data-vimeo-id="1169808818" data-title="Anejo — UGC Story Edit">
       <div class="video-wrap">
         <picture>
@@ -1603,13 +1667,17 @@
       <div class="video-label">GreekTown Reel 4</div>
     </button>
     </div>
+      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
+    </div>
   </div>
-  <div class="video-cluster reveal">
+  <div class="video-cluster">
     <div class="video-cluster-header">
       <h3 class="video-cluster-title">Retail & Lifestyle</h3>
       <p class="video-cluster-desc">Brand stories for local shops, services, and everyday lifestyle.</p>
     </div>
-    <div class="video-grid">
+    <div class="video-scroll-wrap">
+      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
+      <div class="video-grid">
     <button type="button" class="video-item" data-vimeo-id="1199274112" data-title="Carpe Diem Men">
       <div class="video-wrap">
         <picture>
@@ -1671,13 +1739,17 @@
       <div class="video-label">Garden Neighbours</div>
     </button>
     </div>
+      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
+    </div>
   </div>
-  <div class="video-cluster reveal">
+  <div class="video-cluster">
     <div class="video-cluster-header">
       <h3 class="video-cluster-title">Health & Wellness</h3>
       <p class="video-cluster-desc">Fitness studios, nutrition, and wellbeing-focused content.</p>
     </div>
-    <div class="video-grid">
+    <div class="video-scroll-wrap">
+      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
+      <div class="video-grid">
     <button type="button" class="video-item" data-vimeo-id="1199274116" data-title="All Access Fitness">
       <div class="video-wrap">
         <picture>
@@ -1709,13 +1781,17 @@
       <div class="video-label">Soma Bone Broth</div>
     </button>
     </div>
+      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
+    </div>
   </div>
-  <div class="video-cluster reveal">
+  <div class="video-cluster">
     <div class="video-cluster-header">
       <h3 class="video-cluster-title">Community & Culture</h3>
       <p class="video-cluster-desc">Events, neighbourhoods, and cultural moments brought to life.</p>
     </div>
-    <div class="video-grid">
+    <div class="video-scroll-wrap">
+      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
+      <div class="video-grid">
     <button type="button" class="video-item" data-vimeo-id="1169808854" data-title="Garba Ahmedabad">
       <div class="video-wrap">
         <picture>
@@ -1777,6 +1853,8 @@
       <div class="video-label">Danforth Stroll</div>
     </button>
     </div>
+      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
+    </div>
   </div>
 
 </section>
@@ -1795,55 +1873,81 @@
   </div>
   <div class="work-grid reveal" id="workGrid">
     <div class="work-card" data-type="video">
-      <div class="work-card-label">Video Content</div>
+      <div class="work-card-label">Restaurants & Dining · 11 videos</div>
+      <div class="work-card-title">Food & Hospitality</div>
+      <p class="work-card-desc">Short-form edits for Distillery District, Tamasha, Oro, and GreekTown favourites including Sambal, Bom Dia, Menali, and more.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1199274113" data-title="Sambal">Watch highlight →</button>
+      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">UGC & Social Reels · 6 videos</div>
+      <div class="work-card-title">Scroll-Stopping Reels</div>
+      <p class="work-card-desc">Authentic UGC story edits and social reels for Anejo, Just Bought It Hair, and GreekTown neighbourhood content.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808818" data-title="Anejo — UGC Story Edit">Watch highlight →</button>
+      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">Retail & Lifestyle · 4 videos</div>
+      <div class="work-card-title">Local Shops & Services</div>
+      <p class="work-card-desc">Brand stories for Carpe Diem Men, skincare & beauty, home & gifts, and garden retail on the Danforth.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1199274112" data-title="Carpe Diem Men">Watch highlight →</button>
+      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">Health & Wellness · 2 videos</div>
+      <div class="work-card-title">Fitness & Nutrition</div>
+      <p class="work-card-desc">Motivating edits for All Access Fitness and Soma Bone Broth in GreekTown.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1199274116" data-title="All Access Fitness">Watch highlight →</button>
+      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">Community & Culture · 4 videos</div>
+      <div class="work-card-title">Events & Neighbourhood</div>
+      <p class="work-card-desc">Garba Ahmedabad, Westwood WAGO showcase, sunny Greektown moments, and Danforth stroll content.</p>
+      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808854" data-title="Garba Ahmedabad">Watch highlight →</button>
+      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+    </div>
+    <div class="work-card" data-type="video">
+      <div class="work-card-label">Featured · Toronto</div>
       <div class="work-card-title">Distillery District</div>
-      <p class="work-card-desc">Short-form video content showcasing Toronto's iconic Distillery District brand.</p>
+      <p class="work-card-desc">Short-form video showcasing one of Toronto's most iconic destinations — two edits in the full reel library.</p>
       <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169804875" data-title="Distillery District">Watch video →</button>
-    </div>
-    <div class="work-card" data-type="video">
-      <div class="work-card-label">Video Content</div>
-      <div class="work-card-title">Tamasha</div>
-      <p class="work-card-desc">Vibrant video content for Tamasha's brand storytelling across social platforms.</p>
-      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808809" data-title="Tamasha">Watch video →</button>
-    </div>
-    <div class="work-card" data-type="video">
-      <div class="work-card-label">UGC Story Edit</div>
-      <div class="work-card-title">Anejo</div>
-      <p class="work-card-desc">Authentic UGC-style story edits designed to drive engagement and brand awareness.</p>
-      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808818" data-title="Anejo">Watch video →</button>
-    </div>
-    <div class="work-card" data-type="video">
-      <div class="work-card-label">Video Content</div>
-      <div class="work-card-title">Oro</div>
-      <p class="work-card-desc">Polished video content for Oro restaurant, blending luxury aesthetic with food storytelling.</p>
-      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808824" data-title="Oro">Watch video →</button>
-    </div>
-    <div class="work-card" data-type="video">
-      <div class="work-card-label">Video Content</div>
-      <div class="work-card-title">Just Bought It Hair</div>
-      <p class="work-card-desc">Dynamic social video content for a beauty & hair brand targeting style-conscious audiences.</p>
-      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808849" data-title="Just Bought It Hair">Watch video →</button>
-    </div>
-    <div class="work-card" data-type="video">
-      <div class="work-card-label">Event Coverage</div>
-      <div class="work-card-title">Garba Ahmedabad</div>
-      <p class="work-card-desc">Festive event video content capturing the spirit and energy of Garba celebrations.</p>
-      <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808854" data-title="Garba Ahmedabad">Watch video →</button>
     </div>
     <div class="work-card" data-type="social">
       <div class="work-card-label">Social Media</div>
       <div class="work-card-title">Clientjoy</div>
       <p class="work-card-desc">Full social media management for a SaaS brand — strategy, content, and growth.</p>
+      <span class="work-card-link nav-link" data-target="social">View collateral ↓</span>
     </div>
     <div class="work-card" data-type="social">
       <div class="work-card-label">Social Media</div>
       <div class="work-card-title">Scentido</div>
       <p class="work-card-desc">Brand storytelling and visual content for a luxury fragrance brand.</p>
+      <span class="work-card-link nav-link" data-target="social">View collateral ↓</span>
     </div>
     <div class="work-card" data-type="social">
       <div class="work-card-label">Social Media</div>
       <div class="work-card-title">EZI</div>
       <p class="work-card-desc">Content strategy and creation for EZI, building brand presence across platforms.</p>
+      <span class="work-card-link nav-link" data-target="social">View collateral ↓</span>
+    </div>
+    <div class="work-card" data-type="blog">
+      <div class="work-card-label">SEO Writing</div>
+      <div class="work-card-title">Influencer Marketing Strategies</div>
+      <p class="work-card-desc">Published on Clientjoy — actionable tactics for influencer campaigns in 2023.</p>
+      <a href="https://www.clientjoy.io/blog/influencer-marketing-strategies-2021" target="_blank" rel="noopener" class="work-card-link">Read article →</a>
+    </div>
+    <div class="work-card" data-type="blog">
+      <div class="work-card-label">SEO Writing</div>
+      <div class="work-card-title">Data-Driven Social Strategy</div>
+      <p class="work-card-desc">Why guesswork fails — building social media plans backed by data.</p>
+      <a href="https://www.clientjoy.io/blog/data-driven-social-media-strategy" target="_blank" rel="noopener" class="work-card-link">Read article →</a>
+    </div>
+    <div class="work-card" data-type="blog">
+      <div class="work-card-label">SEO Writing</div>
+      <div class="work-card-title">Freelancer's Ultimate Guide</div>
+      <p class="work-card-desc">Long-form guide for freelancers starting and scaling independent work.</p>
+      <a href="https://www.clientjoy.io/blog/ultimate-guide-to-become-freelancer" target="_blank" rel="noopener" class="work-card-link">Read article →</a>
     </div>
   </div>
 </section>
@@ -2160,19 +2264,31 @@
 </footer>
 
 <script>
-  // Scroll reveal — one rAF batch, no staggered timeouts
+  // Scroll reveal — opacity only; skip heavy clusters (video grids render immediately)
   const reveals = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    for (const entry of entries) {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
         revealObserver.unobserve(entry.target);
       }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    }
+  }, { threshold: 0.05, rootMargin: '0px 0px 5% 0px' });
   reveals.forEach(el => revealObserver.observe(el));
 
-  // Pause marquee when off-screen (saves GPU while scrolling)
+  // Pause decorative animations while user is actively scrolling
+  let scrollEndTimer;
+  window.addEventListener('scroll', () => {
+    if (!document.body.classList.contains('is-scrolling')) {
+      document.body.classList.add('is-scrolling');
+    }
+    clearTimeout(scrollEndTimer);
+    scrollEndTimer = setTimeout(() => {
+      document.body.classList.remove('is-scrolling');
+    }, 120);
+  }, { passive: true });
+
+  // Pause marquee when off-screen
   const marqueeSection = document.querySelector('.marquee-section');
   if (marqueeSection) {
     const marqueeObserver = new IntersectionObserver(([entry]) => {
@@ -2366,10 +2482,59 @@
   }
   function updateNavScroll() {
     nav.classList.toggle('nav-scrolled', window.scrollY > 80);
+    navTicking = false;
   }
+  let navTicking = false;
   clearLegacyNavInline();
   updateNavScroll();
-  window.addEventListener('scroll', updateNavScroll, { passive: true });
+  window.addEventListener('scroll', () => {
+    if (!navTicking) {
+      navTicking = true;
+      requestAnimationFrame(updateNavScroll);
+    }
+  }, { passive: true });
+
+  function initVideoScrollMarkers() {
+    const wraps = document.querySelectorAll('.video-scroll-wrap');
+    const threshold = 12;
+
+    function updateWrap(wrap) {
+      const grid = wrap.querySelector('.video-grid');
+      if (!grid) return;
+      const maxScroll = grid.scrollWidth - grid.clientWidth;
+      const scrollLeft = grid.scrollLeft;
+      const scrollable = maxScroll > threshold;
+      wrap.classList.toggle('is-scrollable', scrollable);
+      wrap.classList.toggle('can-scroll-left', scrollable && scrollLeft > threshold);
+      wrap.classList.toggle('can-scroll-right', scrollable && scrollLeft < maxScroll - threshold);
+    }
+
+    wraps.forEach(wrap => {
+      const grid = wrap.querySelector('.video-grid');
+      if (!grid) return;
+      const onUpdate = () => updateWrap(wrap);
+      grid.addEventListener('scroll', onUpdate, { passive: true });
+      grid.querySelectorAll('img').forEach(img => {
+        if (!img.complete) img.addEventListener('load', onUpdate, { once: true });
+      });
+      if (typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(onUpdate).observe(grid);
+      }
+      onUpdate();
+    });
+
+    let resizeTicking = false;
+    window.addEventListener('resize', () => {
+      if (!resizeTicking) {
+        resizeTicking = true;
+        requestAnimationFrame(() => {
+          wraps.forEach(updateWrap);
+          resizeTicking = false;
+        });
+      }
+    }, { passive: true });
+  }
+  initVideoScrollMarkers();
 </script>
 </body>
 </html>

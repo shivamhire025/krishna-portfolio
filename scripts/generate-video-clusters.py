@@ -22,15 +22,23 @@ def item(vid, title, slug):
     </button>"""
 
 
+scroll_edge_left = '<div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>'
+scroll_edge_right = '<div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>'
+
+
 def cluster(title, desc, items):
     body = "\n".join(items)
-    return f"""  <div class="video-cluster reveal">
+    return f"""  <div class="video-cluster">
     <div class="video-cluster-header">
       <h3 class="video-cluster-title">{title}</h3>
       <p class="video-cluster-desc">{desc}</p>
     </div>
-    <div class="video-grid">
+    <div class="video-scroll-wrap">
+      {scroll_edge_left}
+      <div class="video-grid">
 {body}
+    </div>
+      {scroll_edge_right}
     </div>
   </div>"""
 

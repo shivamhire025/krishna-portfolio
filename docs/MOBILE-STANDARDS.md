@@ -57,7 +57,7 @@ Safe areas: `env(safe-area-inset-top)` on nav and drawer; `safe-area-inset-*` on
 | Component | ≤ 900px | ≤ 600px | ≤ 380px |
 |-----------|---------|---------|---------|
 | Services / work / blog | 2 columns | 1 column | 1 column |
-| Video grid | 2 columns | 1 column | 1 column |
+| Video clusters | Horizontal scroll row per cluster | Same; narrower cards (~58vw) |
 | Collateral | auto-fill | 2 columns | 1 column |
 
 ### Lightbox / Vimeo modal
@@ -85,7 +85,7 @@ Test in Chrome DevTools device mode **and** at least one real phone when possibl
 - [x] Hamburger: open, backdrop close, Escape, navigate to section closes menu
 - [x] Drawer nav links readable after scrolling (dark text on cream panel)
 - [x] No horizontal overflow on home, videos, collateral, contact
-- [x] Video grid 1 column; play opens Vimeo modal
+- [x] Video clusters scroll horizontally; inline play works
 - [x] Work filter buttons meet touch size
 - [x] Collateral lightbox opens image
 - [x] Reduced motion: marquee static when OS setting enabled
@@ -94,7 +94,7 @@ Test in Chrome DevTools device mode **and** at least one real phone when possibl
 
 - [x] Nav links visible without hamburger above 600px
 - [x] Hero two-column layout from 901px up
-- [x] Video grid 3 columns on large screens
+- [x] Video clusters horizontal scroll on all breakpoints
 
 ## When you change X, also update Y
 

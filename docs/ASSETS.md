@@ -6,7 +6,7 @@ Image files live under `assets/images/`. Do not embed large base64 strings in `i
 
 ```
 assets/images/
-├── hero.png              # Hero portrait (or .jpg / .webp)
+├── hero.jpg              # Hero portrait (+ hero.webp)
 ├── videos/               # Video grid posters (9:16 friendly)
 │   ├── distillery-district.jpg
 │   ├── distillery-district-2.jpg

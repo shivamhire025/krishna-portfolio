@@ -17,7 +17,7 @@ WEBP_QUALITY = 82
 TARGETS = [
     IMAGES / "videos",
     IMAGES / "blog",
-    IMAGES / "hero.png",
+    IMAGES / "hero.jpg",
 ]
 
 

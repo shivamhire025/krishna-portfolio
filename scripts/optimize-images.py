@@ -11,7 +11,7 @@ IMAGES = ROOT / "assets" / "images"
 MAX_EDGE = {
     "videos": 720,
     "blog": 800,
-    "hero.png": 1200,
+    "hero.jpg": 1200,
 }
 
 
@@ -59,10 +59,10 @@ def main() -> None:
         print("This script requires macOS sips.", file=sys.stderr)
         sys.exit(1)
 
-    hero = IMAGES / "hero.png"
+    hero = IMAGES / "hero.jpg"
     if hero.exists():
-        print("hero.png")
-        optimize_file(hero, MAX_EDGE["hero.png"])
+        print("hero.jpg")
+        optimize_file(hero, MAX_EDGE["hero.jpg"])
 
     for folder, max_edge in (("videos", MAX_EDGE["videos"]), ("blog", MAX_EDGE["blog"])):
         dir_path = IMAGES / folder

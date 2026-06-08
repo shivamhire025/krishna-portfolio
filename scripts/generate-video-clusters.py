@@ -65,7 +65,7 @@ clusters = [
         "UGC & Social Reels",
         "Authentic, scroll-stopping content for Instagram and TikTok.",
         [
-            item("1169808818", "Anejo — UGC Story Edit", "anejo-ugc"),
+            item("1169808818", "Anejo, UGC Story Edit", "anejo-ugc"),
             item("1169808849", "Just Bought It Hair", "just-bought-it-hair"),
             item("1199274086", "GreekTown Reel 1", "greektown-reel-1"),
             item("1199274087", "GreekTown Reel 2", "greektown-reel-2"),

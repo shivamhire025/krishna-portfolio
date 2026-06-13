@@ -12,13 +12,7 @@ const root = path.join(__dirname, '..');
 const htmlPath = path.join(root, 'index.html');
 
 const VIDEO_SLUGS = [
-  'distillery-district',
-  'distillery-district-2',
-  'tamasha',
   'anejo-ugc',
-  'oro',
-  'oro-2',
-  'oro-3',
   'just-bought-it-hair',
   'garba-ahmedabad',
 ];

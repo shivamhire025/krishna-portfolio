@@ -8,13 +8,7 @@ Image files live under `assets/images/`. Do not embed large base64 strings in `i
 assets/images/
 ├── hero.jpg              # Hero portrait (+ hero.webp)
 ├── videos/               # Video grid posters (9:16 friendly)
-│   ├── distillery-district.jpg
-│   ├── distillery-district-2.jpg
-│   ├── tamasha.jpg
 │   ├── anejo-ugc.jpg
-│   ├── oro.jpg
-│   ├── oro-2.jpg
-│   ├── oro-3.jpg
 │   ├── just-bought-it-hair.jpg
 │   └── garba-ahmedabad.jpg
 ├── blog/                 # Writing section thumbnails (from article og:image)

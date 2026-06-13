@@ -11,13 +11,7 @@ OUT = ROOT / "assets" / "images" / "videos"
 
 # vimeo_id -> filename slug (without extension)
 VIDEOS = {
-    "1169804875": "distillery-district",
-    "1169808802": "distillery-district-2",
-    "1169808809": "tamasha",
     "1169808818": "anejo-ugc",
-    "1169808824": "oro",
-    "1169808834": "oro-2",
-    "1169808844": "oro-3",
     "1169808849": "just-bought-it-hair",
     "1169808854": "garba-ahmedabad",
     "1199274119": "greek-town-grill",

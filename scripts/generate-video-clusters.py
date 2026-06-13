@@ -48,12 +48,6 @@ clusters = [
         "Restaurants & Dining",
         "Short-form edits for restaurants, cafés, and food brands.",
         [
-            item("1169804875", "Distillery District", "distillery-district"),
-            item("1169808802", "Distillery District #2", "distillery-district-2"),
-            item("1169808809", "Tamasha", "tamasha"),
-            item("1169808824", "Oro", "oro"),
-            item("1169808834", "Oro #2", "oro-2"),
-            item("1169808844", "Oro #3", "oro-3"),
             item("1199274119", "GreekTown Grill", "greek-town-grill"),
             item("1199274113", "Sambal", "sambal"),
             item("1199274104", "Bom Dia", "bom-dia"),

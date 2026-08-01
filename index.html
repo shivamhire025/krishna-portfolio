@@ -3,1251 +3,1842 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#FFF5F7">
+<meta name="theme-color" content="#5C1D32">
 <title>Krishna's Portfolio</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --cream: #FFF5F7;
-    --warm: #FFE8EF;
-    --blush: #F5B8C8;
-    --terracotta: #D4608A;
-    --rust: #B5436E;
-    --deep: #2D1420;
-    --fig: #6B3050;
-    --sage: #E8A0B8;
-    --gold: #F4B8D0;
-    /* Breakpoints — see docs/MOBILE-STANDARDS.md */
-    --bp-xs: 380px;
-    --bp-sm: 600px;
-    --bp-md: 768px;
-    --bp-lg: 900px;
-    --bp-xl: 1200px;
-    --space-section: 7rem;
-    --space-section-sm: 4rem;
-    --space-gutter: 1.25rem;
-    --touch-min: 44px;
+:root {
+  --burgundy: #5C1D32;
+  --cream: #F7F3EC;
+  --sage: #D1DCC1;
+  --pink: #E6A4B4;
+  --brown: #3E2723;
+  --mint: #C5D9C3;
+  --silver: #C8C8C8;
+  --cream-deep: #EFE8DC;
+  --white: #FFFCFA;
+  --deep: var(--burgundy);
+  --fig: #7A4A58;
+  --terracotta: var(--pink);
+  --rust: #8B3A4F;
+  --warm: var(--cream-deep);
+  --blush: var(--pink);
+  --gold: var(--sage);
+  --bp-xs: 380px;
+  --bp-sm: 600px;
+  --bp-md: 768px;
+  --bp-lg: 900px;
+  --bp-xl: 1200px;
+  --space-section: 6.5rem;
+  --space-section-sm: 4rem;
+  --space-gutter: 1.25rem;
+  --touch-min: 44px;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: auto;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-mono);
+  background: var(--cream);
+  color: var(--brown);
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+button { font-family: inherit; }
+
+.check-border {
+  height: 14px;
+  width: 100%;
+  background: repeating-linear-gradient(90deg, var(--pink) 0 10px, var(--brown) 10px 20px);
+  flex-shrink: 0;
+}
+.check-border--sage {
+  background: repeating-linear-gradient(90deg, var(--sage) 0 10px, var(--burgundy) 10px 20px);
+}
+.stripe-border {
+  height: 10px;
+  width: 100%;
+  background: repeating-linear-gradient(90deg, var(--burgundy) 0 6px, var(--sage) 6px 12px);
+}
+.stripe-border--pink {
+  background: repeating-linear-gradient(90deg, var(--pink) 0 6px, var(--brown) 6px 12px);
+}
+
+.grid-paper {
+  background-color: var(--cream);
+  background-image:
+    linear-gradient(rgba(92, 29, 50, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(92, 29, 50, 0.06) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+.sparkle {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: var(--sage);
+  clip-path: polygon(50% 0%, 63% 38%, 100% 50%, 63% 62%, 50% 100%, 37% 62%, 0% 50%, 37% 38%);
+  pointer-events: none;
+  z-index: 3;
+}
+.sparkle--pink { background: var(--pink); }
+.sparkle--sm { width: 16px; height: 16px; }
+.sparkle--lg { width: 42px; height: 42px; }
+.sparkle-metal {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(145deg, #eee, #999 45%, #ddd);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  pointer-events: none;
+  z-index: 4;
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,.25));
+}
+
+.sticker-blob {
+  display: inline-block;
+  background: var(--mint);
+  color: var(--brown);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  padding: 0.55rem 1rem;
+  border-radius: 40% 55% 45% 50% / 50% 40% 55% 45%;
+  transform: rotate(-6deg);
+  white-space: nowrap;
+}
+.sticker-blob--sage { background: var(--sage); }
+.sticker-blob--mint { background: var(--mint); }
+.sticker-blob--pink { background: var(--pink); color: var(--burgundy); }
+
+.polaroid {
+  background: var(--white);
+  padding: 0.65rem 0.65rem 2.1rem;
+  box-shadow: 0 12px 28px rgba(62, 39, 35, 0.18);
+  position: relative;
+  z-index: 2;
+}
+.polaroid img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  background: linear-gradient(145deg, var(--burgundy), var(--cream-deep));
+}
+.polaroid--tilt-l { transform: rotate(-4deg); }
+.polaroid--tilt-r { transform: rotate(3.5deg); }
+.polaroid--sage-frame {
+  background: var(--sage);
+  padding: 0.55rem 0.55rem 1.6rem;
+}
+
+.phone-mock, .video-wrap {
+  position: relative;
+  background: #111;
+  border-radius: 1.35rem;
+  padding: 0.45rem;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+  overflow: hidden;
+}
+.phone-mock::before, .video-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0.55rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28%;
+  height: 0.28rem;
+  background: #2a2a2a;
+  border-radius: 999px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fig);
+  margin-bottom: 0.85rem;
+}
+.section--burgundy .section-label,
+.videos .section-label,
+.about .section-label,
+.contact .section-label { color: var(--sage); }
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  line-height: 0.95;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--burgundy);
+}
+.section-title em {
+  font-style: italic;
+  text-transform: none;
+  color: var(--pink);
+}
+.section-title--sage,
+.videos .section-title,
+.about .section-title,
+.contact .section-title { color: var(--sage); }
+.videos .section-title em,
+.about .section-title em,
+.contact .section-title em { color: var(--pink); }
+
+.section-lede {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.7;
+  color: var(--fig);
+  margin-top: 1rem;
+  max-width: 34rem;
+}
+.section-lede--on-dark { color: rgba(247, 243, 236, 0.78); }
+
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 1.1rem 2rem;
+  padding-top: max(1.1rem, env(safe-area-inset-top));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+nav.nav-scrolled {
+  background: rgba(247, 243, 236, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 rgba(62, 39, 35, 0.08);
+}
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  padding: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--burgundy);
+  border-radius: 1px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+body.nav-open .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+body.nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+body.nav-open .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(92, 29, 50, 0.45);
+  z-index: 150;
+}
+body.nav-open .nav-backdrop { display: block; }
+.nav-menu { display: flex; align-items: center; }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--burgundy);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links a, .nav-link {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brown);
+  text-decoration: none;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.nav-links a:hover, .nav-link:hover { color: var(--burgundy); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+  padding: 0.7rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn-primary { background: var(--burgundy); color: var(--cream); }
+.btn-primary:hover { background: #4a1528; }
+.btn-secondary {
+  background: transparent;
+  color: var(--burgundy);
+  border: 1.5px solid var(--burgundy);
+}
+.btn-secondary:hover { background: var(--burgundy); color: var(--cream); }
+
+/* Light nav over dark videos hero until scrolled */
+nav:not(.nav-scrolled) .nav-logo,
+nav:not(.nav-scrolled) .nav-link {
+  color: var(--cream);
+}
+nav:not(.nav-scrolled) .nav-toggle-bar {
+  background: var(--cream);
+}
+nav:not(.nav-scrolled) .nav-link:hover {
+  color: var(--sage);
+}
+body.nav-open nav:not(.nav-scrolled) .nav-logo,
+body.nav-open nav:not(.nav-scrolled) .nav-link {
+  color: var(--burgundy);
+}
+body.nav-open nav:not(.nav-scrolled) .nav-toggle-bar {
+  background: var(--burgundy);
+}
+
+.marquee-section {
+  background: var(--burgundy);
+  overflow: hidden;
+  padding: 1rem 0;
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 2.5rem;
+  animation: marquee 40s linear infinite;
+}
+.marquee-section.is-paused .marquee-track,
+body.is-scrolling .marquee-track { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-item {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sage);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.marquee-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--pink);
+}
+
+/* Client logos section */
+.clients {
+  background: var(--cream);
+  padding: 3.5rem max(var(--space-gutter), 6vw) 3.75rem;
+  border-bottom: 1px solid rgba(62, 39, 35, 0.08);
+}
+.clients-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.clients-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--fig);
+  text-align: center;
+  margin: 0 0 0.65rem;
+}
+.clients-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  color: var(--burgundy);
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 0 2.25rem;
+  line-height: 1;
+}
+.clients-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 2.75rem;
+  align-items: start;
+  justify-items: center;
+}
+.client-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.85rem;
+  width: 100%;
+  max-width: 160px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: center;
+  transition: transform 0.25s ease;
+}
+.client-logo:hover {
+  transform: translateY(-3px);
+}
+.client-logo-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 72px;
+}
+.client-logo img {
+  max-width: 140px;
+  max-height: 64px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.95;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+.client-logo:hover img {
+  opacity: 1;
+  transform: scale(1.04);
+}
+.client-logo--blend img {
+  mix-blend-mode: multiply;
+  opacity: 1;
+}
+.client-logo--round .client-logo-media {
+  width: 64px;
+  height: 64px;
+}
+.client-logo--round img {
+  width: 64px;
+  height: 64px;
+  max-width: 64px;
+  max-height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.client-logo--on-dark .client-logo-media {
+  background: #0a0a0a;
+  padding: 0.65rem 0.85rem;
+  width: auto;
+  max-width: 100%;
+  height: 72px;
+  box-sizing: border-box;
+}
+.client-logo--on-dark img {
+  max-width: 140px;
+  max-height: 48px;
+  filter: none;
+  opacity: 1;
+}
+.client-logo--sambal .client-logo-media {
+  background: transparent;
+  padding: 0;
+}
+.client-logo--sambal img {
+  max-width: 148px;
+  max-height: 56px;
+}
+.client-logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 3.25rem;
+  height: 3.25rem;
+  padding: 0 0.65rem;
+  border: 1.5px solid var(--burgundy);
+  color: var(--burgundy);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+.client-logo-name {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  line-height: 1.35;
+  max-width: 11rem;
+}
+@media (max-width: 900px) {
+  .clients-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem 1.75rem;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html {
-    scroll-behavior: auto;
-    -webkit-text-size-adjust: 100%;
+}
+@media (max-width: 600px) {
+  .clients-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.25rem 1.25rem;
   }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--deep);
-    overflow-x: hidden;
+  .client-logo-media {
+    height: 60px;
   }
+  .client-logo img {
+    max-width: 120px;
+    max-height: 52px;
+  }
+}
 
-  /* NAV */
-  nav {
+.videos {
+  background-color: var(--burgundy);
+  background-image:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 47px,
+      rgba(247, 243, 236, 0.055) 47px,
+      rgba(247, 243, 236, 0.055) 48px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 47px,
+      rgba(247, 243, 236, 0.055) 47px,
+      rgba(247, 243, 236, 0.055) 48px
+    );
+  color: var(--cream);
+  padding: calc(var(--space-section) + 1.5rem) 0 var(--space-section-sm);
+  scroll-margin-top: 0;
+  overflow-x: clip;
+}
+.videos-intro {
+  padding-inline: max(var(--space-gutter), 6vw);
+  margin-bottom: 2.5rem;
+  position: relative;
+  min-height: 0;
+}
+.videos-intro .sticker-blob {
+  position: absolute;
+  top: -0.15rem;
+  right: max(calc(var(--space-gutter) + 0.5rem), 7vw);
+  z-index: 4;
+}
+.videos-hero-polaroid {
+  position: absolute;
+  top: 0.35rem;
+  right: max(var(--space-gutter), 6vw);
+  width: 252px;
+  height: 292px;
+  z-index: 2;
+  pointer-events: auto;
+  cursor: default;
+}
+.videos-hero-polaroid .polaroid {
+  width: 252px;
+  height: 292px;
+  padding: 0.6rem 0.6rem 1.9rem;
+  box-sizing: border-box;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.45s cubic-bezier(0.45, 0, 0.55, 1),
+    box-shadow 0.45s cubic-bezier(0.45, 0, 0.55, 1);
+}
+.videos-hero-polaroid:hover .polaroid {
+  transform: rotate(0deg) scale(1.04);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.4);
+}
+.videos-hero-polaroid .polaroid picture {
+  display: block;
+  width: 100%;
+  height: 224px;
+  overflow: hidden;
+}
+.videos-hero-polaroid .polaroid picture img {
+  display: block;
+  width: 224px;
+  height: 224px;
+  max-width: none;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center center;
+}
+.videos-hero-polaroid-caption {
+  position: absolute;
+  left: 0.6rem;
+  right: 0.6rem;
+  bottom: 0.28rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  text-align: left;
+  transition:
+    opacity 0.35s cubic-bezier(0.45, 0, 0.55, 1),
+    transform 0.35s cubic-bezier(0.45, 0, 0.55, 1);
+  pointer-events: none;
+}
+.videos-hero-polaroid-name {
+  opacity: 1;
+  transform: translateY(0);
+  font-size: 0.92rem;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+}
+.videos-hero-polaroid-role {
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  line-height: 1.25;
+  opacity: 0;
+  transform: translateY(6px);
+}
+.videos-hero-polaroid:hover .videos-hero-polaroid-name {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+.videos-hero-polaroid:hover .videos-hero-polaroid-role {
+  opacity: 1;
+  transform: translateY(0);
+}
+.videos-intro-copy {
+  position: relative;
+  z-index: 3;
+  max-width: min(36rem, 72%);
+}
+.video-cluster { margin-bottom: 2.75rem; }
+.video-cluster-header {
+  padding-inline: max(var(--space-gutter), 6vw);
+  margin-bottom: 1rem;
+}
+.video-cluster-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--sage);
+  text-transform: uppercase;
+}
+.video-cluster-desc {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: rgba(247,243,236,0.7);
+  margin-top: 0.35rem;
+}
+.video-scroll-wrap {
+  position: relative;
+  --edge-fade: 3.5rem;
+}
+.video-grid {
+  display: flex;
+  gap: 1.1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 0.5rem max(var(--space-gutter), 6vw) 1.25rem;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.video-item {
+  flex: 0 0 auto;
+  width: min(180px, 42vw);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  scroll-snap-align: start;
+  font-family: inherit;
+}
+.video-wrap { aspect-ratio: 9/16; width: 100%; }
+.video-wrap picture {
+  position: absolute;
+  inset: 0.45rem;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.video-wrap picture img,
+.video-wrap > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video-fallback {
+  position: absolute;
+  inset: 0.45rem;
+  border-radius: 1rem;
+  background: #2a1520;
+}
+.video-play-btn {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+}
+.video-overlay {
+  position: absolute;
+  inset: 0.45rem;
+  border-radius: 1rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.35), transparent 45%);
+  pointer-events: none;
+  z-index: 1;
+}
+.video-label {
+  margin-top: 0.55rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+.video-wrap.is-playing .video-play-btn,
+.video-wrap.is-playing .video-overlay,
+.video-item.is-playing .video-label { opacity: 0; }
+.video-inline-player {
+  position: absolute;
+  inset: 0.45rem;
+  width: calc(100% - 0.9rem);
+  height: calc(100% - 0.9rem);
+  border: 0;
+  border-radius: 1rem;
+  z-index: 6;
+  background: #000;
+}
+.video-scroll-edge {
+  position: absolute;
+  top: 0; bottom: 1rem;
+  width: var(--edge-fade);
+  z-index: 4;
+  display: none;
+  align-items: center;
+  pointer-events: none;
+  color: var(--sage);
+}
+.video-scroll-edge--left {
+  left: 0;
+  justify-content: flex-start;
+  padding-left: 0.5rem;
+  background: linear-gradient(90deg, var(--burgundy) 35%, transparent);
+}
+.video-scroll-edge--right {
+  right: 0;
+  justify-content: flex-end;
+  padding-right: 0.5rem;
+  background: linear-gradient(270deg, var(--burgundy) 35%, transparent);
+}
+.video-scroll-wrap.is-scrollable.can-scroll-left .video-scroll-edge--left,
+.video-scroll-wrap.is-scrollable.can-scroll-right .video-scroll-edge--right {
+  display: flex;
+}
+
+.services {
+  background: var(--cream);
+  padding: var(--space-section) max(var(--space-gutter), 6vw);
+  scroll-margin-top: 5rem;
+  position: relative;
+}
+.services-layout {
+  margin-top: 2rem;
+}
+.services-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.services-list li {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brown);
+  padding-left: 1.1rem;
+  position: relative;
+}
+.services-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--burgundy);
+}
+.service-groups { display: grid; gap: 1.75rem; }
+.service-group-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--burgundy);
+  margin-bottom: 0.5rem;
+}
+.service-desc {
+  font-size: 0.78rem;
+  color: var(--fig);
+  margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.about {
+  background: var(--burgundy);
+  color: var(--cream);
+  padding: var(--space-section) max(var(--space-gutter), 6vw);
+  scroll-margin-top: 5rem;
+  display: block;
+}
+.about-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.15fr);
+  gap: 3rem 4rem;
+  align-items: start;
+}
+.about-collage {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0.5rem 0 1rem;
+  min-height: 0;
+}
+.about-stack {
+  position: relative;
+  width: min(100%, 400px);
+  aspect-ratio: 0.78;
+  margin-inline: auto;
+}
+.about-stack-back,
+.about-stack-front {
+  position: absolute;
+  width: 74%;
+  margin: 0;
+  transition: transform 0.45s cubic-bezier(0.45, 0, 0.55, 1);
+}
+.about-stack-back {
+  top: 6%;
+  left: 0;
+  z-index: 1;
+  transform: rotate(-11deg);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+}
+.about-stack-front {
+  top: 16%;
+  right: 0;
+  left: auto;
+  z-index: 2;
+  width: 80%;
+  transform: rotate(5deg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  padding-bottom: 2.6rem;
+}
+.about-stack:hover .about-stack-back {
+  transform: rotate(-14deg) translate(-6px, -4px);
+}
+.about-stack:hover .about-stack-front {
+  transform: rotate(2deg) translate(4px, -6px) scale(1.02);
+}
+.about-stack-caption {
+  position: absolute;
+  left: 0.7rem;
+  right: 0.7rem;
+  bottom: 0.6rem;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  text-align: left;
+}
+.about-stack-sticker {
+  position: absolute;
+  z-index: 4;
+  bottom: 6%;
+  left: -2%;
+  font-size: 0.78rem;
+  transform: rotate(-8deg);
+}
+.about-stack-sparkle {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+.about-stack-sparkle--a {
+  top: 2%;
+  right: 8%;
+}
+.about-stack-sparkle--b {
+  bottom: 18%;
+  left: 2%;
+}
+.about-copy .section-title {
+  font-size: clamp(3rem, 7vw, 4.6rem);
+}
+.about-text {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  line-height: 1.85;
+  color: rgba(247,243,236,0.88);
+  margin: 1.25rem 0 1.5rem;
+}
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin: 1.75rem 0;
+}
+.stat-card {
+  border: 1px solid rgba(209, 220, 193, 0.25);
+  padding: 1.05rem 1rem;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--sage);
+}
+.stat-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(247,243,236,0.65);
+  margin-top: 0.3rem;
+}
+.about-tags { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+.tag {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(209,220,193,0.35);
+  color: var(--sage);
+  padding: 0.4rem 0.7rem;
+}
+.why-me {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(209,220,193,0.2);
+}
+.about-why-title {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+}
+.why-me-list {
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.1rem;
+}
+.why-me-list li {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  color: var(--cream);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.work {
+  background: var(--cream);
+  padding: var(--space-section) max(var(--space-gutter), 6vw);
+  scroll-margin-top: 5rem;
+  position: relative;
+}
+.work .sticker-blob { display: inline-block; margin: 0.75rem 0 0; }
+.work-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.filter-btn {
+  min-height: var(--touch-min);
+  padding: 0.45rem 0.95rem;
+  border: 1.5px solid var(--burgundy);
+  background: transparent;
+  color: var(--burgundy);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.filter-btn.active,
+.filter-btn:hover {
+  background: var(--burgundy);
+  color: var(--cream);
+}
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+.work-card {
+  background: transparent;
+  border: 1px solid rgba(92, 29, 50, 0.18);
+  padding: 1.35rem 1.25rem;
+}
+.work-card-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fig);
+  margin-bottom: 0.55rem;
+}
+.work-card-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  color: var(--burgundy);
+  margin-bottom: 0.55rem;
+}
+.work-card-desc {
+  font-size: 0.75rem;
+  line-height: 1.65;
+  color: var(--fig);
+  margin-bottom: 1rem;
+}
+.work-card-link {
+  display: inline-block;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  background: none;
+  border: none;
+  padding: 0;
+  margin-right: 1rem;
+  margin-top: 0.35rem;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+}
+.work-card-link:hover { color: var(--pink); }
+
+
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(62, 39, 35, 0.88);
+  z-index: 300;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+#lightbox.lightbox-open { display: flex; }
+.lightbox-close {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: none;
+  background: transparent;
+  color: var(--cream);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+#lightboxImg {
+  max-width: min(90vw, 720px);
+  max-height: 75vh;
+  object-fit: contain;
+}
+.lightbox-video-wrap {
+  display: none;
+  width: min(90vw, 420px);
+  aspect-ratio: 9/16;
+  background: #000;
+}
+.lightbox-video-wrap.is-active { display: block; }
+.lightbox-video-wrap iframe { width: 100%; height: 100%; border: 0; }
+#lightboxCaption {
+  margin-top: 0.85rem;
+  color: var(--cream);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.blog {
+  background: var(--cream);
+  padding: var(--space-section) max(var(--space-gutter), 6vw);
+  scroll-margin-top: 5rem;
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.blog-card {
+  border: 1px solid rgba(92,29,50,0.15);
+  overflow: hidden;
+  background: var(--white);
+}
+.blog-card-img { aspect-ratio: 16/10; overflow: hidden; }
+.blog-card-img img { width: 100%; height: 100%; object-fit: cover; }
+.blog-card-body { padding: 1rem 1.1rem 1.25rem; }
+.blog-card-tag {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fig);
+  margin-bottom: 0.45rem;
+}
+.blog-card-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--burgundy);
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+.blog-card-link {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  text-decoration: none;
+}
+
+.contact {
+  background: var(--burgundy);
+  color: var(--cream);
+  padding: var(--space-section) max(var(--space-gutter), 6vw);
+  scroll-margin-top: 5rem;
+}
+.contact-info {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  align-items: end;
+}
+.contact-quote {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+.contact-quote em {
+  font-style: italic;
+  text-transform: none;
+  color: var(--pink);
+}
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--cream);
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  min-height: var(--touch-min);
+}
+.contact-detail-icon {
+  width: 36px; height: 36px;
+  border: 1px solid rgba(209,220,193,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  color: var(--sage);
+  flex-shrink: 0;
+}
+
+footer {
+  background: var(--burgundy);
+  color: var(--sage);
+  text-align: center;
+  padding: 2rem max(var(--space-gutter), 6vw) 2.5rem;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.footer-copy {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+@media (max-width: 900px) {
+  .about-inner {
+    grid-template-columns: 1fr;
+    max-width: 640px;
+  }
+  .about-collage {
+    position: relative;
+    top: auto;
+    padding: 0.5rem 0 1.5rem;
+    order: -1;
+  }
+  .about-stack {
+    width: min(320px, 82vw);
+    aspect-ratio: 0.82;
+  }
+  .contact-info { grid-template-columns: 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+  .nav-menu {
     position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 200;
-    padding: 1.5rem 3rem;
-    padding-top: max(1.5rem, env(safe-area-inset-top));
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    mix-blend-mode: normal;
-  }
-  .nav-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: var(--touch-min);
-    height: var(--touch-min);
-    padding: 10px;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    border-radius: 8px;
-    flex-shrink: 0;
-  }
-  .nav-toggle-bar {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--deep);
-    border-radius: 1px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-  body.nav-open .nav-toggle-bar:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  body.nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
-  body.nav-open .nav-toggle-bar:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-  .nav-backdrop {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(45, 20, 32, 0.45);
-    z-index: 150;
-  }
-  body.nav-open .nav-backdrop { display: block; }
-  .nav-menu { display: flex; align-items: center; }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--deep);
-    text-decoration: none;
-  }
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-  .nav-links a, .nav-link {
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--fig);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover, .nav-link:hover { color: var(--terracotta); }
-
-  /* Nav bar after scroll (class toggled in JS — do not use inline colors on drawer links) */
-  nav.nav-scrolled {
-    background: rgba(180, 60, 100, 0.97);
-    box-shadow: 0 2px 30px rgba(180, 60, 100, 0.3);
-  }
-  nav.nav-scrolled .nav-logo {
-    color: var(--cream);
-  }
-  nav.nav-scrolled .nav-toggle-bar {
+    top: 0; right: 0;
+    width: min(320px, 86vw);
+    height: 100dvh;
     background: var(--cream);
-  }
-  @media (min-width: 769px) {
-    nav.nav-scrolled .nav-menu .nav-link {
-      color: var(--cream);
-    }
-    nav.nav-scrolled .nav-menu .nav-link:hover {
-      color: var(--warm);
-    }
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-left {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 8rem 4rem 4rem 5rem;
-    position: relative;
-    z-index: 2;
-  }
-
-  .hero-tag {
-    display: inline-block;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--terracotta);
-    border: 1px solid var(--blush);
-    padding: 0.4rem 1rem;
-    border-radius: 100px;
-    margin-bottom: 2rem;
-    width: fit-content;
-    animation: fadeUp 0.8s ease both;
-  }
-
-  .hero-name {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3.5rem, 6vw, 6rem);
-    font-weight: 900;
-    line-height: 1;
-    color: var(--deep);
-    animation: fadeUp 0.8s ease 0.15s both;
-  }
-  .hero-name em {
-    font-style: italic;
-    color: var(--terracotta);
-  }
-
-  .hero-desc {
-    margin-top: 2rem;
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--fig);
-    max-width: 400px;
-    font-weight: 400;
-    animation: fadeUp 0.8s ease 0.3s both;
-  }
-
-  .hero-cta {
-    margin-top: 3rem;
-    display: flex;
-    gap: 1rem;
-    animation: fadeUp 0.8s ease 0.45s both;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    min-height: var(--touch-min);
-    padding: 0.9rem 2rem;
-    border-radius: 100px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  .btn-primary {
-    background: var(--deep);
-    color: var(--cream);
-    border: none;
-  }
-  .btn-primary:hover { background: var(--terracotta); transform: translateY(-2px); }
-  .btn-secondary {
-    background: transparent;
-    color: var(--deep);
-    border: 1.5px solid var(--blush);
-  }
-  .btn-secondary:hover { border-color: var(--terracotta); color: var(--terracotta); transform: translateY(-2px); }
-
-  .hero-right {
-    position: relative;
-    overflow: hidden;
-    animation: fadeIn 1.2s ease 0.2s both;
-  }
-
-  .hero-img-wrap {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, var(--blush) 0%, var(--warm) 60%, var(--sage) 100%);
-  }
-
-  .hero-img-wrap::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 30% 50%, rgba(201,123,75,0.3) 0%, transparent 60%);
-  }
-
-  .hero-photo {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
-    max-width: 380px;
-    filter: drop-shadow(0 20px 40px rgba(44,24,16,0.2));
-    object-fit: cover;
-  }
-
-  .hero-float-text {
-    position: absolute;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(44,24,16,0.3);
-    white-space: nowrap;
-  }
-
-  .hero-scroll {
-    margin-top: 2.5rem;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.85rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--fig);
-    animation: fadeUp 0.8s ease 0.6s both;
-  }
-  .hero-scroll::before,
-  .hero-scroll::after {
-    content: '';
-    display: block;
-    width: 2rem;
-    height: 1px;
-    background: var(--blush);
-    flex-shrink: 0;
-  }
-
-  /* MARQUEE */
-  .marquee-section {
-    background: var(--deep);
-    padding: 1.2rem 0;
-    overflow: hidden;
-    display: flex;
-    gap: 0;
-  }
-  .marquee-track {
-    display: flex;
-    animation: marquee 20s linear infinite;
-    white-space: nowrap;
-  }
-  .marquee-section.is-paused .marquee-track {
-    animation-play-state: paused;
-  }
-  body.is-scrolling .marquee-track {
-    animation-play-state: paused;
-  }
-  .marquee-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0 2rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--blush);
-    font-weight: 400;
-  }
-  .marquee-dot {
-    width: 4px; height: 4px;
-    background: var(--terracotta);
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* SECTION COMMON */
-  section { padding: var(--space-section) 5rem; }
-  section[id] {
-    scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 4.5rem);
-  }
-  .section-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--terracotta);
-    margin-bottom: 1rem;
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.15;
-    color: var(--deep);
-    margin-bottom: 1.5rem;
-  }
-  .section-title em { font-style: italic; color: var(--terracotta); }
-
-  /* ABOUT */
-  .about {
-    background: var(--warm);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .about-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 3rem;
-  }
-  .stat-card {
-    background: var(--cream);
-    border-radius: 16px;
-    padding: 1.5rem;
-    position: relative;
-    overflow: hidden;
+    padding: 5rem 1.5rem 2rem;
+    transform: translateX(105%);
     transition: transform 0.3s ease;
+    z-index: 180;
+    box-shadow: -8px 0 30px rgba(0,0,0,0.12);
   }
-  .stat-card:hover { transform: translateY(-4px); }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: var(--terracotta);
-  }
-  .stat-label {
-    font-size: 0.8rem;
-    color: var(--fig);
-    margin-top: 0.3rem;
-    font-weight: 400;
-  }
-  .about-text {
-    font-size: 1rem;
-    line-height: 1.85;
-    color: var(--fig);
-    font-weight: 400;
-  }
-  .about-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 2rem;
-  }
-  .tag {
-    padding: 0.4rem 1.1rem;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    border: 1px solid var(--blush);
-    color: var(--fig);
-    letter-spacing: 0.05em;
-    transition: all 0.3s;
-  }
-  .tag:hover { background: var(--terracotta); color: var(--cream); border-color: var(--terracotta); }
-
-  /* SERVICES */
-  .services { background: var(--cream); }
-  .services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 4rem;
-  }
-  .service-card {
-    background: var(--warm);
-    border-radius: 20px;
-    padding: 2.5rem;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-  }
-  .service-card::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--terracotta);
-    transform: scaleX(0);
-    transition: transform 0.4s ease;
-    transform-origin: left;
-  }
-  .service-card:hover::after { transform: scaleX(1); }
-  .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(44,24,16,0.1); }
-  .service-icon {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-  }
-  .service-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--deep);
-    margin-bottom: 1rem;
-  }
-  .service-desc {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--fig);
-    font-weight: 400;
-  }
-  .service-list {
-    list-style: none;
-    margin-top: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  .service-list li {
-    font-size: 0.8rem;
-    color: var(--fig);
-    padding-left: 1.2rem;
-    position: relative;
-    font-weight: 400;
-  }
-  .service-list li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--terracotta);
-  }
-
-  /* WORK / VIDEO */
-  .work { background: var(--deep); color: var(--cream); }
-  .work .section-label { color: var(--blush); }
-  .work .section-title { color: var(--cream); }
-  .work .section-title em { color: var(--gold); }
-
-  .work-filter {
-    display: flex;
-    gap: 1rem;
-    margin: 2.5rem 0;
-    flex-wrap: wrap;
-  }
-  .filter-btn {
-    min-height: var(--touch-min);
-    padding: 0.5rem 1.4rem;
-    border-radius: 100px;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    border: 1px solid rgba(253,246,238,0.2);
-    color: var(--blush);
-    background: transparent;
-    transition: all 0.3s;
-    text-transform: uppercase;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    background: var(--terracotta);
-    border-color: var(--terracotta);
-    color: var(--cream);
-  }
-
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-  }
-  .work-card {
-    background: rgba(253,246,238,0.05);
-    border: 1px solid rgba(253,246,238,0.1);
-    border-radius: 16px;
-    padding: 2rem;
-    transition: all 0.3s;
-  }
-  .work-card:hover {
-    background: rgba(253,246,238,0.1);
-    border-color: var(--terracotta);
-    transform: translateY(-4px);
-  }
-  .work-card-label {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.8rem;
-  }
-  .work-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    color: var(--cream);
-    margin-bottom: 0.8rem;
-  }
-  .work-card-desc {
-    font-size: 0.82rem;
-    color: rgba(245,234,216,0.6);
-    line-height: 1.6;
-    font-weight: 400;
-  }
-  .work-card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-top: 1.2rem;
-    font-size: 0.75rem;
-    color: var(--terracotta);
-    text-decoration: none;
-    letter-spacing: 0.08em;
-    transition: gap 0.3s;
-  }
-  .work-card-link + .work-card-link {
-    display: flex;
-    margin-top: 0.65rem;
-  }
-  .work-card-link:hover { gap: 0.8rem; }
-
-  /* BLOG */
-  .blog { background: var(--warm); }
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 4rem;
-  }
-  .blog-card {
-    background: var(--cream);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: all 0.4s;
-  }
-  .blog-card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(44,24,16,0.12); }
-  .blog-card-img {
-    height: 160px;
-    background: var(--warm);
-    position: relative;
-    overflow: hidden;
-  }
-  .hero-img-wrap picture {
-    position: absolute;
-    inset: 0;
+  body.nav-open .nav-menu { transform: translateX(0); }
+  .nav-links { flex-direction: column; gap: 0; }
+  .nav-links li { border-bottom: 1px solid rgba(92,29,50,0.1); }
+  .nav-links .nav-link {
     display: block;
-  }
-  .hero-img-wrap picture img {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 100%;
-    width: 100%;
-    max-width: 520px;
-    object-fit: cover;
-    object-position: center 12%;
-  }
-  .blog-card-img picture {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  .blog-card-img picture img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-  }
-  .blog-card-img::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, transparent, rgba(44,24,16,0.15));
-    pointer-events: none;
-  }
-  .blog-card-body { padding: 1.5rem; }
-  .blog-card-tag {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--terracotta);
-    margin-bottom: 0.6rem;
-  }
-  .blog-card-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    color: var(--deep);
-    line-height: 1.4;
-    margin-bottom: 0.8rem;
-  }
-  .blog-card-link {
-    font-size: 0.75rem;
-    color: var(--terracotta);
-    text-decoration: none;
-    letter-spacing: 0.05em;
-  }
-  .blog-card-link:hover { text-decoration: underline; }
-
-  /* CONTACT */
-  .contact {
-    background: var(--cream);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: center;
-  }
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
-  .form-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--fig); }
-  .form-input, .form-textarea {
-    background: var(--warm);
-    border: 1.5px solid var(--blush);
-    border-radius: 10px;
-    padding: 0.9rem 1.2rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem;
-    color: var(--deep);
-    transition: border-color 0.3s;
-    outline: none;
-  }
-  .form-input:focus, .form-textarea:focus { border-color: var(--terracotta); }
-  .form-textarea { resize: none; height: 130px; }
-  .contact-info { display: flex; flex-direction: column; gap: 2rem; }
-  .contact-quote {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 3vw, 2.8rem);
-    font-weight: 700;
-    line-height: 1.2;
-    color: var(--deep);
-  }
-  .contact-quote em { font-style: italic; color: var(--terracotta); }
-  .contact-detail {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    font-size: 0.9rem;
-    color: var(--fig);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .contact-detail:hover { color: var(--terracotta); }
-  .contact-detail-icon {
-    width: 40px; height: 40px;
-    background: var(--warm);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1rem;
-    flex-shrink: 0;
-  }
-
-  /* COLLATERAL */
-  .collateral {
-    padding-block: 7rem;
-    background: var(--warm);
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
-  }
-  .collateral-brand { margin-bottom: 1rem; }
-  .collateral-brand-header {
-    padding-left: 1rem;
-    margin-bottom: 2rem;
-  }
-  .collateral-brand-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 500;
-    display: block;
-    margin-bottom: 0.3rem;
-  }
-  .collateral-brand-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    color: var(--deep);
-  }
-  .collateral-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 1.2rem;
-  }
-  .collateral-card {
-    cursor: pointer;
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--cream);
-    box-shadow: 0 4px 20px rgba(44,20,32,0.07);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .collateral-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(44,20,32,0.14); }
-  .collateral-thumb {
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 1/1;
-  }
-  .collateral-thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-  }
-  .collateral-card:hover .collateral-thumb img { transform: scale(1.05); }
-  .collateral-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(45,20,32,0.55);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    color: white;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-  }
-  .collateral-card:hover .collateral-overlay { opacity: 1; }
-  .collateral-info { padding: 0.9rem 1rem 1rem; }
-  .collateral-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.9rem;
-    color: var(--deep);
-    margin-bottom: 0.25rem;
-    font-weight: 700;
-  }
-  .collateral-desc {
-    font-size: 0.75rem;
-    color: var(--fig);
-    line-height: 1.5;
-    font-weight: 400;
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--deep);
-    padding: 2.5rem 5rem;
-    padding-bottom: max(2.5rem, env(safe-area-inset-bottom));
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--cream);
-  }
-  .footer-copy {
-    font-size: 0.75rem;
-    color: rgba(245,234,216,0.4);
-    letter-spacing: 0.05em;
-  }
-
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes marquee {
-    from { transform: translate3d(0, 0, 0); }
-    to { transform: translate3d(-50%, 0, 0); }
-  }
-
-  .reveal {
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-  }
-  body.is-scrolling .reveal {
-    transition: none;
-  }
-
-
-  /* VIDEOS */
-  .videos {
-    background: var(--cream);
-    overflow-x: clip;
-  }
-  .video-cluster {
-    margin-top: 4.5rem;
-  }
-  .videos .video-cluster:first-child {
-    margin-top: 2.5rem;
-  }
-  .video-cluster-header {
-    margin-bottom: 2rem;
-    max-width: 560px;
-  }
-  .video-cluster-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.45rem;
-    color: var(--deep);
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-  .video-cluster-desc {
-    color: var(--fig);
-    font-size: 0.9rem;
-    font-weight: 400;
-    line-height: 1.55;
-  }
-  .video-scroll-wrap {
-    position: relative;
-    margin-inline: calc(-1 * var(--space-gutter));
-    overflow: hidden;
-  }
-  .video-scroll-edge {
-    position: absolute;
-    top: 0;
-    bottom: 0.75rem;
-    width: clamp(2.25rem, 9vw, 3.25rem);
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.25s ease;
-  }
-  .video-scroll-wrap.can-scroll-left .video-scroll-edge--left,
-  .video-scroll-wrap.can-scroll-right .video-scroll-edge--right {
-    opacity: 1;
-  }
-  .video-scroll-edge--left {
-    left: 0;
-    justify-content: flex-start;
-    padding-left: max(0.4rem, env(safe-area-inset-left));
-    background: linear-gradient(90deg, var(--cream) 45%, transparent);
-  }
-  .video-scroll-edge--right {
-    right: 0;
-    justify-content: flex-end;
-    padding-right: max(0.4rem, env(safe-area-inset-right));
-    background: linear-gradient(270deg, var(--cream) 45%, transparent);
-  }
-  .video-scroll-edge svg {
-    flex-shrink: 0;
-    color: var(--terracotta);
-    opacity: 0.9;
-    filter: drop-shadow(0 1px 3px rgba(45, 20, 32, 0.12));
-  }
-  .video-grid {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 1.25rem;
-    margin-top: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x proximity;
-    scroll-padding-inline: max(var(--space-gutter), env(safe-area-inset-left));
-    padding-bottom: 0.75rem;
-    padding-inline: var(--space-gutter);
-    scrollbar-width: thin;
-    scrollbar-color: var(--blush) transparent;
-  }
-  .video-grid::-webkit-scrollbar {
-    height: 5px;
-  }
-  .video-grid::-webkit-scrollbar-thumb {
-    background: var(--blush);
-    border-radius: 4px;
-  }
-  .video-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-    flex: 0 0 auto;
-    width: clamp(160px, 38vw, 220px);
-    scroll-snap-align: start;
-    border: none;
-    background: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    text-align: left;
-    cursor: pointer;
-  }
-  .video-item.is-playing { cursor: default; }
-  .video-item.is-playing:hover .video-wrap {
-    transform: none;
-    box-shadow: 0 8px 30px rgba(45,20,32,0.1);
-  }
-  .video-inline-player {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    width: 100%;
-    height: 100%;
-    border: 0;
-    border-radius: 16px;
-    background: #000;
-  }
-  .video-wrap.is-playing img,
-  .video-wrap.is-playing .video-fallback,
-  .video-wrap.is-playing .video-play-btn,
-  .video-wrap.is-playing .video-overlay {
-    opacity: 0;
-    pointer-events: none;
-  }
-  .video-label {
-    font-size: 0.75rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--terracotta);
-    font-weight: 500;
-  }
-  #lightbox {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.92);
-    z-index: 9000;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  #lightbox.lightbox-open { display: flex; }
-  .lightbox-close {
-    position: fixed;
-    top: 1.5rem;
-    right: 2rem;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 2rem;
-    cursor: pointer;
-    z-index: 9001;
-  }
-  #lightboxImg {
-    max-height: 85vh;
-    max-width: 90vw;
-    object-fit: contain;
-    border-radius: 8px;
-  }
-  .lightbox-video-wrap {
-    display: none;
-    width: min(90vw, 960px);
-    aspect-ratio: 16 / 9;
-    max-height: 85vh;
-  }
-  .lightbox-video-wrap.is-active { display: block; }
-  .lightbox-video-wrap iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    border-radius: 8px;
-  }
-  #lightboxCaption {
-    color: rgba(255,255,255,0.7);
+    padding: 1rem 0;
     font-size: 0.85rem;
-    font-family: 'DM Sans', sans-serif;
   }
-  .watch-video-btn {
-    border: none;
-    background: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    text-align: left;
+  .scrapbook-hide-sm { display: none !important; }
+  .polaroid--tilt-l,
+  .polaroid--tilt-r { transform: none; }
+  .video-item { width: min(150px, 48vw); }
+}
+@media (max-width: 600px) {
+  .services, .about, .work, .blog, .contact {
+    padding-left: var(--space-gutter);
+    padding-right: var(--space-gutter);
   }
-  .video-wrap {
-    position: relative;
-    padding-top: 177.78%;
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--warm);
-    box-shadow: 0 8px 30px rgba(45,20,32,0.1);
-  }
-  .video-wrap picture {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  .video-wrap img {
-    position: absolute;
-    inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-  @media (hover: hover) {
-    .video-wrap {
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .video-wrap img {
-      transition: transform 0.4s ease;
-    }
-    .video-item:hover .video-wrap {
-      transform: translateY(-4px);
-      box-shadow: 0 16px 50px rgba(212,96,138,0.25);
-    }
-    .video-item:hover .video-wrap img { transform: scale(1.04); }
-  }
-  .video-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(45,20,32,0.55) 0%, transparent 50%);
-    transition: opacity 0.3s;
-  }
-  .video-play-btn {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 52px; height: 52px;
-    background: rgba(212,96,138,0.9);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.3s ease, background 0.3s;
-    z-index: 2;
-  }
-  .video-item:hover .video-play-btn {
-    transform: translate(-50%, -50%) scale(1.12);
-    background: var(--terracotta);
-  }
-  /* --- Responsive (docs/MOBILE-STANDARDS.md) --- */
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  * { scroll-behavior: auto !important; }
+}
 
-  /* --bp-xl: wide desktop */
-  @media (min-width: 1201px) {
-    section,
-    section.collateral {
-      padding-left: max(5rem, calc((100vw - 1200px) / 2 + 2rem));
-      padding-right: max(5rem, calc((100vw - 1200px) / 2 + 2rem));
-    }
-  }
 
-  /* --bp-lg: tablet (900px) */
-  @media (max-width: 900px) {
-    nav { padding: 1.5rem 2rem; padding-top: max(1.5rem, env(safe-area-inset-top)); }
-    .hero { grid-template-columns: 1fr; }
-    .hero-right { height: 50vh; }
-    .hero-left { padding: 7rem 2rem 3rem; }
-    section { padding: 5rem 2rem; }
-    .about, .contact { grid-template-columns: 1fr; gap: 3rem; }
-    .services-grid, .work-grid, .blog-grid { grid-template-columns: 1fr 1fr; }
-    footer {
-      flex-direction: column;
-      gap: 1rem;
-      text-align: center;
-      padding: 2rem;
-      padding-bottom: max(2rem, env(safe-area-inset-bottom));
-    }
-  }
 
-  /* --bp-md: large phone / small tablet (768px) */
-  @media (max-width: 768px) {
-    .marquee-item { font-size: 0.7rem; padding: 0 1.25rem; }
-    .collateral-grid { grid-template-columns: repeat(2, 1fr); }
-    nav { padding: 1rem var(--space-gutter); padding-top: max(1rem, env(safe-area-inset-top)); }
-    .nav-toggle {
-      display: flex;
-      position: relative;
-      z-index: 210;
-    }
-    .nav-menu {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: min(88vw, 320px);
-      height: 100%;
-      height: 100dvh;
-      background: var(--cream);
-      padding: calc(env(safe-area-inset-top) + 4.5rem) var(--space-gutter) var(--space-gutter);
-      padding-bottom: max(var(--space-gutter), env(safe-area-inset-bottom));
-      transform: translateX(100%);
-      transition: transform 0.3s ease;
-      z-index: 205;
-      box-shadow: -8px 0 40px rgba(45, 20, 32, 0.12);
-      align-items: stretch;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    body.nav-open .nav-menu { transform: translateX(0); }
-    .nav-menu .nav-links {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      width: 100%;
-    }
-    .nav-menu .nav-links li {
-      border-bottom: 1px solid var(--warm);
-    }
-    .nav-menu .nav-link {
-      display: flex;
-      align-items: center;
-      min-height: var(--touch-min);
-      padding: 0.85rem 0;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--deep);
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-    .nav-menu .nav-link:hover,
-    .nav-menu .nav-link:active,
-    .nav-menu .nav-link:focus-visible {
-      color: var(--terracotta);
-    }
-    .nav-menu .nav-link:focus-visible {
-      outline: 2px solid var(--terracotta);
-      outline-offset: 4px;
-      border-radius: 4px;
-    }
-    nav.nav-scrolled .nav-menu .nav-link,
-    body.nav-open .nav-menu .nav-link {
-      color: var(--deep);
-    }
-    body.nav-open nav.nav-scrolled .nav-logo,
-    body.nav-open .nav-logo {
-      color: var(--deep);
-    }
-    body.nav-open .nav-toggle-bar {
-      background: var(--deep);
-    }
-    body.nav-open nav {
-      background: var(--cream);
-      box-shadow: none;
-    }
-    .nav-backdrop { touch-action: manipulation; }
+/* ===== FREEFLOW COLLAGE ===== */
+.note {
+  background: var(--white);
+  padding: 1.1rem 1.15rem 1.25rem;
+  box-shadow: 0 10px 24px rgba(62,39,35,0.12);
+  position: relative;
+  transform: rotate(var(--rot, -2deg));
+}
+.note::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  width: 42%;
+  height: 18px;
+  transform: translateX(-50%) rotate(var(--tape, -1deg));
+  background: rgba(209, 220, 193, 0.75);
+  border-radius: 2px;
+}
+.note--pink::before { background: rgba(230, 164, 180, 0.7); }
+.torn {
+  background: var(--cream-deep);
+  padding: 1rem 1.1rem 1.2rem;
+  clip-path: polygon(0% 2%, 3% 0%, 97% 1%, 100% 4%, 99% 96%, 96% 100%, 4% 98%, 0% 95%);
+  box-shadow: 0 8px 20px rgba(62,39,35,0.1);
+  transform: rotate(var(--rot, 1deg));
+}
+.ticket {
+  border: 1.5px dashed rgba(209,220,193,0.45);
+  padding: 0.75rem 0.85rem;
+  background: rgba(92,29,50,0.25);
+  transform: rotate(var(--rot, -1deg));
+}
+.lift-target {
+  transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, opacity 0.35s ease;
+  will-change: transform;
+}
+@media (hover: hover) and (pointer: fine) {
+  .lift-target:hover {
+    transform: rotate(var(--rot, 0deg)) scale(1.06) translateY(-6px);
+    z-index: 8;
+    box-shadow: 0 22px 40px rgba(0,0,0,0.28);
   }
+  .blog-card.lift-target:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(62, 39, 35, 0.12);
+  }
+}
 
-  /* --bp-sm: phone (600px) */
-  @media (max-width: 600px) {
-    .hero-right { height: 45vh; }
-    .hero-left {
-      padding: 6.5rem var(--space-gutter) 2.5rem;
-    }
-    .hero-name { font-size: clamp(2.5rem, 10vw, 4rem); }
-    .hero-desc { max-width: none; }
-    .hero-cta {
-      flex-direction: column;
-      width: 100%;
-    }
-    .hero-cta .btn { width: 100%; justify-content: center; }
-    .hero-scroll { display: none; }
-    .hero-float-text { display: none; }
-    section { padding: var(--space-section-sm) var(--space-gutter); }
-    section[id] { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 3.75rem); }
-    .services-grid, .work-grid, .blog-grid { grid-template-columns: 1fr; }
-    .service-card { padding: 1.75rem; }
-    .work-card { padding: 1.35rem; }
-    .video-item { width: clamp(150px, 58vw, 200px); }
-    .video-cluster { margin-top: 2.5rem; }
-    .videos .video-cluster:first-child { margin-top: 1.75rem; }
-    .video-cluster-header { margin-bottom: 1.25rem; }
-    .video-cluster-title { font-size: 1.25rem; }
-    .videos .section-title { margin-bottom: 1rem; }
-    .about-stats { grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .work-filter { margin: 1.5rem 0; gap: 0.6rem; }
-    .work-card-link,
-    .blog-card-link,
-    .filter-btn,
-    .video-item,
-    .collateral-card {
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-    }
-    .work-card-link {
-      min-height: var(--touch-min);
-      align-items: center;
-    }
-    .form-input, .form-textarea { font-size: 16px; }
-    .lightbox-close {
-      top: max(1rem, env(safe-area-inset-top));
-      right: max(1rem, env(safe-area-inset-right));
-    }
-    .lightbox-video-wrap {
-      width: 100vw;
-      max-width: 100%;
-      border-radius: 0;
-    }
-    .lightbox-video-wrap iframe { border-radius: 0; }
-    #lightboxImg {
-      max-width: 100vw;
-      border-radius: 0;
-    }
-    footer { padding: 2rem var(--space-gutter); }
-  }
+/* Theme chips */
+.theme-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 1.5rem;
+}
+.theme-chip {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  min-height: var(--touch-min);
+  padding: 0.4rem 0.9rem;
+  border: none;
+  cursor: pointer;
+  background: var(--mint);
+  color: var(--brown);
+  border-radius: 40% 55% 50% 45% / 55% 40% 55% 45%;
+  transform: rotate(-3deg);
+  transition: background 0.2s, transform 0.2s, color 0.2s;
+}
+.theme-chip:nth-child(2) { background: var(--sage); transform: rotate(2deg); }
+.theme-chip:nth-child(3) { background: var(--pink); transform: rotate(-4deg); }
+.theme-chip:nth-child(4) { background: var(--cream); color: var(--burgundy); transform: rotate(3deg); }
+.theme-chip:nth-child(5) { background: var(--sage); transform: rotate(-2deg); }
+.theme-chip:nth-child(6) { background: var(--pink); transform: rotate(4deg); }
+.theme-chip.is-active,
+.theme-chip:hover {
+  background: var(--cream);
+  color: var(--burgundy);
+  transform: scale(1.06) rotate(0deg);
+}
 
-  /* --bp-xs: small phone (380px) */
-  @media (max-width: 380px) {
-    .hero-name { font-size: 2.35rem; }
-    .section-title { font-size: 1.75rem; }
-    .stat-num { font-size: 2rem; }
-    .collateral-grid { grid-template-columns: 1fr; }
-  }
 
-  @media (prefers-reduced-motion: reduce) {
-    .marquee-track { animation: none; }
-    .reveal { opacity: 1; transition: none; }
-    .nav-menu { transition: none; }
-    .video-scroll-edge { transition: none; }
+/* Video orbit carousel */
+.orbit-ui {
+  padding: 0.5rem max(var(--space-gutter), 4vw) 2rem;
+}
+.orbit-title {
+  font-family: var(--font-mono);
+  font-size: clamp(0.95rem, 2.4vw, 1.25rem);
+  font-weight: 400;
+  color: var(--sage);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  min-height: 1.4em;
+  margin: 0.25rem auto 2rem;
+  max-width: 36rem;
+  transition: opacity 0.25s ease;
+}
+.orbit-stage {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.35rem;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+.orbit-nav {
+  width: 48px;
+  height: 48px;
+  border: 1.5px solid rgba(209, 220, 193, 0.55);
+  background: rgba(92, 29, 50, 0.35);
+  color: var(--sage);
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
+  z-index: 5;
+}
+.orbit-nav:hover {
+  background: var(--sage);
+  color: var(--burgundy);
+  border-color: var(--sage);
+}
+.orbit-nav:active { transform: scale(0.94); }
+.orbit-track {
+  position: relative;
+  height: clamp(300px, 42vw, 380px);
+  perspective: 900px;
+  overflow: visible;
+}
+.orbit-item {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  width: clamp(104px, 11vw, 136px);
+  margin-left: calc(clamp(104px, 11vw, 136px) / -2);
+  margin-top: calc(clamp(104px, 11vw, 136px) * -0.95);
+  border: none;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  cursor: pointer;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  transition: filter 0.25s ease;
+}
+.orbit-item .video-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.orbit-item.is-front {
+  z-index: 30 !important;
+}
+.orbit-item.is-front .video-wrap {
+  box-shadow: 0 22px 40px rgba(0,0,0,0.4);
+}
+.orbit-item .video-wrap {
+  transition: box-shadow 0.35s ease;
+}
+.orbit-item.is-orbit-hover .video-wrap {
+  box-shadow: 0 26px 46px rgba(0,0,0,0.45);
+}
+.orbit-item.is-hidden-theme {
+  display: none !important;
+}
+.videos.is-focus-mode .orbit-item {
+  opacity: 0.22 !important;
+  filter: grayscale(0.45);
+  pointer-events: none;
+}
+.videos.is-orbit-paused .orbit-track {
+  /* hook for styling if needed */
+}
+
+/* Orbit video focus — morphs from card → center */
+.orbit-focus {
+  position: fixed;
+  inset: 0;
+  z-index: 280;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.orbit-focus.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+.orbit-focus-backdrop {
+  position: absolute;
+  inset: 0;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  background: rgba(45, 18, 28, 0.78);
+  cursor: pointer;
+  opacity: 0;
+}
+.orbit-focus-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: none;
+  background: transparent;
+  color: var(--cream);
+  font-size: 1.4rem;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+}
+.orbit-focus.is-settled .orbit-focus-close {
+  opacity: 1;
+  pointer-events: auto;
+}
+.orbit-focus-stage {
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  margin: 0;
+  will-change: left, top, width, height;
+  pointer-events: none;
+}
+.orbit-focus.is-settled .orbit-focus-stage {
+  pointer-events: auto;
+}
+.orbit-focus-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #0a0608;
+  box-shadow:
+    0 28px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1.5px rgba(209, 220, 193, 0.28);
+}
+.orbit-focus-poster {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+}
+.orbit-focus-frame iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #000;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.orbit-focus.is-playing .orbit-focus-frame iframe {
+  opacity: 1;
+}
+.orbit-focus-title {
+  position: absolute;
+  top: calc(100% + 0.75rem);
+  left: 0;
+  right: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(0.75rem, 2vw, 0.9rem);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity 0.35s cubic-bezier(0.45, 0, 0.55, 1),
+    transform 0.35s cubic-bezier(0.45, 0, 0.55, 1);
+  pointer-events: none;
+}
+.orbit-focus.is-settled .orbit-focus-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (max-width: 768px) {
+  .videos-intro {
+    min-height: 0;
   }
+  .videos-intro-copy {
+    max-width: 100%;
+  }
+  .videos-hero-polaroid {
+    display: none;
+  }
+  .orbit-stage {
+    grid-template-columns: 44px 1fr 44px;
+    gap: 0.15rem;
+  }
+  .orbit-nav {
+    width: 44px;
+    height: 44px;
+  }
+  .orbit-track {
+    height: 320px;
+  }
+  .orbit-item {
+    width: min(124px, 36vw);
+    margin-left: calc(min(124px, 36vw) / -2);
+    margin-top: calc(min(124px, 36vw) * -0.95);
+  }
+}
+
+/* Services as taped notes */
+.services {
+  background:
+    linear-gradient(180deg, transparent 0%, var(--cream) 8%),
+    var(--cream);
+  padding-top: calc(var(--space-section) - 1rem);
+}
+.services-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+.service-groups {
+  display: contents;
+}
+.service-groups > div {
+  flex: 1 1 240px;
+  max-width: 320px;
+}
+.service-groups > div:nth-child(1) { --rot: -2.5deg; --tape: 2deg; }
+.service-groups > div:nth-child(2) { --rot: 1.8deg; --tape: -2deg; margin-top: 1.5rem; }
+.service-groups > div:nth-child(3) { --rot: -1.2deg; --tape: 3deg; margin-top: 0.5rem; }
+.service-groups > div {
+  background: var(--white);
+  padding: 1.25rem 1.2rem 1.4rem;
+  box-shadow: 0 12px 28px rgba(62,39,35,0.12);
+  position: relative;
+  transform: rotate(var(--rot));
+}
+.service-groups > div::before {
+  content: '';
+  position: absolute;
+  top: -11px;
+  left: 18%;
+  width: 46%;
+  height: 20px;
+  background: rgba(209,220,193,0.8);
+  transform: rotate(var(--tape));
+}
+
+/* About scrapbook */
+.about {
+  align-items: start;
+}
+.about-collage {
+  position: sticky;
+  top: 6rem;
+}
+.about-letter {
+  background: var(--cream);
+  color: var(--brown);
+  padding: 1.6rem 1.65rem;
+  box-shadow: 0 14px 30px rgba(0,0,0,0.2);
+  transform: rotate(-0.8deg);
+  position: relative;
+}
+.about-letter::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  right: 18px;
+  width: 18px;
+  height: 28px;
+  background: linear-gradient(145deg, #ddd, #888);
+  clip-path: polygon(30% 0, 70% 0, 70% 55%, 100% 55%, 50% 100%, 0 55%, 30% 55%);
+  opacity: 0.85;
+}
+.about .about-text {
+  color: var(--brown);
+  margin: 0;
+}
+.about-stats {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.stat-card.ticket {
+  background: rgba(247,243,236,0.08);
+}
+.about-tags {
+  gap: 0.65rem;
+}
+.about-tags .tag {
+  transform: rotate(var(--rot, -2deg));
+  background: rgba(209,220,193,0.12);
+}
+.about-tags .tag:nth-child(odd) { --rot: -3deg; }
+.about-tags .tag:nth-child(even) { --rot: 2deg; }
+.why-me {
+  background: rgba(209,220,193,0.12);
+  padding: 1.5rem 1.55rem;
+  transform: rotate(1deg);
+  border-top: none;
+  margin-top: 2rem;
+}
+
+/* Mood board: work + blog bleed */
+.work, .blog {
+  position: relative;
+}
+.work {
+  padding-bottom: 2rem;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(230,164,180,0.15), transparent 50%),
+    var(--cream);
+}
+.work-filter {
+  gap: 0.65rem;
+}
+.work-filter .filter-btn {
+  border: none;
+  background: var(--mint);
+  border-radius: 45% 50% 50% 45% / 50% 45% 55% 50%;
+  transform: rotate(-2deg);
+}
+.work-filter .filter-btn:nth-child(2) { background: var(--sage); transform: rotate(2deg); }
+.work-filter .filter-btn:nth-child(3) { background: var(--pink); transform: rotate(-3deg); }
+.work-filter .filter-btn:nth-child(4) { background: var(--cream-deep); transform: rotate(3deg); }
+.work-filter .filter-btn.active,
+.work-filter .filter-btn:hover {
+  background: var(--burgundy);
+  color: var(--cream);
+  transform: scale(1.05) rotate(0);
+}
+.work-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.75rem 1.6rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+.work-card {
+  flex: 0 1 250px;
+  position: relative;
+  border: none;
+  padding: 1.55rem 1.3rem 1.4rem;
+  background: #FFF8E7;
+  background-image: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, transparent 28%);
+  box-shadow:
+    2px 3px 0 rgba(62, 39, 35, 0.04),
+    4px 10px 22px rgba(62, 39, 35, 0.14);
+  transform: rotate(var(--rot, -1deg));
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s;
+  --tape: 1deg;
+  --tape-color: rgba(209, 220, 193, 0.85);
+}
+.work-card::before {
+  content: '';
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  width: 42%;
+  height: 20px;
+  transform: translateX(-50%) rotate(var(--tape));
+  background: var(--tape-color);
+  border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(62, 39, 35, 0.12);
+  z-index: 2;
+}
+.work-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 100% 100%, rgba(62, 39, 35, 0.06), transparent 45%);
+}
+.work-card:nth-child(4n+1) {
+  --rot: -2.5deg;
+  --tape: 2deg;
+  --tape-color: rgba(209, 220, 193, 0.9);
+  background-color: #FFF8E7;
+  margin-top: 0.35rem;
+}
+.work-card:nth-child(4n+2) {
+  --rot: 1.8deg;
+  --tape: -2deg;
+  --tape-color: rgba(230, 164, 180, 0.75);
+  background-color: #FCE8EE;
+  margin-top: 1.6rem;
+}
+.work-card:nth-child(4n+3) {
+  --rot: -1.2deg;
+  --tape: 3deg;
+  --tape-color: rgba(197, 217, 195, 0.9);
+  background-color: #EAF2E4;
+  margin-top: 0.2rem;
+}
+.work-card:nth-child(4n) {
+  --rot: 2.4deg;
+  --tape: -1.5deg;
+  --tape-color: rgba(239, 232, 220, 0.95);
+  background-color: #F3EDE3;
+  margin-top: 1.25rem;
+}
+@media (hover: hover) and (pointer: fine) {
+  .work-card.lift-target:hover {
+    transform: rotate(var(--rot, 0deg)) scale(1.04) translateY(-8px);
+    box-shadow:
+      3px 4px 0 rgba(62, 39, 35, 0.05),
+      8px 18px 32px rgba(62, 39, 35, 0.18);
+    z-index: 5;
+  }
+}
+.work-card.is-hidden { display: none !important; }
+
+.blog {
+  margin-top: 0;
+  background: var(--cream);
+  padding-top: var(--space-section);
+}
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  align-items: stretch;
+}
+.blog-card {
+  flex: none;
+  width: 100%;
+  border: 1px solid rgba(92,29,50,0.12);
+  background: var(--white);
+  overflow: hidden;
+  transform: none;
+  margin-top: 0 !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.blog-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(62, 39, 35, 0.12);
+}
+.blog-card-img {
+  clip-path: none;
+  box-shadow: none;
+}
+.blog-card-body {
+  background: var(--white);
+  margin-top: 0;
+  position: relative;
+  z-index: 1;
+  clip-path: none;
+}
+
+/* Soften hard dividers between collage sections */
+.stripe-border, .check-border {
+  opacity: 0.85;
+  height: 8px;
+}
+.check-border { height: 10px; }
+
+@media (max-width: 900px) {
+  .service-groups > div { margin-top: 0 !important; max-width: none; }
+  .work-card, .blog-card { margin-top: 0 !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lift-target, .orbit-item, .work-card, .blog-card {
+    transition: none !important;
+  }
+  .hero.is-parallax .hero-collage { transform: none !important; }
+}
+
 </style>
 </head>
 <body>
@@ -1264,86 +1855,58 @@
   <div id="nav-menu" class="nav-menu">
     <ul class="nav-links">
       <li><span class="nav-link" data-target="about">About</span></li>
-      <li><span class="nav-link" data-target="videos">Videos</span></li>
+      <li><span class="nav-link" data-target="home">Videos</span></li>
       <li><span class="nav-link" data-target="services">Services</span></li>
       <li><span class="nav-link" data-target="work">Work</span></li>
-      <li><span class="nav-link" data-target="social">Social</span></li>
       <li><span class="nav-link" data-target="blog">Writing</span></li>
       <li><span class="nav-link" data-target="contact">Contact</span></li>
     </ul>
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-left">
-    <span class="hero-tag">✦ Available for projects</span>
-    <h1 class="hero-name">
-      Krishna<br><em>Thakkar</em>
-    </h1>
-    <p class="hero-desc">
-      Social media strategist & brand storyteller helping small businesses come alive online with content, visuals, and strategy that actually connect.
-    </p>
-    <div class="hero-cta">
-      <span class="btn btn-primary nav-link" data-target="videos">View Videos ↓</span>
-      <a href="https://www.linkedin.com/in/krishna-thakkar-53893a156/" target="_blank" class="btn btn-secondary">LinkedIn →</a>
-    </div>
-    <div class="hero-scroll">Scroll to explore</div>
-  </div>
-  <div class="hero-right">
-    <div class="hero-img-wrap">
-      <picture>
-        <source srcset="assets/images/hero.webp" type="image/webp">
-        <img src="assets/images/hero.jpg" alt="Krishna Thakkar" fetchpriority="high" decoding="async" width="768" height="1024" />
-      </picture>
-      <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(255,245,247,0.15) 0%, transparent 30%), linear-gradient(to top, rgba(45,20,32,0.3) 0%, transparent 50%);"></div>
-    </div>
-    <div class="hero-float-text">Social Media · Content · Strategy · Branding</div>
-  </div>
-</section>
+<div class="check-border" aria-hidden="true"></div>
 
-<!-- MARQUEE -->
-<div class="marquee-section">
-  <div class="marquee-track">
-    <span class="marquee-item"><span class="marquee-dot"></span>Social Media Strategy</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Content Creation</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Brand Storytelling</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>SEO & Blogs</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Video Editing</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Lead Magnets</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>UGC Content</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Visual Design</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Social Media Strategy</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Content Creation</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Brand Storytelling</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>SEO & Blogs</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Video Editing</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Lead Magnets</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>UGC Content</span>
-    <span class="marquee-item"><span class="marquee-dot"></span>Visual Design</span>
-  </div>
-</div>
-
-<!-- VIDEOS -->
-<section class="videos" id="videos">
-  <div class="reveal">
-    <p class="section-label">Video Work</p>
-    <h2 class="section-title">Stories told<br>through <em>motion</em></h2>
-    <p style="color:var(--fig);font-size:0.95rem;font-weight:400;margin-top:1rem;max-width:500px;">Short-form video content grouped by theme. Click any card to play inline.</p>
-  </div>
-  <div class="video-cluster">
-    <div class="video-cluster-header">
-      <h3 class="video-cluster-title">Restaurants & Dining</h3>
-      <p class="video-cluster-desc">Short-form edits for restaurants, cafés, and food brands.</p>
+<!-- HERO: video orbit (same layout as videos section) -->
+<section class="videos" id="home">
+  <div class="reveal visible videos-intro">
+    <div class="videos-intro-copy">
+      <p class="section-label">Video Work</p>
+      <h2 class="section-title section-title--sage">What I<br>can <em>create</em></h2>
+      <p class="section-lede section-lede--on-dark">Short-form edits on a looping arc. Use the arrows or tap a phone to play.</p>
+      <div class="theme-chips" role="toolbar" aria-label="Filter videos by theme">
+        <button type="button" class="theme-chip is-active" data-theme="all">All</button>
+        <button type="button" class="theme-chip" data-theme="dining">Restaurants</button>
+        <button type="button" class="theme-chip" data-theme="ugc">UGC &amp; Reels</button>
+        <button type="button" class="theme-chip" data-theme="retail">Retail</button>
+        <button type="button" class="theme-chip" data-theme="health">Wellness</button>
+        <button type="button" class="theme-chip" data-theme="community">Community</button>
+      </div>
     </div>
-    <div class="video-scroll-wrap">
-      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
-      <div class="video-grid">
-    <button type="button" class="video-item" data-vimeo-id="1199274119" data-title="GreekTown Grill">
+    <span class="sticker-blob sticker-blob--mint scrapbook-hide-sm">my work!</span>
+    <div class="videos-hero-polaroid scrapbook-hide-sm">
+      <div class="polaroid polaroid--tilt-r">
+        <picture>
+          <source srcset="assets/images/portraits/hero-collage.webp" type="image/webp">
+          <img src="assets/images/portraits/hero-collage.jpg" alt="Krishna Thakkar" fetchpriority="high" decoding="async" width="224" height="224" />
+        </picture>
+        <p class="videos-hero-polaroid-caption videos-hero-polaroid-name">Krishna<br>Thakkar</p>
+        <p class="videos-hero-polaroid-caption videos-hero-polaroid-role">Social Media Manager<br>&amp; Brand Strategist</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="orbit-ui">
+    <p class="orbit-title" id="orbitTitle" aria-live="polite">GreekTown Grill</p>
+    <div class="orbit-stage">
+      <button type="button" class="orbit-nav orbit-nav--prev" id="orbitPrev" aria-label="Previous video">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M15 6l-6 6 6 6"/></svg>
+      </button>
+      <div class="orbit-track" id="videoOrbit" aria-label="Video carousel">
+<button type="button" class="video-item orbit-item" data-theme="dining" data-vimeo-id="1199274119" data-title="GreekTown Grill">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/greek-town-grill.webp" type="image/webp">
-          <img src="assets/images/videos/greek-town-grill.jpg" alt="GreekTown Grill" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+          <img src="assets/images/videos/greek-town-grill.jpg" alt="GreekTown Grill" fetchpriority="high" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
         </picture>
         <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
           <div style="font-size:2.5rem;">🎬</div>
@@ -1352,9 +1915,9 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">GreekTown Grill</div>
+      <div class="video-label" aria-hidden="true">GreekTown Grill</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274113" data-title="Sambal">
+<button type="button" class="video-item orbit-item" data-theme="dining" data-vimeo-id="1199274113" data-title="Sambal">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/sambal.webp" type="image/webp">
@@ -1367,66 +1930,9 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">Sambal</div>
+      <div class="video-label" aria-hidden="true">Sambal</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274104" data-title="Bom Dia">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/bom-dia.webp" type="image/webp">
-          <img src="assets/images/videos/bom-dia.jpg" alt="Bom Dia" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Bom Dia</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">Bom Dia</div>
-    </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274106" data-title="Freddo & Crepes">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/freddo-crepes.webp" type="image/webp">
-          <img src="assets/images/videos/freddo-crepes.jpg" alt="Freddo & Crepes" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Freddo & Crepes</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">Freddo & Crepes</div>
-    </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274095" data-title="Menali">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/menali.webp" type="image/webp">
-          <img src="assets/images/videos/menali.jpg" alt="Menali" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Menali</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">Menali</div>
-    </button>
-    </div>
-      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
-    </div>
-  </div>
-  <div class="video-cluster">
-    <div class="video-cluster-header">
-      <h3 class="video-cluster-title">UGC & Social Reels</h3>
-      <p class="video-cluster-desc">Authentic, scroll-stopping content for Instagram and TikTok.</p>
-    </div>
-    <div class="video-scroll-wrap">
-      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
-      <div class="video-grid">
-    <button type="button" class="video-item" data-vimeo-id="1169808818" data-title="Anejo, UGC Story Edit">
+<button type="button" class="video-item orbit-item" data-theme="ugc" data-vimeo-id="1169808818" data-title="Anejo, UGC Story Edit">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/anejo-ugc.webp" type="image/webp">
@@ -1439,24 +1945,9 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">Anejo, UGC Story Edit</div>
+      <div class="video-label" aria-hidden="true">Anejo, UGC Story Edit</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1169808849" data-title="Just Bought It Hair">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/just-bought-it-hair.webp" type="image/webp">
-          <img src="assets/images/videos/just-bought-it-hair.jpg" alt="Just Bought It Hair" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Just Bought It Hair</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">Just Bought It Hair</div>
-    </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274086" data-title="GreekTown Reel 1">
+<button type="button" class="video-item orbit-item" data-theme="ugc" data-vimeo-id="1199274086" data-title="GreekTown Reel 1">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/greektown-reel-1.webp" type="image/webp">
@@ -1469,66 +1960,9 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">GreekTown Reel 1</div>
+      <div class="video-label" aria-hidden="true">GreekTown Reel 1</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274087" data-title="GreekTown Reel 2">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/greektown-reel-2.webp" type="image/webp">
-          <img src="assets/images/videos/greektown-reel-2.jpg" alt="GreekTown Reel 2" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 2</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">GreekTown Reel 2</div>
-    </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274088" data-title="GreekTown Reel 3">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/greektown-reel-3.webp" type="image/webp">
-          <img src="assets/images/videos/greektown-reel-3.jpg" alt="GreekTown Reel 3" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 3</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">GreekTown Reel 3</div>
-    </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274085" data-title="GreekTown Reel 4">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/greektown-reel-4.webp" type="image/webp">
-          <img src="assets/images/videos/greektown-reel-4.jpg" alt="GreekTown Reel 4" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 4</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">GreekTown Reel 4</div>
-    </button>
-    </div>
-      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
-    </div>
-  </div>
-  <div class="video-cluster">
-    <div class="video-cluster-header">
-      <h3 class="video-cluster-title">Retail & Lifestyle</h3>
-      <p class="video-cluster-desc">Brand stories for local shops, services, and everyday lifestyle.</p>
-    </div>
-    <div class="video-scroll-wrap">
-      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
-      <div class="video-grid">
-    <button type="button" class="video-item" data-vimeo-id="1199274112" data-title="Carpe Diem Men">
+<button type="button" class="video-item orbit-item" data-theme="retail" data-vimeo-id="1199274112" data-title="Carpe Diem Men">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/carpe-diem-men.webp" type="image/webp">
@@ -1541,39 +1975,9 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">Carpe Diem Men</div>
+      <div class="video-label" aria-hidden="true">Carpe Diem Men</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274108" data-title="Skincare & Beauty">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/skincare-beauty.webp" type="image/webp">
-          <img src="assets/images/videos/skincare-beauty.jpg" alt="Skincare & Beauty" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Skincare & Beauty</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">Skincare & Beauty</div>
-    </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274094" data-title="Home & Gifts">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/home-gifts.webp" type="image/webp">
-          <img src="assets/images/videos/home-gifts.jpg" alt="Home & Gifts" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Home & Gifts</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">Home & Gifts</div>
-    </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274090" data-title="Garden Neighbours">
+<button type="button" class="video-item orbit-item" data-theme="retail" data-vimeo-id="1199274090" data-title="Garden Neighbours">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/garden-neighbours.webp" type="image/webp">
@@ -1586,21 +1990,9 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">Garden Neighbours</div>
+      <div class="video-label" aria-hidden="true">Garden Neighbours</div>
     </button>
-    </div>
-      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
-    </div>
-  </div>
-  <div class="video-cluster">
-    <div class="video-cluster-header">
-      <h3 class="video-cluster-title">Health & Wellness</h3>
-      <p class="video-cluster-desc">Fitness studios, nutrition, and wellbeing-focused content.</p>
-    </div>
-    <div class="video-scroll-wrap">
-      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
-      <div class="video-grid">
-    <button type="button" class="video-item" data-vimeo-id="1199274116" data-title="All Access Fitness">
+<button type="button" class="video-item orbit-item" data-theme="health" data-vimeo-id="1199274116" data-title="All Access Fitness">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/all-access-fitness.webp" type="image/webp">
@@ -1613,36 +2005,9 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">All Access Fitness</div>
+      <div class="video-label" aria-hidden="true">All Access Fitness</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274107" data-title="Soma Bone Broth">
-      <div class="video-wrap">
-        <picture>
-          <source srcset="assets/images/videos/soma-bone-broth.webp" type="image/webp">
-          <img src="assets/images/videos/soma-bone-broth.jpg" alt="Soma Bone Broth" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
-        </picture>
-        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
-          <div style="font-size:2.5rem;">🎬</div>
-          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Soma Bone Broth</div>
-        </div>
-        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
-        <div class="video-overlay"></div>
-      </div>
-      <div class="video-label">Soma Bone Broth</div>
-    </button>
-    </div>
-      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
-    </div>
-  </div>
-  <div class="video-cluster">
-    <div class="video-cluster-header">
-      <h3 class="video-cluster-title">Community & Culture</h3>
-      <p class="video-cluster-desc">Events, neighbourhoods, and cultural moments brought to life.</p>
-    </div>
-    <div class="video-scroll-wrap">
-      <div class="video-scroll-edge video-scroll-edge--left" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 6l-6 6 6 6"/></svg></div>
-      <div class="video-grid">
-    <button type="button" class="video-item" data-vimeo-id="1169808854" data-title="Garba Ahmedabad">
+<button type="button" class="video-item orbit-item" data-theme="community" data-vimeo-id="1169808854" data-title="Garba Ahmedabad">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/garba-ahmedabad.webp" type="image/webp">
@@ -1655,9 +2020,159 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">Garba Ahmedabad</div>
+      <div class="video-label" aria-hidden="true">Garba Ahmedabad</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274115" data-title="Westwood WAGO">
+<button type="button" class="video-item orbit-item" data-theme="dining" data-vimeo-id="1199274104" data-title="Bom Dia">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/bom-dia.webp" type="image/webp">
+          <img src="assets/images/videos/bom-dia.jpg" alt="Bom Dia" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Bom Dia</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">Bom Dia</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="dining" data-vimeo-id="1199274106" data-title="Freddo & Crepes">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/freddo-crepes.webp" type="image/webp">
+          <img src="assets/images/videos/freddo-crepes.jpg" alt="Freddo & Crepes" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Freddo & Crepes</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">Freddo & Crepes</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="dining" data-vimeo-id="1199274095" data-title="Menali">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/menali.webp" type="image/webp">
+          <img src="assets/images/videos/menali.jpg" alt="Menali" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Menali</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">Menali</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="ugc" data-vimeo-id="1169808849" data-title="Just Bought It Hair">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/just-bought-it-hair.webp" type="image/webp">
+          <img src="assets/images/videos/just-bought-it-hair.jpg" alt="Just Bought It Hair" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Just Bought It Hair</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">Just Bought It Hair</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="ugc" data-vimeo-id="1199274087" data-title="GreekTown Reel 2">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/greektown-reel-2.webp" type="image/webp">
+          <img src="assets/images/videos/greektown-reel-2.jpg" alt="GreekTown Reel 2" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 2</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">GreekTown Reel 2</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="ugc" data-vimeo-id="1199274088" data-title="GreekTown Reel 3">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/greektown-reel-3.webp" type="image/webp">
+          <img src="assets/images/videos/greektown-reel-3.jpg" alt="GreekTown Reel 3" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 3</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">GreekTown Reel 3</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="ugc" data-vimeo-id="1199274085" data-title="GreekTown Reel 4">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/greektown-reel-4.webp" type="image/webp">
+          <img src="assets/images/videos/greektown-reel-4.jpg" alt="GreekTown Reel 4" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">GreekTown Reel 4</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">GreekTown Reel 4</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="retail" data-vimeo-id="1199274108" data-title="Skincare & Beauty">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/skincare-beauty.webp" type="image/webp">
+          <img src="assets/images/videos/skincare-beauty.jpg" alt="Skincare & Beauty" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Skincare & Beauty</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">Skincare & Beauty</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="retail" data-vimeo-id="1199274094" data-title="Home & Gifts">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/home-gifts.webp" type="image/webp">
+          <img src="assets/images/videos/home-gifts.jpg" alt="Home & Gifts" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Home & Gifts</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">Home & Gifts</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="health" data-vimeo-id="1199274107" data-title="Soma Bone Broth">
+      <div class="video-wrap">
+        <picture>
+          <source srcset="assets/images/videos/soma-bone-broth.webp" type="image/webp">
+          <img src="assets/images/videos/soma-bone-broth.jpg" alt="Soma Bone Broth" loading="lazy" decoding="async" onerror="this.style.display='none';this.closest('.video-wrap')?.querySelector('.video-fallback').style.display='flex';" />
+        </picture>
+        <div class="video-fallback" style="display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;">
+          <div style="font-size:2.5rem;">🎬</div>
+          <div style="font-size:0.75rem;color:var(--fig);letter-spacing:0.1em;text-transform:uppercase;">Soma Bone Broth</div>
+        </div>
+        <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
+        <div class="video-overlay"></div>
+      </div>
+      <div class="video-label" aria-hidden="true">Soma Bone Broth</div>
+    </button>
+<button type="button" class="video-item orbit-item" data-theme="community" data-vimeo-id="1199274115" data-title="Westwood WAGO">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/westwood-wago.webp" type="image/webp">
@@ -1670,9 +2185,9 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">Westwood WAGO</div>
+      <div class="video-label" aria-hidden="true">Westwood WAGO</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274096" data-title="Sunny Greektown">
+<button type="button" class="video-item orbit-item" data-theme="community" data-vimeo-id="1199274096" data-title="Sunny Greektown">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/sunny-greektown.webp" type="image/webp">
@@ -1685,9 +2200,9 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">Sunny Greektown</div>
+      <div class="video-label" aria-hidden="true">Sunny Greektown</div>
     </button>
-    <button type="button" class="video-item" data-vimeo-id="1199274100" data-title="Danforth Stroll">
+<button type="button" class="video-item orbit-item" data-theme="community" data-vimeo-id="1199274100" data-title="Danforth Stroll">
       <div class="video-wrap">
         <picture>
           <source srcset="assets/images/videos/danforth-stroll.webp" type="image/webp">
@@ -1700,182 +2215,313 @@
         <div class="video-play-btn"><svg width="18" height="18" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div>
         <div class="video-overlay"></div>
       </div>
-      <div class="video-label">Danforth Stroll</div>
+      <div class="video-label" aria-hidden="true">Danforth Stroll</div>
     </button>
-    </div>
-      <div class="video-scroll-edge video-scroll-edge--right" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg></div>
+      </div>
+      <button type="button" class="orbit-nav orbit-nav--next" id="orbitNext" aria-label="Next video">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
     </div>
   </div>
-
 </section>
+
+<div class="check-border check-border--sage" aria-hidden="true"></div>
+
+<!-- CLIENTS -->
+<section class="clients" id="clients" aria-label="Clients">
+  <div class="clients-inner">
+    <p class="clients-label">Selected collaborators</p>
+    <h2 class="clients-title">Brands I've worked with</h2>
+    <div class="clients-grid">
+      <div class="client-logo client-logo--round">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/greektown-grill.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">GreekTown Grill</span>
+      </div>
+      <div class="client-logo client-logo--on-dark client-logo--sambal">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/sambal.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Sambal</span>
+      </div>
+      <div class="client-logo client-logo--on-dark">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/anejo.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Añejo</span>
+      </div>
+      <div class="client-logo client-logo--on-dark">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/carpe-diem.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Carpe Diem Men</span>
+      </div>
+      <div class="client-logo client-logo--round">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/soma.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Soma Bone Broth</span>
+      </div>
+      <div class="client-logo">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/clientjoy.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Clientjoy</span>
+      </div>
+      <div class="client-logo">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/scentido.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Scentido</span>
+      </div>
+      <div class="client-logo">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/ezi.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">EZI</span>
+      </div>
+      <div class="client-logo">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/bomdia.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Bom Dia</span>
+      </div>
+      <div class="client-logo client-logo--round">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/menali.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Menali</span>
+      </div>
+      <div class="client-logo">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/moss.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Moss</span>
+      </div>
+      <div class="client-logo">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/all-access.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">All Access Fitness</span>
+      </div>
+      <div class="client-logo">
+        <div class="client-logo-media">
+          <img src="assets/images/clients/just-bought-it.png" alt="" loading="lazy" decoding="async" />
+        </div>
+        <span class="client-logo-name">Just Bought It Hair</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span>Social Media Strategy</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Content Creation</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Brand Storytelling</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>SEO &amp; Blogs</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Video Editing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Lead Magnets</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UGC Content</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Visual Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Social Media Strategy</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Content Creation</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Brand Storytelling</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>SEO &amp; Blogs</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Video Editing</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Lead Magnets</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>UGC Content</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Visual Design</span>
+  </div>
+</div>
+
+<div class="stripe-border" aria-hidden="true"></div>
 
 <!-- SERVICES -->
 <section class="services" id="services">
   <div class="reveal">
     <p class="section-label">What I do</p>
-    <h2 class="section-title">Services crafted<br>for <em>small brands</em></h2>
+    <h2 class="section-title">What I<br>can <em>offer</em></h2>
   </div>
-  <div class="services-grid reveal">
-    <div class="service-card">
-      <div class="service-icon">📱</div>
-      <div class="service-title">Social Media Campaigns</div>
-      <p class="service-desc">End-to-end social media management built around your brand's voice and goals.</p>
-      <ul class="service-list">
-        <li>Tailored brand strategy</li>
-        <li>Content creation & scheduling</li>
-        <li>Community engagement</li>
-        <li>Data-driven optimization</li>
-      </ul>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">✍️</div>
-      <div class="service-title">SEO Content & Blogs</div>
-      <p class="service-desc">Long-form content that ranks on Google and resonates with your readers.</p>
-      <ul class="service-list">
-        <li>Keyword research</li>
-        <li>On-page & off-page SEO</li>
-        <li>Blog writing & strategy</li>
-        <li>Lead magnet creation</li>
-      </ul>
-    </div>
-    <div class="service-card">
-      <div class="service-icon">🎬</div>
-      <div class="service-title">Video Content & UGC</div>
-      <p class="service-desc">Compelling short-form video content for Instagram, TikTok, and beyond.</p>
-      <ul class="service-list">
-        <li>Reels & story edits</li>
-        <li>UGC-style content</li>
-        <li>Brand video campaigns</li>
-        <li>Multi-platform adaptation</li>
-      </ul>
+  <div class="services-layout reveal freeflow-notes">
+    <div class="service-groups">
+      <div>
+        <div class="service-group-title">Social Media Campaigns</div>
+        <p class="service-desc">End-to-end social media management built around your brand's voice and goals.</p>
+        <ul class="services-list">
+          <li>Tailored brand strategy</li>
+          <li>Content creation &amp; scheduling</li>
+          <li>Community engagement</li>
+          <li>Data-driven optimization</li>
+        </ul>
+      </div>
+      <div>
+        <div class="service-group-title">SEO Content &amp; Blogs</div>
+        <p class="service-desc">Long-form content that ranks on Google and resonates with your readers.</p>
+        <ul class="services-list">
+          <li>Keyword research</li>
+          <li>On-page &amp; off-page SEO</li>
+          <li>Blog writing &amp; strategy</li>
+          <li>Lead magnet creation</li>
+        </ul>
+      </div>
+      <div>
+        <div class="service-group-title">Video Content &amp; UGC</div>
+        <p class="service-desc">Compelling short-form video content for Instagram, TikTok, and beyond.</p>
+        <ul class="services-list">
+          <li>Reels &amp; story edits</li>
+          <li>UGC-style content</li>
+          <li>Brand video campaigns</li>
+          <li>Multi-platform adaptation</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
 
+<div class="stripe-border stripe-border--pink" aria-hidden="true"></div>
+
 <!-- ABOUT -->
 <section class="about reveal" id="about">
-  <div>
-    <p class="section-label">About me</p>
-    <h2 class="section-title">Where strategy<br>meets <em>soul</em></h2>
-    <div class="about-stats">
-      <div class="stat-card">
-        <div class="stat-num">2+</div>
-        <div class="stat-label">Years of Experience</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">10+</div>
-        <div class="stat-label">Brand Clients</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">6+</div>
-        <div class="stat-label">SEO Blog Articles</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">2</div>
-        <div class="stat-label">Passions: Content & Food</div>
+  <div class="about-inner">
+    <div class="about-collage">
+      <div class="about-stack">
+        <div class="polaroid polaroid--sage-frame about-stack-front">
+          <picture>
+            <source srcset="assets/images/portraits/about-1.webp" type="image/webp">
+            <img src="assets/images/portraits/about-1.jpg" alt="Krishna Thakkar" loading="lazy" decoding="async" />
+          </picture>
+          <span class="about-stack-caption">Toronto · 2025</span>
+        </div>
+        <div class="polaroid about-stack-back">
+          <picture>
+            <source srcset="assets/images/portraits/about-2.webp" type="image/webp">
+            <img src="assets/images/portraits/about-2.jpg" alt="Krishna Thakkar" loading="lazy" decoding="async" />
+          </picture>
+        </div>
+        <span class="sticker-blob sticker-blob--mint about-stack-sticker">that's me</span>
+        <span class="sparkle about-stack-sparkle about-stack-sparkle--a" aria-hidden="true"></span>
+        <span class="sparkle sparkle--pink about-stack-sparkle about-stack-sparkle--b" aria-hidden="true"></span>
       </div>
     </div>
-  </div>
-  <div>
-    <p class="about-text">
-      Hi! I'm Krishna, a freelancer helping small brands come to life online. I create content, design visuals, and build strategies that make brands connect with their audience in meaningful ways.
-      <br><br>
-      I love working with passionate small businesses, whether it's a cosy restaurant, a budding lifestyle brand, or any creative venture. Food has a special place in my heart, and I also work part-time as a chef, which fuels my creativity and hands-on approach.
-      <br><br>
-      One day, I hope to open my own restaurant, blending my love for storytelling, strategy, and culinary art. 🍽️
-    </p>
-    <div class="about-tags">
-      <span class="tag">Social Media</span>
-      <span class="tag">Content Strategy</span>
-      <span class="tag">Brand Storytelling</span>
-      <span class="tag">SEO Writing</span>
-      <span class="tag">Video Editing</span>
-      <span class="tag">Food & Hospitality</span>
-      <span class="tag">UGC</span>
-      <span class="tag">Freelancing</span>
+    <div class="about-copy">
+      <p class="section-label">About me</p>
+      <h2 class="section-title section-title--sage">About</h2>
+      <div class="about-letter">
+      <p class="about-text">
+        Hi! I'm Krishna, a freelancer helping small brands come to life online. I create content, design visuals, and build strategies that make brands connect with their audience in meaningful ways.
+        <br><br>
+        I love working with passionate small businesses, whether it's a cosy restaurant, a budding lifestyle brand, or any creative venture. Food has a special place in my heart, and I also work part-time as a chef, which fuels my creativity and hands-on approach.
+        <br><br>
+        One day, I hope to open my own restaurant, blending my love for storytelling, strategy, and culinary art.
+      </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card ticket">
+          <div class="stat-num">2+</div>
+          <div class="stat-label">Years of Experience</div>
+        </div>
+        <div class="stat-card ticket">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Brand Clients</div>
+        </div>
+        <div class="stat-card ticket">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">SEO Blog Articles</div>
+        </div>
+        <div class="stat-card ticket">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Passions: Content &amp; Food</div>
+        </div>
+      </div>
+      <div class="about-tags">
+        <span class="tag">Social Media</span>
+        <span class="tag">Content Strategy</span>
+        <span class="tag">Brand Storytelling</span>
+        <span class="tag">SEO Writing</span>
+        <span class="tag">Video Editing</span>
+        <span class="tag">Food &amp; Hospitality</span>
+        <span class="tag">UGC</span>
+        <span class="tag">Freelancing</span>
+      </div>
+      <div class="why-me">
+        <h3 class="section-title section-title--sage about-why-title">Why work<br>with me</h3>
+        <ul class="why-me-list">
+          <li>Responsive and clear communication</li>
+          <li>Dependable delivery timelines</li>
+          <li>Visuals tailored to your brand identity</li>
+          <li>Engagement-driven content creation</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
+
+<div class="check-border" aria-hidden="true"></div>
 
 <!-- WORK -->
 <section class="work" id="work">
   <div class="reveal">
     <p class="section-label">Portfolio</p>
     <h2 class="section-title">Work that<br>speaks <em>louder</em></h2>
+    <span class="sticker-blob sticker-blob--sage scrapbook-hide-sm">portfolio</span>
     <div class="work-filter">
       <button class="filter-btn active" onclick="filterWork('all', this)">All</button>
       <button class="filter-btn" onclick="filterWork('video', this)">Video</button>
-      <button class="filter-btn" onclick="filterWork('social', this)">Social</button>
       <button class="filter-btn" onclick="filterWork('blog', this)">Blog</button>
     </div>
   </div>
   <div class="work-grid reveal" id="workGrid">
-    <div class="work-card" data-type="video">
+    <div class="work-card lift-target" data-type="video">
       <div class="work-card-label">Restaurants & Dining · 5 videos</div>
       <div class="work-card-title">Food & Hospitality</div>
       <p class="work-card-desc">Short-form edits for GreekTown favourites including Sambal, Bom Dia, Menali, and more.</p>
       <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1199274113" data-title="Sambal">Watch highlight →</button>
-      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+      <span class="work-card-link nav-link" data-target="home">View all videos ↓</span>
     </div>
-    <div class="work-card" data-type="video">
+    <div class="work-card lift-target" data-type="video">
       <div class="work-card-label">UGC & Social Reels · 6 videos</div>
       <div class="work-card-title">Scroll-Stopping Reels</div>
       <p class="work-card-desc">Authentic UGC story edits and social reels for Anejo, Just Bought It Hair, and GreekTown neighbourhood content.</p>
       <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808818" data-title="Anejo, UGC Story Edit">Watch highlight →</button>
-      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+      <span class="work-card-link nav-link" data-target="home">View all videos ↓</span>
     </div>
-    <div class="work-card" data-type="video">
+    <div class="work-card lift-target" data-type="video">
       <div class="work-card-label">Retail & Lifestyle · 4 videos</div>
       <div class="work-card-title">Local Shops & Services</div>
       <p class="work-card-desc">Brand stories for Carpe Diem Men, skincare & beauty, home & gifts, and garden retail on the Danforth.</p>
       <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1199274112" data-title="Carpe Diem Men">Watch highlight →</button>
-      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+      <span class="work-card-link nav-link" data-target="home">View all videos ↓</span>
     </div>
-    <div class="work-card" data-type="video">
+    <div class="work-card lift-target" data-type="video">
       <div class="work-card-label">Health & Wellness · 2 videos</div>
       <div class="work-card-title">Fitness & Nutrition</div>
       <p class="work-card-desc">Motivating edits for All Access Fitness and Soma Bone Broth in GreekTown.</p>
       <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1199274116" data-title="All Access Fitness">Watch highlight →</button>
-      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+      <span class="work-card-link nav-link" data-target="home">View all videos ↓</span>
     </div>
-    <div class="work-card" data-type="video">
+    <div class="work-card lift-target" data-type="video">
       <div class="work-card-label">Community & Culture · 4 videos</div>
       <div class="work-card-title">Events & Neighbourhood</div>
       <p class="work-card-desc">Garba Ahmedabad, Westwood WAGO showcase, sunny Greektown moments, and Danforth stroll content.</p>
       <button type="button" class="work-card-link watch-video-btn" data-vimeo-id="1169808854" data-title="Garba Ahmedabad">Watch highlight →</button>
-      <span class="work-card-link nav-link" data-target="videos">View all videos ↓</span>
+      <span class="work-card-link nav-link" data-target="home">View all videos ↓</span>
     </div>
-    <div class="work-card" data-type="social">
-      <div class="work-card-label">Social Media</div>
-      <div class="work-card-title">Clientjoy</div>
-      <p class="work-card-desc">Full social media management for a SaaS brand: strategy, content, and growth.</p>
-      <span class="work-card-link nav-link" data-target="social">View collateral ↓</span>
-    </div>
-    <div class="work-card" data-type="social">
-      <div class="work-card-label">Social Media</div>
-      <div class="work-card-title">Scentido</div>
-      <p class="work-card-desc">Brand storytelling and visual content for a luxury fragrance brand.</p>
-      <span class="work-card-link nav-link" data-target="social">View collateral ↓</span>
-    </div>
-    <div class="work-card" data-type="social">
-      <div class="work-card-label">Social Media</div>
-      <div class="work-card-title">EZI</div>
-      <p class="work-card-desc">Content strategy and creation for EZI, building brand presence across platforms.</p>
-      <span class="work-card-link nav-link" data-target="social">View collateral ↓</span>
-    </div>
-    <div class="work-card" data-type="blog">
+    <div class="work-card lift-target" data-type="blog">
       <div class="work-card-label">SEO Writing</div>
       <div class="work-card-title">Influencer Marketing Strategies</div>
       <p class="work-card-desc">Published on Clientjoy with actionable tactics for influencer campaigns in 2023.</p>
       <a href="https://www.clientjoy.io/blog/influencer-marketing-strategies-2021" target="_blank" rel="noopener" class="work-card-link">Read article →</a>
     </div>
-    <div class="work-card" data-type="blog">
+    <div class="work-card lift-target" data-type="blog">
       <div class="work-card-label">SEO Writing</div>
       <div class="work-card-title">Data-Driven Social Strategy</div>
       <p class="work-card-desc">Why guesswork fails when building social media plans backed by data.</p>
       <a href="https://www.clientjoy.io/blog/data-driven-social-media-strategy" target="_blank" rel="noopener" class="work-card-link">Read article →</a>
     </div>
-    <div class="work-card" data-type="blog">
+    <div class="work-card lift-target" data-type="blog">
       <div class="work-card-label">SEO Writing</div>
       <div class="work-card-title">Freelancer's Ultimate Guide</div>
       <p class="work-card-desc">Long-form guide for freelancers starting and scaling independent work.</p>
@@ -1887,184 +2533,6 @@
 
 
 
-<!-- SOCIAL COLLATERAL -->
-<section class="collateral" id="social">
-  <div class="reveal">
-    <p class="section-label">Social Media Collateral</p>
-    <h2 class="section-title">Content that<br><em>stops the scroll</em></h2>
-  </div>
-
-  <div class="collateral-brand reveal">
-    <div class="collateral-brand-header" style="border-left: 3px solid #4A6CF7;">
-      <span class="collateral-brand-label" style="color:#4A6CF7;">SaaS · CRM</span>
-      <h3 class="collateral-brand-name">Clientjoy</h3>
-    </div>
-    <div class="collateral-grid">
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/bulletproof-your-agency.jpg', 'Bulletproof Your Agency')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/bulletproof-your-agency.jpg" alt="Bulletproof Your Agency" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Bulletproof Your Agency</div>
-            <div class="collateral-desc">Clientjoy CRM campaign: bold, conversion-focused ad creative.</div>
-          </div>
-        </div>
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/freedom-from-monthly-payments.jpg', 'Freedom from Monthly Payments')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/freedom-from-monthly-payments.jpg" alt="Freedom from Monthly Payments" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Freedom from Monthly Payments</div>
-            <div class="collateral-desc">Highlighting Clientjoy's lifetime deal value proposition.</div>
-          </div>
-        </div>
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/agency-advocate-podcast.jpg', 'Agency Advocate Podcast')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/agency-advocate-podcast.jpg" alt="Agency Advocate Podcast" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Agency Advocate Podcast</div>
-            <div class="collateral-desc">Event graphic for a live podcast session on lead conversion.</div>
-          </div>
-        </div>
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/mission-driven-content.jpg', 'Mission-Driven Content')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/mission-driven-content.jpg" alt="Mission-Driven Content" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Mission-Driven Content</div>
-            <div class="collateral-desc">Brand awareness post for Clientjoy's creator-focused mission.</div>
-          </div>
-        </div>
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/designer-humour-series.jpg', 'Designer Humour Series')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/designer-humour-series.jpg" alt="Designer Humour Series" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Designer Humour Series</div>
-            <div class="collateral-desc">Relatable content collab with @canyoumakethismorewhite.</div>
-          </div>
-        </div>
-    </div>
-  </div>
-
-  <div class="collateral-brand reveal">
-    <div class="collateral-brand-header" style="border-left: 3px solid #B8860B;">
-      <span class="collateral-brand-label" style="color:#B8860B;">Niche Perfumery · Luxury</span>
-      <h3 class="collateral-brand-name">Scentido</h3>
-    </div>
-    <div class="collateral-grid">
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/fall-in-love-at-first-scent.jpg', 'Fall in Love at First Scent')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/fall-in-love-at-first-scent.jpg" alt="Fall in Love at First Scent" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Fall in Love at First Scent</div>
-            <div class="collateral-desc">Brand tagline story post for Scentido Niche Perfumery.</div>
-          </div>
-        </div>
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/roja-parfums-elixir.jpg', 'Roja Parfums, Elixir')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/roja-parfums-elixir.jpg" alt="Roja Parfums, Elixir" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Roja Parfums, Elixir</div>
-            <div class="collateral-desc">Luxury product feature with peach-toned editorial styling.</div>
-          </div>
-        </div>
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/somei-yoshino-berdoues.jpg', 'Somei Yoshino by Berdoues')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/somei-yoshino-berdoues.jpg" alt="Somei Yoshino by Berdoues" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Somei Yoshino by Berdoues</div>
-            <div class="collateral-desc">Cherry blossom collection product spotlight.</div>
-          </div>
-        </div>
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/durga-ds-durga.jpg', 'Durga by D.S. & Durga')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/durga-ds-durga.jpg" alt="Durga by D.S. & Durga" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Durga by D.S. & Durga</div>
-            <div class="collateral-desc">Jasmine-themed editorial product feature post.</div>
-          </div>
-        </div>
-    </div>
-  </div>
-
-  <div class="collateral-brand reveal">
-    <div class="collateral-brand-header" style="border-left: 3px solid #CC00CC;">
-      <span class="collateral-brand-label" style="color:#CC00CC;">Marketplace · App</span>
-      <h3 class="collateral-brand-name">EZI</h3>
-    </div>
-    <div class="collateral-grid">
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/solving-your-buying-needs.jpg', 'Solving Your Buying Needs')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/solving-your-buying-needs.jpg" alt="Solving Your Buying Needs" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Solving Your Buying Needs</div>
-            <div class="collateral-desc">App-focused brand awareness post: "Easy with EZI."</div>
-          </div>
-        </div>
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/verified-resellers.jpg', 'Verified ReSellers Under One Umbrella')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/verified-resellers.jpg" alt="Verified ReSellers Under One Umbrella" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Verified ReSellers Under One Umbrella</div>
-            <div class="collateral-desc">Educational brand content highlighting EZI's core value.</div>
-          </div>
-        </div>
-        <div class="collateral-card" onclick="openLightbox('assets/images/collateral/seller-to-buyer.jpg', 'Seller to Buyer')">
-          <div class="collateral-thumb">
-            <img src="assets/images/collateral/seller-to-buyer.jpg" alt="Seller to Buyer" loading="lazy">
-            <div class="collateral-overlay">
-              <span>View ↗</span>
-            </div>
-          </div>
-          <div class="collateral-info">
-            <div class="collateral-title">Seller to Buyer</div>
-            <div class="collateral-desc">Bold visual storytelling for EZI's marketplace concept.</div>
-          </div>
-        </div>
-    </div>
-  </div>
-</section>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" onclick="closeLightbox()">
@@ -2076,14 +2544,29 @@
   <div id="lightboxCaption"></div>
 </div>
 
+<!-- Orbit video focus (morphs from card → center) -->
+<div id="orbitFocus" class="orbit-focus" aria-hidden="true">
+  <button type="button" class="orbit-focus-backdrop" id="orbitFocusBackdrop" aria-label="Close video"></button>
+  <button type="button" class="orbit-focus-close" id="orbitFocusClose" aria-label="Close">✕</button>
+  <div class="orbit-focus-stage" id="orbitFocusStage">
+    <div class="orbit-focus-frame">
+      <img id="orbitFocusPoster" class="orbit-focus-poster" alt="" />
+      <iframe id="orbitFocusPlayer" title="Video player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <p class="orbit-focus-title" id="orbitFocusTitle"></p>
+  </div>
+</div>
+
+
 <!-- BLOG -->
 <section class="blog" id="blog">
   <div class="reveal">
     <p class="section-label">Writing</p>
     <h2 class="section-title">Words that<br><em>rank & resonate</em></h2>
+    <p class="section-lede">SEO articles published on Clientjoy.</p>
   </div>
   <div class="blog-grid reveal">
-    <div class="blog-card">
+    <div class="blog-card lift-target">
       <div class="blog-card-img">
         <picture>
           <source srcset="assets/images/blog/influencer-marketing-strategies.webp" type="image/webp">
@@ -2096,7 +2579,7 @@
         <a href="https://www.clientjoy.io/blog/influencer-marketing-strategies-2021" target="_blank" class="blog-card-link">Read article →</a>
       </div>
     </div>
-    <div class="blog-card">
+    <div class="blog-card lift-target">
       <div class="blog-card-img">
         <picture>
           <source srcset="assets/images/blog/data-driven-social-media.webp" type="image/webp">
@@ -2109,7 +2592,7 @@
         <a href="https://www.clientjoy.io/blog/data-driven-social-media-strategy" target="_blank" class="blog-card-link">Read article →</a>
       </div>
     </div>
-    <div class="blog-card">
+    <div class="blog-card lift-target">
       <div class="blog-card-img">
         <picture>
           <source srcset="assets/images/blog/ultimate-guide-freelancer.webp" type="image/webp">
@@ -2122,7 +2605,7 @@
         <a href="https://www.clientjoy.io/blog/ultimate-guide-to-become-freelancer" target="_blank" class="blog-card-link">Read article →</a>
       </div>
     </div>
-    <div class="blog-card">
+    <div class="blog-card lift-target">
       <div class="blog-card-img">
         <picture>
           <source srcset="assets/images/blog/start-agency-guide.webp" type="image/webp">
@@ -2135,7 +2618,7 @@
         <a href="https://www.clientjoy.io/blog/ultimate-guide-to-starting-an-agency" target="_blank" class="blog-card-link">Read article →</a>
       </div>
     </div>
-    <div class="blog-card">
+    <div class="blog-card lift-target">
       <div class="blog-card-img">
         <picture>
           <source srcset="assets/images/blog/sales-funnel-guide.webp" type="image/webp">
@@ -2148,7 +2631,7 @@
         <a href="https://www.clientjoy.io/blog/beginners-guide-to-sales-funnel" target="_blank" class="blog-card-link">Read article →</a>
       </div>
     </div>
-    <div class="blog-card">
+    <div class="blog-card lift-target">
       <div class="blog-card-img">
         <picture>
           <source srcset="assets/images/blog/agency-freelancer-tools.webp" type="image/webp">
@@ -2164,6 +2647,9 @@
   </div>
 </section>
 
+
+<div class="stripe-border" aria-hidden="true"></div>
+
 <!-- CONTACT -->
 <section class="contact reveal" id="contact">
   <div class="contact-info">
@@ -2172,7 +2658,7 @@
       <h2 class="contact-quote">
         Ready to build something <em>memorable?</em>
       </h2>
-      <p style="margin-top:1.5rem;color:var(--fig);font-size:0.95rem;line-height:1.7;font-weight:400;">
+      <p class="section-lede section-lede--on-dark" style="margin-top:1.5rem;">
         Whether it's a social media overhaul, a content strategy, or a video campaign, I'd love to hear about your project.
       </p>
     </div>
@@ -2182,17 +2668,19 @@
         Krishna Thakkar on LinkedIn
       </a>
       <a href="#" class="contact-detail">
-        <div class="contact-detail-icon">✉️</div>
+        <div class="contact-detail-icon">✦</div>
         Available for freelance
       </a>
     </div>
   </div>
 </section>
 
+<div class="check-border check-border--sage" aria-hidden="true"></div>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">Krishna Thakkar</div>
-  <div class="footer-copy">© 2026 · Social Media & Content Strategist · Brand Storyteller · Food Lover 💖</div>
+  <div class="footer-copy">© 2026 · Social Media &amp; Content Strategist · Brand Storyteller · Food Lover</div>
 </footer>
 
 <script>
@@ -2234,12 +2722,9 @@
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     document.querySelectorAll('.work-card').forEach(card => {
-      if (type === 'all' || card.dataset.type === type) {
-        card.style.display = 'block';
-        card.style.animation = 'fadeUp 0.4s ease both';
-      } else {
-        card.style.display = 'none';
-      }
+      const show = type === 'all' || card.dataset.type === type;
+      card.classList.toggle('is-hidden', !show);
+      if (show) card.style.animation = 'fadeUp 0.4s ease both';
     });
   }
 
@@ -2279,18 +2764,200 @@
   }
   // Lightbox & video modal
   let activeInlineVideo = null;
+  let orbitFocusOpen = false;
+  let orbitFocusClosing = false;
+  let orbitFocusOrigin = null;
+  let orbitFocusRaf = null;
+  let orbitFocusVimeoId = null;
+
+  function easeInOutCubic(t) {
+    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  }
+
+  function getOrbitFocusTargetRect() {
+    const maxW = Math.min(300, window.innerWidth * 0.78);
+    const titleSpace = 40;
+    const h = maxW * (16 / 9);
+    const totalH = h + titleSpace;
+    return {
+      left: (window.innerWidth - maxW) / 2,
+      top: Math.max(24, (window.innerHeight - totalH) / 2),
+      width: maxW,
+      height: h
+    };
+  }
+
+  function setOrbitStageRect(rect) {
+    const stage = document.getElementById('orbitFocusStage');
+    stage.style.left = `${rect.left}px`;
+    stage.style.top = `${rect.top}px`;
+    stage.style.width = `${rect.width}px`;
+    stage.style.height = `${rect.height}px`;
+  }
+
+  function animateOrbitStage(from, to, duration, onDone) {
+    if (orbitFocusRaf) cancelAnimationFrame(orbitFocusRaf);
+    const start = performance.now();
+    function frame(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const e = easeInOutCubic(t);
+      setOrbitStageRect({
+        left: from.left + (to.left - from.left) * e,
+        top: from.top + (to.top - from.top) * e,
+        width: from.width + (to.width - from.width) * e,
+        height: from.height + (to.height - from.height) * e
+      });
+      const backdrop = document.getElementById('orbitFocusBackdrop');
+      // backdrop fades with open (to center) or reverse on close
+      if (to.width > from.width) {
+        backdrop.style.opacity = String(e);
+      } else {
+        backdrop.style.opacity = String(1 - e);
+      }
+      if (t < 1) {
+        orbitFocusRaf = requestAnimationFrame(frame);
+      } else {
+        orbitFocusRaf = null;
+        if (onDone) onDone();
+      }
+    }
+    orbitFocusRaf = requestAnimationFrame(frame);
+  }
 
   function stopInlineVideo(item) {
     if (!item) return;
     const wrap = item.querySelector('.video-wrap');
-    const player = wrap.querySelector('.video-inline-player');
+    const player = wrap && wrap.querySelector('.video-inline-player');
     if (player) player.remove();
-    wrap.classList.remove('is-playing');
+    if (wrap) wrap.classList.remove('is-playing');
     item.classList.remove('is-playing');
     if (activeInlineVideo === item) activeInlineVideo = null;
   }
 
+  function resetOrbitFocusUI() {
+    const focus = document.getElementById('orbitFocus');
+    const player = document.getElementById('orbitFocusPlayer');
+    const poster = document.getElementById('orbitFocusPoster');
+    const titleEl = document.getElementById('orbitFocusTitle');
+    const backdrop = document.getElementById('orbitFocusBackdrop');
+    focus.classList.remove('is-open', 'is-settled', 'is-playing');
+    focus.setAttribute('aria-hidden', 'true');
+    if (player) player.src = '';
+    if (poster) { poster.removeAttribute('src'); poster.alt = ''; }
+    if (titleEl) titleEl.textContent = '';
+    if (backdrop) backdrop.style.opacity = '0';
+    orbitFocusOpen = false;
+    orbitFocusClosing = false;
+    orbitFocusOrigin = null;
+    orbitFocusVimeoId = null;
+    if (!document.body.classList.contains('nav-open') &&
+        !document.getElementById('lightbox').classList.contains('lightbox-open')) {
+      document.body.style.overflow = '';
+    }
+  }
+
+  function closeOrbitFocus() {
+    if (!orbitFocusOpen || orbitFocusClosing) return;
+    const focus = document.getElementById('orbitFocus');
+    const player = document.getElementById('orbitFocusPlayer');
+    const videosSection = document.querySelector('.videos');
+    orbitFocusClosing = true;
+    focus.classList.remove('is-settled', 'is-playing');
+    if (player) player.src = '';
+
+    // Capture return target while orbit is still paused
+    let to = orbitFocusOrigin;
+    if (activeInlineVideo) {
+      const wrap = activeInlineVideo.querySelector('.video-wrap') || activeInlineVideo;
+      const r = wrap.getBoundingClientRect();
+      if (r.width > 8 && r.height > 8) {
+        to = { left: r.left, top: r.top, width: r.width, height: r.height };
+      }
+    }
+
+    const from = getOrbitFocusTargetRect();
+    if (!to) to = from;
+
+    animateOrbitStage(from, to, 480, () => {
+      document.querySelectorAll('.orbit-item.is-playing').forEach(el => stopInlineVideo(el));
+      if (videosSection) videosSection.classList.remove('is-focus-mode');
+      resetOrbitFocusUI();
+    });
+  }
+
+  function openOrbitFocus(item) {
+    const vimeoId = item.dataset.vimeoId;
+    if (!vimeoId) return;
+
+    // Same card again → close
+    if (orbitFocusOpen && activeInlineVideo === item && !orbitFocusClosing) {
+      closeOrbitFocus();
+      return;
+    }
+
+    if (orbitFocusClosing && orbitFocusRaf) {
+      cancelAnimationFrame(orbitFocusRaf);
+      orbitFocusRaf = null;
+    }
+
+    const focus = document.getElementById('orbitFocus');
+    const player = document.getElementById('orbitFocusPlayer');
+    const poster = document.getElementById('orbitFocusPoster');
+    const titleEl = document.getElementById('orbitFocusTitle');
+    const videosSection = document.querySelector('.videos');
+    const wrap = item.querySelector('.video-wrap') || item;
+    const img = item.querySelector('img');
+    const fromRect = wrap.getBoundingClientRect();
+    const from = {
+      left: fromRect.left,
+      top: fromRect.top,
+      width: fromRect.width,
+      height: fromRect.height
+    };
+    const to = getOrbitFocusTargetRect();
+
+    setNavOpen(false);
+    document.querySelectorAll('.orbit-item.is-playing').forEach(el => stopInlineVideo(el));
+    item.classList.add('is-playing');
+    activeInlineVideo = item;
+    orbitFocusClosing = false;
+    orbitFocusOpen = true;
+    orbitFocusOrigin = { ...from };
+    orbitFocusVimeoId = vimeoId;
+
+    titleEl.textContent = item.dataset.title || '';
+    if (img) {
+      poster.src = img.currentSrc || img.src;
+      poster.alt = img.alt || item.dataset.title || '';
+    }
+    player.src = '';
+    focus.classList.remove('is-settled', 'is-playing');
+    setOrbitStageRect(from);
+    document.getElementById('orbitFocusBackdrop').style.opacity = '0';
+
+    if (videosSection) videosSection.classList.add('is-focus-mode');
+    document.body.style.overflow = 'hidden';
+    focus.classList.add('is-open');
+    focus.setAttribute('aria-hidden', 'false');
+
+    // next frame: morph to center, then play
+    requestAnimationFrame(() => {
+      animateOrbitStage(from, to, 520, () => {
+        if (!orbitFocusOpen || orbitFocusClosing) return;
+        focus.classList.add('is-settled');
+        player.src = `https://player.vimeo.com/video/${orbitFocusVimeoId}?autoplay=1&title=0&byline=0&portrait=0&dnt=1`;
+        focus.classList.add('is-playing');
+      });
+    });
+  }
+
   function playInlineVideo(item) {
+    // Orbit cards open centered focus player instead of playing in-place
+    if (item.classList.contains('orbit-item')) {
+      openOrbitFocus(item);
+      return;
+    }
+
     const vimeoId = item.dataset.vimeoId;
     if (!vimeoId) return;
 
@@ -2317,6 +2984,7 @@
   }
 
   function openLightbox(src, caption) {
+    if (orbitFocusOpen) closeOrbitFocus();
     if (activeInlineVideo) stopInlineVideo(activeInlineVideo);
     setNavOpen(false);
     const lb = document.getElementById('lightbox');
@@ -2333,6 +3001,7 @@
   }
 
   function openVideoModal(vimeoId, title) {
+    if (orbitFocusOpen) closeOrbitFocus();
     if (activeInlineVideo) stopInlineVideo(activeInlineVideo);
     setNavOpen(false);
     const lb = document.getElementById('lightbox');
@@ -2359,23 +3028,34 @@
     videoWrap.classList.remove('is-active');
     player.src = '';
     document.getElementById('lightboxCaption').textContent = '';
-    if (!document.body.classList.contains('nav-open')) {
+    if (!document.body.classList.contains('nav-open') && !orbitFocusOpen) {
       document.body.style.overflow = '';
     }
   }
 
+  document.getElementById('orbitFocusBackdrop').addEventListener('click', closeOrbitFocus);
+  document.getElementById('orbitFocusClose').addEventListener('click', closeOrbitFocus);
+  document.getElementById('orbitFocusStage').addEventListener('click', e => e.stopPropagation());
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      if (activeInlineVideo) stopInlineVideo(activeInlineVideo);
+      if (orbitFocusOpen) closeOrbitFocus();
+      else if (activeInlineVideo) stopInlineVideo(activeInlineVideo);
       closeLightbox();
       setNavOpen(false);
     }
   });
 
   document.querySelector('.videos').addEventListener('click', e => {
+    if (e.target.closest('.theme-chip, .theme-chips, .orbit-nav, a, .nav-link')) return;
+    if (e.target.closest('.video-inline-player, #orbitFocus')) return;
+
     const item = e.target.closest('.video-item');
-    if (!item) return;
-    if (e.target.closest('.video-inline-player')) return;
+    if (!item) {
+      if (orbitFocusOpen) closeOrbitFocus();
+      else if (activeInlineVideo) stopInlineVideo(activeInlineVideo);
+      return;
+    }
     playInlineVideo(item);
   });
 
@@ -2467,6 +3147,179 @@
     }, { passive: true });
   }
   initVideoScrollMarkers();
+
+
+  // Video semicircle orbit carousel
+  (function initVideoOrbit() {
+    const track = document.getElementById('videoOrbit');
+    const titleEl = document.getElementById('orbitTitle');
+    const prevBtn = document.getElementById('orbitPrev');
+    const nextBtn = document.getElementById('orbitNext');
+    const videosSection = document.querySelector('.videos');
+    const chips = document.querySelectorAll('.theme-chip');
+    if (!track) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let items = [];
+    let angle = 0;
+    let activeIndex = 0;
+    let slowMo = false;
+    let raf = null;
+    let lastTs = 0;
+    const SPEED = 7; // degrees per second
+    const SLOW_MO = 0.12; // fraction of speed while hovering (dramatic slow-mo)
+
+    function visibleItems() {
+      return items.filter(el => !el.classList.contains('is-hidden-theme'));
+    }
+
+    function refreshItems() {
+      items = [...track.querySelectorAll('.orbit-item')];
+    }
+
+    function layout(now) {
+      const vis = visibleItems();
+      const n = vis.length || 1;
+      const step = 360 / n;
+      const w = track.clientWidth || 600;
+      const h = track.clientHeight || 360;
+      const radiusX = Math.min(w * 0.5, 500);
+      const radiusY = Math.min(h * 0.28, 110);
+      const playing = videosSection && videosSection.classList.contains('is-focus-mode');
+
+      let best = 0;
+      let bestScore = -Infinity;
+
+      vis.forEach((el, i) => {
+        const theta = ((angle + i * step) % 360) * Math.PI / 180;
+        const x = Math.sin(theta) * radiusX;
+        const depth = Math.cos(theta); // 1 = front, -1 = back
+        const y = -depth * radiusY * 0.85;
+        const t = (depth + 1) / 2; // 0 back → 1 front
+        const hoverTarget = (!playing && el.matches(':hover')) ? 1.14 : 1;
+        const prevBoost = Number(el.dataset.hoverBoost) || 1;
+        const hoverBoost = prevBoost + (hoverTarget - prevBoost) * 0.1;
+        el.dataset.hoverBoost = String(hoverBoost);
+        const scale = (0.5 + t * 0.55) * hoverBoost;
+        const opacity = 0.25 + t * 0.75;
+        const z = Math.round(10 + t * 40) + (hoverBoost > 1.02 ? 20 : 0);
+
+        el.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
+        el.style.opacity = String(opacity);
+        el.style.zIndex = String(z);
+        el.style.pointerEvents = t > 0.35 ? 'auto' : 'none';
+        el.classList.toggle('is-front', false);
+        el.classList.toggle('is-orbit-hover', hoverBoost > 1.02);
+
+        if (depth > bestScore) {
+          bestScore = depth;
+          best = i;
+        }
+      });
+
+      // hide filtered-out from layout competition already done
+      items.forEach(el => {
+        if (el.classList.contains('is-hidden-theme')) {
+          el.style.opacity = '0';
+          el.style.pointerEvents = 'none';
+        }
+      });
+
+      if (vis[best]) {
+        vis[best].classList.add('is-front');
+        activeIndex = best;
+        const name = vis[best].dataset.title || '';
+        if (titleEl && titleEl.textContent !== name) {
+          titleEl.style.opacity = '0.4';
+          titleEl.textContent = name;
+          requestAnimationFrame(() => { titleEl.style.opacity = '1'; });
+        }
+      }
+    }
+
+    function tick(ts) {
+      if (!lastTs) lastTs = ts;
+      const dt = Math.min(0.05, (ts - lastTs) / 1000);
+      lastTs = ts;
+      const playing = videosSection && videosSection.classList.contains('is-focus-mode');
+      if (!playing && !reduceMotion) {
+        const rate = slowMo ? SLOW_MO : 1;
+        angle = (angle + SPEED * rate * dt) % 360;
+      }
+      layout();
+      raf = requestAnimationFrame(tick);
+    }
+
+    function stepBy(dir) {
+      const vis = visibleItems();
+      if (!vis.length) return;
+      const step = 360 / vis.length;
+      angle = (angle - dir * step + 360) % 360;
+      layout();
+    }
+
+    function applyTheme(theme) {
+      chips.forEach(c => c.classList.toggle('is-active', c.dataset.theme === theme));
+      items.forEach(el => {
+        const show = theme === 'all' || el.dataset.theme === theme;
+        el.classList.toggle('is-hidden-theme', !show);
+      });
+      angle = 0;
+      layout();
+    }
+
+    refreshItems();
+    chips.forEach(chip => {
+      chip.addEventListener('click', () => applyTheme(chip.dataset.theme));
+    });
+    if (prevBtn) prevBtn.addEventListener('click', () => stepBy(-1));
+    if (nextBtn) nextBtn.addEventListener('click', () => stepBy(1));
+
+    track.addEventListener('mouseenter', () => { slowMo = true; });
+    track.addEventListener('mouseleave', () => { slowMo = false; });
+    track.addEventListener('focusin', () => { slowMo = true; });
+    track.addEventListener('focusout', () => { slowMo = false; });
+
+    // touch swipe
+    let touchX = null;
+    track.addEventListener('touchstart', e => {
+      touchX = e.changedTouches[0].clientX;
+      slowMo = true;
+    }, { passive: true });
+    track.addEventListener('touchend', e => {
+      if (touchX == null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      slowMo = false;
+      if (Math.abs(dx) > 40) stepBy(dx > 0 ? -1 : 1);
+    }, { passive: true });
+
+    window.addEventListener('resize', () => layout(), { passive: true });
+    document.addEventListener('keydown', e => {
+      if (!videosSection) return;
+      const rect = videosSection.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      if (e.key === 'ArrowLeft') { e.preventDefault(); stepBy(-1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); stepBy(1); }
+    });
+
+    layout();
+    raf = requestAnimationFrame(tick);
+
+    // hero parallax kept here lightly
+    const hero = document.querySelector('.hero.is-parallax');
+    const collage = hero && hero.querySelector('.hero-collage');
+    if (hero && collage && !reduceMotion && window.matchMedia('(min-width: 901px)').matches) {
+      window.addEventListener('scroll', () => {
+        const rect = hero.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+        const p = Math.min(1, Math.max(0, -rect.top / (rect.height || 1)));
+        collage.style.transform = `translate3d(0, ${p * 28}px, 0)`;
+      }, { passive: true });
+    }
+  })();
+
+
 </script>
 </body>
 </html>

@@ -15,14 +15,22 @@ Open [http://localhost:8080](http://localhost:8080).
 
 ```
 Krishna Portfolio/
-├── index.html              # All markup, styles, and scripts
-├── assets/images/          # Hero, video posters, collateral
+├── index.html              # Current scrapbook design (markup, styles, scripts)
+├── legacy/index.html       # Pre-redesign fallback (pink/cream version)
+├── assets/images/          # Hero, portraits, video posters, collateral
 ├── scripts/
 │   └── extract-images.mjs  # One-time base64 → files extractor
 ├── docs/                   # Standards and how-to guides
 ├── CHANGELOG.md
 └── README.md
 ```
+
+## Previous version (fallback)
+
+The scrapbook redesign lives at the site root. The earlier pink/cream design is archived at [`legacy/index.html`](legacy/index.html).
+
+- Preview: open [http://localhost:8080/legacy/](http://localhost:8080/legacy/)
+- Rollback: copy `legacy/index.html` over `index.html` (then fix asset paths from `../assets/` back to `assets/` if needed)
 
 ## Documentation
 

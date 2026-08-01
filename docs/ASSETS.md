@@ -7,6 +7,10 @@ Image files live under `assets/images/`. Do not embed large base64 strings in `i
 ```
 assets/images/
 ├── hero.jpg              # Hero portrait (+ hero.webp)
+├── portraits/            # Scrapbook polaroid slots (swap when new photos arrive)
+│   ├── hero-collage.jpg  # (+ .webp) — title-slide polaroid
+│   ├── about-1.jpg       # (+ .webp)
+│   └── about-2.jpg       # (+ .webp)
 ├── videos/               # Video grid posters (9:16 friendly)
 │   ├── anejo-ugc.jpg
 │   ├── just-bought-it-hair.jpg
@@ -24,6 +28,7 @@ assets/images/
     └── ... (12 files total)
 ```
 
+Portrait slots currently reuse the hero photo as placeholders. Replace `assets/images/portraits/*` (keep filenames) when Krishna’s new photos arrive.
 ## Naming rules
 
 - Lowercase kebab-case: `my-project-name.jpg`

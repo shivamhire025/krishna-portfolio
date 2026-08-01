@@ -41,24 +41,26 @@ Apply `--touch-min` to: `.nav-toggle`, `.nav-link` (drawer, ≤768px), `.btn`, `
 | > 768px | Horizontal links in header |
 | ≤ 768px | Hamburger opens right drawer; backdrop closes; Escape closes; link click scrolls + closes |
 
-**Colors:** Scroll state uses class `nav-scrolled` on `<nav>` (not inline styles). On phones, drawer links always use `var(--deep)` on `var(--cream)` so they stay readable when the header bar turns pink after scroll. When the menu is open, the header bar resets to cream with dark logo and toggle bars.
+**Colors:** Scroll state uses class `nav-scrolled` on `<nav>` (not inline styles). Drawer links are `<button class="nav-link">` with full-width tap rows. When the menu is open, the header bar is forced cream with burgundy logo/toggle (including over the dark hero) so controls stay visible.
 
-Safe areas: `env(safe-area-inset-top)` on nav and drawer; `safe-area-inset-*` on lightbox close button.
+Safe areas: `env(safe-area-inset-top)` on nav and drawer; `safe-area-inset-*` on lightbox / orbit-focus close; footer bottom inset.
 
-### Hero
+**Scroll:** `html { scroll-padding-top: 5rem }`. Drawer navigations use instant `scrollIntoView` after overflow unlock (smooth scroll is unreliable right after closing the drawer on mobile).
+
+### Hero / videos
 
 | Viewport | Behavior |
 |----------|----------|
-| ≤ 900px | Single column; image block 50vh |
-| ≤ 600px | Image 45vh; stacked full-width buttons; primary CTA scrolls to Videos; hide scroll hint and side float text |
+| ≤ 768px | Hide hero polaroid; orbit stage uses 44px side navs; intro copy full width |
+| ≤ 600px | Tighter orbit track (~280px); smaller phone cards |
 
 ### Grids
 
-| Component | ≤ 900px | ≤ 600px | ≤ 380px |
-|-----------|---------|---------|---------|
-| Services / work / blog | 2 columns | 1 column | 1 column |
-| Video clusters | Horizontal scroll row per cluster | Same; narrower cards (~58vw) |
-| Collateral | auto-fill | 2 columns | 1 column |
+| Component | ≤ 900px | ≤ 768px | ≤ 600px | ≤ 380px |
+|-----------|---------|---------|---------|---------|
+| Services / work / blog | straighten notes | 1-col work/blog | tighter section padding | smaller titles |
+| Clients | 3-col | — | 2-col | smaller logos |
+| Scrapbook tilts | services/about notes flat | work cards flat + full width | tag tilts off | — |
 
 ### Lightbox / Vimeo modal
 
@@ -76,25 +78,25 @@ Test in Chrome DevTools device mode **and** at least one real phone when possibl
 
 | Width | Checked | Notes |
 |-------|---------|-------|
-| 375px | Yes (Jun 2026) | Hamburger at ≤768px; all 7 nav targets scroll with offset; no horizontal overflow |
-| 390px | Yes (Jun 2026) | Videos first after hero; horizontal cluster scroll; inline play works |
-| 430px | Yes (Jun 2026) | Collateral 2-col; filters wrap; touch targets ≥44px |
+| 375px | Yes (Aug 2026) | Drawer buttons; contact reaches near top via min-height + scroll-padding |
+| 390px | Yes (Aug 2026) | About collage `relative` (not sticky); work cards full-width; no `href="#"` jump |
+| 430px | Yes (Aug 2026) | Theme/work filter hover gated to fine pointers; touch targets ≥44px |
 
 ### Per feature
 
 - [x] Hamburger: open, backdrop close, Escape, navigate to section closes menu
-- [x] Drawer nav links readable after scrolling (dark text on cream panel)
-- [x] No horizontal overflow on home, videos, collateral, contact
-- [x] Video clusters scroll horizontally; inline play works
-- [x] Work filter buttons meet touch size
-- [x] Collateral lightbox opens image
-- [x] Reduced motion: marquee static when OS setting enabled
+- [x] Open-menu header stays cream with dark controls over dark hero
+- [x] Drawer nav links are full-width buttons; scroll lands with offset
+- [x] No horizontal overflow (marquee excluded)
+- [x] Work / blog card links ≥44px tall
+- [x] Work filter + theme chips don’t stick in “hover” styles on touch
+- [x] Reduced motion: marquee static; drawer transition off
 
 ### Regression on desktop
 
 - [x] Nav links visible without hamburger above 768px
-- [x] Hero two-column layout from 901px up
-- [x] Video clusters horizontal scroll on all breakpoints
+- [x] About polaroid stack sticky only from 901px up
+- [x] Video orbit carousel on all breakpoints
 
 ## When you change X, also update Y
 

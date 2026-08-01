@@ -923,6 +923,7 @@ body.is-scrolling .marquee-track { animation-play-state: paused; }
 }
 .about-copy .section-title {
   font-size: clamp(3rem, 7vw, 4.6rem);
+  margin-bottom: 1.35rem;
 }
 .about-text {
   font-family: var(--font-mono);
@@ -1163,16 +1164,12 @@ body.is-scrolling .marquee-track { animation-play-state: paused; }
   color: var(--cream);
   padding: var(--space-section) max(var(--space-gutter), 6vw);
   scroll-margin-top: 5rem;
-  min-height: calc(100dvh - 4.5rem);
-  display: flex;
-  align-items: center;
 }
 .contact-info {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 2rem;
   align-items: end;
-  width: 100%;
 }
 .contact-quote {
   font-family: var(--font-display);
@@ -1212,7 +1209,7 @@ footer {
   background: var(--burgundy);
   color: var(--sage);
   text-align: center;
-  padding: 2rem max(var(--space-gutter), 6vw) 2.5rem;
+  padding: 1.5rem max(var(--space-gutter), 6vw) max(1.5rem, env(safe-area-inset-bottom));
 }
 .footer-logo {
   font-family: var(--font-display);
@@ -1352,7 +1349,7 @@ footer {
     right: max(1rem, env(safe-area-inset-right));
   }
   footer {
-    padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    padding-bottom: max(1.25rem, env(safe-area-inset-bottom));
   }
 }
 @media (max-width: 600px) {
@@ -1360,9 +1357,7 @@ footer {
     padding: var(--space-section-sm) var(--space-gutter);
   }
   .contact {
-    min-height: calc(100dvh - 4rem);
-    align-items: flex-start;
-    padding-top: calc(var(--space-section-sm) + 0.5rem);
+    padding-bottom: 2.5rem;
   }
   .theme-chips {
     gap: 0.45rem;
@@ -1840,7 +1835,8 @@ footer {
 .about-letter {
   background: var(--cream);
   color: var(--brown);
-  padding: 1.6rem 1.65rem;
+  padding: 1.75rem 1.65rem 1.7rem;
+  margin-top: 0.35rem;
   box-shadow: 0 14px 30px rgba(0,0,0,0.2);
   transform: rotate(-0.8deg);
   position: relative;
@@ -1859,6 +1855,10 @@ footer {
 .about .about-text {
   color: var(--brown);
   margin: 0;
+  padding-right: 0.5rem;
+}
+.about-why-title {
+  margin-bottom: 0.35rem;
 }
 .about-stats {
   grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -26,7 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Mobile drawer menu links were nearly invisible after scroll (light pink text on cream); scroll styling now uses `nav-scrolled` class and drawer-specific colors
 - About collage stayed `position: sticky` on phones (later scrapbook CSS overrode the mobile rule)
 - Open hamburger over the dark hero left logo/toggle burgundy-on-burgundy; open state now forces a cream bar
-- Contact nav couldn’t scroll the section near the top; contact has a viewport min-height + `scroll-padding-top`
+- Contact nav uses `scroll-padding-top` (viewport min-height on contact was removed — it left a large empty band above the footer)
 - “Available for freelance” used `href="#"` and jumped to the top of the page
 - Work/blog text links were ~20px tall; now meet 44px touch minimum
 - Theme/work filter `:hover` styles no longer stick after tap on touch devices

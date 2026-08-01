@@ -78,7 +78,7 @@ Test in Chrome DevTools device mode **and** at least one real phone when possibl
 
 | Width | Checked | Notes |
 |-------|---------|-------|
-| 375px | Yes (Aug 2026) | Drawer buttons; contact reaches near top via min-height + scroll-padding |
+| 375px | Yes (Aug 2026) | Drawer buttons; contact uses scroll-padding (no section min-height) |
 | 390px | Yes (Aug 2026) | About collage `relative` (not sticky); work cards full-width; no `href="#"` jump |
 | 430px | Yes (Aug 2026) | Theme/work filter hover gated to fine pointers; touch targets ≥44px |
 

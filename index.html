@@ -1241,10 +1241,14 @@ footer {
   }
   .contact-info { grid-template-columns: 1fr; gap: 1.5rem; }
   .service-groups > div,
-  .about-letter,
-  .why-me {
+  .about-letter {
     transform: none;
     margin-top: 0 !important;
+  }
+  .why-me {
+    transform: none !important;
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 @media (max-width: 768px) {
@@ -1878,10 +1882,21 @@ footer {
 .about-tags .tag:nth-child(even) { --rot: 2deg; }
 .why-me {
   background: rgba(209,220,193,0.12);
-  padding: 1.5rem 1.55rem;
+  padding: 1.6rem 1.5rem 1.55rem;
   transform: rotate(1deg);
   border-top: none;
   margin-top: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.why-me .about-why-title {
+  margin-bottom: 0.85rem;
+}
+.why-me-list {
+  margin-top: 0;
+}
+.why-me-list li {
+  line-height: 1.45;
 }
 
 /* Mood board: work + blog bleed */
@@ -2053,9 +2068,16 @@ footer {
   .blog-card {
     margin-top: 0 !important;
   }
-  .about-letter,
-  .why-me {
+  .about-letter {
     transform: none;
+  }
+  .why-me {
+    transform: none !important;
+    margin-top: 1.75rem;
+    padding: 1.65rem 1.5rem;
+  }
+  .about-tags {
+    margin-bottom: 0.25rem;
   }
 }
 @media (max-width: 768px) {

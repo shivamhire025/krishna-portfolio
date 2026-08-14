@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Personal blog section with index (`blog.html`), 4 posts (2 Yonge + St. Clair client samples, 2 Toronto personal pieces), market photos, `sitemap.xml`, and `robots.txt`
+- Homepage and blog nav link to Blog; Clientjoy SEO articles also listed on the blog page
 - Mobile breakpoint CSS tokens (`--bp-xs` through `--bp-xl`) — see [docs/MOBILE-STANDARDS.md](docs/MOBILE-STANDARDS.md)
 - Hamburger navigation with drawer panel, backdrop, and keyboard support
 - Documentation set under `docs/` and root `README.md`
@@ -15,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Changed
 
+- Blog pages share the scrapbook design system, fixed site nav, footer, and wide layout with the homepage
+- Writing nav entry removed in favor of Blog (Clientjoy pieces live on the blog page)
 - Consolidated responsive rules into one documented block in `index.html`
 - Phone layout: full-width work/blog cards, flatter scrapbook notes, tighter gutters
 - Lightbox / orbit-focus / footer respect safe-area insets

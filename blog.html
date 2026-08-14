@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Blog | Krishna Thakkar — Content Strategist &amp; Writer</title>
+<meta name="description" content="Writing, neighbourhood storytelling, and content strategy samples by Krishna Thakkar, a Toronto-based content strategist and writer.">
+<link rel="canonical" href="https://krishnathakkar.netlify.app/blog.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blog | Krishna Thakkar">
+<meta property="og:description" content="Writing, neighbourhood storytelling, and content strategy samples by Krishna Thakkar, a Toronto-based content strategist and writer.">
+<meta property="og:url" content="https://krishnathakkar.netlify.app/blog.html">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Krishna Thakkar's Blog",
+  "url": "https://krishnathakkar.netlify.app/blog.html",
+  "author": { "@type": "Person", "name": "Krishna Thakkar", "url": "https://krishnathakkar.netlify.app/" },
+  "blogPost": [
+    {
+      "@type": "BlogPosting",
+      "headline": "Where to Eat and Drink Right Now Near Yonge and St. Clair",
+      "url": "https://krishnathakkar.netlify.app/yonge-st-clair-where-to-eat-blog.html",
+      "datePublished": "2026-08-04"
+    },
+    {
+      "@type": "BlogPosting",
+      "headline": "What's on the Shelves: Shops and Retail at Yonge and St. Clair",
+      "url": "https://krishnathakkar.netlify.app/yonge-st-clair-shops-blog.html",
+      "datePublished": "2026-08-04"
+    }
+  ]
+}
+</script>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="favicon.svg">
+<meta name="theme-color" content="#5C1D32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --burgundy: #5C1D32;
+  --cream: #F7F3EC;
+  --sage: #D1DCC1;
+  --pink: #E6A4B4;
+  --brown: #3E2723;
+  --mint: #C5D9C3;
+  --cream-deep: #EFE8DC;
+  --white: #FFFCFA;
+  --fig: #7A4A58;
+  --rust: #8B3A4F;
+  --space-section: 6.5rem;
+  --space-gutter: 1.25rem;
+  --touch-min: 44px;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-mono: 'Space Mono', ui-monospace, monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: auto; scroll-padding-top: 5rem; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--font-mono);
+  background: var(--cream);
+  color: var(--brown);
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--burgundy); }
+button { font-family: inherit; }
+
+.check-border {
+  height: 10px; width: 100%;
+  background: repeating-linear-gradient(90deg, var(--pink) 0 10px, var(--brown) 10px 20px);
+  flex-shrink: 0; opacity: 0.85;
+}
+.check-border--sage {
+  background: repeating-linear-gradient(90deg, var(--sage) 0 10px, var(--burgundy) 10px 20px);
+}
+.stripe-border {
+  height: 8px; width: 100%; opacity: 0.85;
+  background: repeating-linear-gradient(90deg, var(--burgundy) 0 6px, var(--sage) 6px 12px);
+}
+
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 200;
+  padding: 1.1rem 2rem;
+  padding-top: max(1.1rem, env(safe-area-inset-top));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: background 0.3s, box-shadow 0.3s;
+  background: rgba(247, 243, 236, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 rgba(62, 39, 35, 0.08);
+}
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: var(--touch-min);
+  height: var(--touch-min);
+  padding: 10px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--burgundy);
+  border-radius: 1px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+body.nav-open .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+body.nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+body.nav-open .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.nav-backdrop {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(62, 39, 35, 0.35);
+  z-index: 190;
+}
+body.nav-open .nav-backdrop { display: block; }
+.nav-menu { display: flex; align-items: center; }
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--burgundy);
+  text-decoration: none;
+  cursor: pointer;
+}
+.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links a, .nav-link {
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brown);
+  text-decoration: none;
+  transition: color 0.3s;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: inherit;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-min);
+}
+.nav-links a:hover, .nav-link:hover { color: var(--burgundy); }
+.nav-links a.active { color: var(--burgundy); }
+
+footer {
+  background: var(--burgundy);
+  color: var(--sage);
+  text-align: center;
+  padding: 1.5rem max(var(--space-gutter), 6vw) max(1.5rem, env(safe-area-inset-bottom));
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+.footer-copy {
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  nav { padding-inline: var(--space-gutter); }
+  .nav-toggle { display: flex; }
+  .nav-menu {
+    position: fixed;
+    top: 0; right: 0;
+    width: min(320px, 86vw);
+    height: 100dvh;
+    background: var(--cream);
+    padding: max(5rem, calc(env(safe-area-inset-top) + 4rem)) 1.5rem max(2rem, env(safe-area-inset-bottom));
+    transform: translateX(105%);
+    transition: transform 0.3s ease;
+    z-index: 180;
+    box-shadow: -8px 0 30px rgba(0,0,0,0.12);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  body.nav-open .nav-menu { transform: translateX(0); }
+  .nav-links { flex-direction: column; gap: 0; }
+  .nav-links li { border-bottom: 1px solid rgba(92,29,50,0.1); }
+  .nav-links .nav-link, .nav-links a {
+    display: flex;
+    width: 100%;
+    min-height: var(--touch-min);
+    padding: 0.85rem 0;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+}
+
+.page-shell {
+  padding: calc(5.25rem + env(safe-area-inset-top)) max(var(--space-gutter), 6vw) var(--space-section);
+  min-height: 70vh;
+}
+.section-label {
+  font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--fig); margin-bottom: 0.85rem;
+}
+.page-title {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 0.95;
+  text-transform: uppercase; letter-spacing: -0.01em; color: var(--burgundy);
+  margin-bottom: 1rem;
+}
+.page-title em { font-style: italic; text-transform: none; color: var(--pink); }
+.hero-lede {
+  font-size: 0.82rem; line-height: 1.7; color: var(--fig); max-width: 34rem; margin-bottom: 3rem;
+}
+.group-label {
+  font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--fig); margin: 0 0 1.15rem;
+}
+.featured-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 1.75rem;
+  margin-bottom: 3.25rem;
+  align-items: start;
+}
+.featured-col .post-grid {
+  grid-template-columns: 1fr;
+  margin-bottom: 0;
+}
+@media (max-width: 900px) {
+  .featured-row { grid-template-columns: 1fr; }
+}
+.post-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3.25rem;
+  align-items: stretch;
+}
+.post-card {
+  position: relative;
+  display: flex; flex-direction: column;
+  background: var(--white); border: 1px solid rgba(92,29,50,0.12);
+  text-decoration: none; color: inherit; overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.post-card:hover { transform: translateY(-4px); box-shadow: 0 14px 28px rgba(62,39,35,0.12); }
+.badge-new {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 3;
+  background: #D32F2F;
+  color: #FFFCFA;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.65rem;
+  box-shadow: 0 6px 16px rgba(211, 47, 47, 0.45);
+  transform: rotate(4deg);
+  pointer-events: none;
+}
+.post-card:hover .badge-new {
+  transform: rotate(4deg) scale(1.05);
+}
+.post-card > .post-thumb {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: center;
+  background: var(--burgundy);
+  flex-shrink: 0;
+}
+.post-card picture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--burgundy);
+  flex-shrink: 0;
+}
+.post-card picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+.post-body { padding: 1rem 1.1rem 1.25rem; flex: 1; display: flex; flex-direction: column; }
+.post-meta { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; margin-bottom: 0.55rem; }
+.sticker {
+  display: inline-block; background: var(--mint); color: var(--brown);
+  font-size: 0.62rem; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  border-radius: 40% 55% 45% 50% / 50% 40% 55% 45%;
+  transform: rotate(-3deg);
+}
+.sticker--sage { background: var(--sage); }
+.sticker--pink { background: var(--pink); color: var(--burgundy); }
+.post-date { font-size: 0.68rem; color: var(--fig); letter-spacing: 0.04em; }
+.post-card h3 {
+  font-family: var(--font-display); font-weight: 700; font-size: 1.15rem;
+  line-height: 1.25; color: var(--burgundy); margin: 0 0 0.55rem;
+}
+.post-card p { font-size: 0.72rem; line-height: 1.65; color: var(--fig); margin: 0 0 0.85rem; flex: 1; }
+.post-link {
+  font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--burgundy); margin-top: auto;
+}
+.card-tag {
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fig);
+}
+.empty-card {
+  border: 1.5px dashed rgba(92,29,50,0.22); padding: 1.6rem 1.25rem;
+  text-align: center; color: var(--fig); font-size: 0.75rem; line-height: 1.6;
+  background: rgba(255,252,250,0.55); grid-column: 1 / -1;
+}
+.about-box {
+  background: var(--burgundy); color: var(--cream); padding: 2rem max(1.5rem, 2vw);
+  margin-top: 0.5rem;
+}
+.about-box h4 {
+  font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 1.85rem); font-weight: 700;
+  margin: 0 0 0.55rem; text-transform: uppercase;
+}
+.about-box p { font-size: 0.78rem; line-height: 1.7; color: rgba(247,243,236,0.82); max-width: 40rem; }
+.about-box a { color: var(--sage); font-weight: 700; }
+
+</style>
+</head>
+<body>
+
+<div class="nav-backdrop" id="navBackdrop" hidden></div>
+<nav>
+  <a class="nav-logo" href="index.html">KT</a>
+  <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Open menu">
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+    <span class="nav-toggle-bar"></span>
+  </button>
+  <div id="nav-menu" class="nav-menu">
+    <ul class="nav-links">
+      <li><a class="nav-link" href="index.html#about">About</a></li>
+      <li><a class="nav-link" href="index.html#home">Videos</a></li>
+      <li><a class="nav-link" href="index.html#services">Services</a></li>
+      <li><a class="nav-link" href="index.html#work">Work</a></li>
+      <li><a class="nav-link active" href="blog.html">Blog</a></li>
+      <li><a class="nav-link" href="index.html#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="check-border" aria-hidden="true"></div>
+
+<main class="page-shell">
+  <p class="section-label">Writing</p>
+  <h1 class="page-title">Words that<br><em>rank &amp; resonate</em></h1>
+  <p class="hero-lede">Neighbourhood storytelling, brand voice work, and content strategy pieces — some written for clients, some my own.</p>
+
+  <div class="featured-row">
+    <section class="featured-col">
+      <p class="group-label">Client samples · Yonge + St. Clair BIA</p>
+      <div class="post-grid">
+        <a class="post-card" href="yonge-st-clair-where-to-eat-blog.html">
+          <span class="badge-new">Recently Added</span>
+          <img class="post-thumb" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800&h=500&fit=crop" alt="">
+          <div class="post-body">
+            <div class="post-meta">
+              <span class="sticker">Restaurants &amp; Eats</span>
+              <span class="sticker sticker--sage">Client sample</span>
+              <span class="post-date">Aug 2026</span>
+            </div>
+            <h3>Where to Eat and Drink Right Now Near Yonge and St. Clair</h3>
+            <p>A current, SEO-driven roundup written in a BIA's institutional voice — seven real neighbourhood spots, verified against the client's own business directory.</p>
+            <span class="post-link">Read article →</span>
+          </div>
+        </a>
+        <a class="post-card" href="yonge-st-clair-shops-blog.html">
+          <span class="badge-new">Recently Added</span>
+          <img class="post-thumb" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&h=500&fit=crop" alt="">
+          <div class="post-body">
+            <div class="post-meta">
+              <span class="sticker sticker--pink">Retail &amp; Services</span>
+              <span class="sticker sticker--sage">Client sample</span>
+              <span class="post-date">Aug 2026</span>
+            </div>
+            <h3>What's on the Shelves: Shops and Retail at Yonge and St. Clair</h3>
+            <p>A companion piece covering local retail, from an independent bookstore to the everyday grocery anchor.</p>
+            <span class="post-link">Read article →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="featured-col">
+      <p class="group-label">Personal writing</p>
+      <div class="post-grid">
+        <a class="post-card" href="where-i-shop-3-toronto-markets.html">
+          <span class="badge-new">Recently Added</span>
+          <img class="post-thumb" src="assets/images/blog/big-carrot.png" alt="">
+          <div class="post-body">
+            <div class="post-meta">
+              <span class="sticker">Toronto Eats</span>
+              <span class="post-date">Aug 2026</span>
+            </div>
+            <h3>Where I Actually Shop: 3 Toronto Markets for Cheap Veggies &amp; Great Food</h3>
+            <p>From dirt-cheap greens in Chinatown to an organic co-op on the Danforth, the independent markets I actually shop at.</p>
+            <span class="post-link">Read article →</span>
+          </div>
+        </a>
+        <a class="post-card" href="3-toronto-restaurants-i-keep-going-back-to.html">
+          <span class="badge-new">Recently Added</span>
+          <img class="post-thumb" src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&h=500&fit=crop" alt="">
+          <div class="post-body">
+            <div class="post-meta">
+              <span class="sticker sticker--pink">Toronto Eats</span>
+              <span class="post-date">Aug 2026</span>
+            </div>
+            <h3>3 Toronto Restaurants I Keep Going Back To</h3>
+            <p>From a plant-based grain bowl on the Danforth to wood-fired pizza on Queen West, the reliable spots I never get tired of.</p>
+            <span class="post-link">Read article →</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <p class="group-label">SEO articles · Clientjoy</p>
+  <div class="post-grid">
+    <a class="post-card" href="https://www.clientjoy.io/blog/influencer-marketing-strategies-2021" target="_blank" rel="noopener">
+      <picture>
+        <source srcset="assets/images/blog/influencer-marketing-strategies.webp" type="image/webp">
+        <img class="post-thumb" src="assets/images/blog/influencer-marketing-strategies.jpg" alt="Best Influencer Marketing Strategies to Use in 2023" width="1920" height="1080" loading="lazy" decoding="async">
+      </picture>
+      <div class="post-body">
+        <div class="post-meta"><span class="card-tag">Social Media</span></div>
+        <h3>Best Influencer Marketing Strategies to Use in 2023</h3>
+        <span class="post-link">Read article →</span>
+      </div>
+    </a>
+    <a class="post-card" href="https://www.clientjoy.io/blog/data-driven-social-media-strategy" target="_blank" rel="noopener">
+      <picture>
+        <source srcset="assets/images/blog/data-driven-social-media.webp" type="image/webp">
+        <img class="post-thumb" src="assets/images/blog/data-driven-social-media.jpg" alt="Why You Need to Rely on Data Instead of Guesswork for Social Media" width="1280" height="853" loading="lazy" decoding="async">
+      </picture>
+      <div class="post-body">
+        <div class="post-meta"><span class="card-tag">Strategy</span></div>
+        <h3>Why You Need to Rely on Data Instead of Guesswork for Social Media</h3>
+        <span class="post-link">Read article →</span>
+      </div>
+    </a>
+    <a class="post-card" href="https://www.clientjoy.io/blog/ultimate-guide-to-become-freelancer" target="_blank" rel="noopener">
+      <picture>
+        <source srcset="assets/images/blog/ultimate-guide-freelancer.webp" type="image/webp">
+        <img class="post-thumb" src="assets/images/blog/ultimate-guide-freelancer.jpg" alt="The Ultimate Guide To Being A Freelancer" width="937" height="522" loading="lazy" decoding="async">
+      </picture>
+      <div class="post-body">
+        <div class="post-meta"><span class="card-tag">Freelancing</span></div>
+        <h3>The Ultimate Guide To Being A Freelancer</h3>
+        <span class="post-link">Read article →</span>
+      </div>
+    </a>
+    <a class="post-card" href="https://www.clientjoy.io/blog/ultimate-guide-to-starting-an-agency" target="_blank" rel="noopener">
+      <picture>
+        <source srcset="assets/images/blog/start-agency-guide.webp" type="image/webp">
+        <img class="post-thumb" src="assets/images/blog/start-agency-guide.jpg" alt="How To Start An Agency: The Ultimate Guide" width="1920" height="1080" loading="lazy" decoding="async">
+      </picture>
+      <div class="post-body">
+        <div class="post-meta"><span class="card-tag">Agency</span></div>
+        <h3>How To Start An Agency: The Ultimate Guide</h3>
+        <span class="post-link">Read article →</span>
+      </div>
+    </a>
+    <a class="post-card" href="https://www.clientjoy.io/blog/beginners-guide-to-sales-funnel" target="_blank" rel="noopener">
+      <picture>
+        <source srcset="assets/images/blog/sales-funnel-guide.webp" type="image/webp">
+        <img class="post-thumb" src="assets/images/blog/sales-funnel-guide.jpg" alt="Sales Funnel: The Ultimate Guide For Beginners [2023]" width="1920" height="1080" loading="lazy" decoding="async">
+      </picture>
+      <div class="post-body">
+        <div class="post-meta"><span class="card-tag">Marketing</span></div>
+        <h3>Sales Funnel: The Ultimate Guide For Beginners [2023]</h3>
+        <span class="post-link">Read article →</span>
+      </div>
+    </a>
+    <a class="post-card" href="https://www.clientjoy.io/blog/tools-for-agencies-and-freelancers-to-scale-their-business" target="_blank" rel="noopener">
+      <picture>
+        <source srcset="assets/images/blog/agency-freelancer-tools.webp" type="image/webp">
+        <img class="post-thumb" src="assets/images/blog/agency-freelancer-tools.jpg" alt="Tools for Agencies & Freelancers To Scale Their Business" width="1920" height="1280" loading="lazy" decoding="async">
+      </picture>
+      <div class="post-body">
+        <div class="post-meta"><span class="card-tag">Tools</span></div>
+        <h3>Tools for Agencies &amp; Freelancers To Scale Their Business</h3>
+        <span class="post-link">Read article →</span>
+      </div>
+    </a>
+  </div>
+
+  <div class="about-box">
+    <h4>About this blog</h4>
+    <p>I'm Krishna, a Toronto-based content strategist and writer. This page collects longer-form writing samples alongside my social and video work, which you can see on my <a href="index.html">main portfolio</a>.</p>
+  </div>
+</main>
+
+
+<div class="stripe-border" aria-hidden="true"></div>
+<footer>
+  <div class="footer-logo">Krishna Thakkar</div>
+  <div class="footer-copy">© 2026 · Social Media &amp; Content Strategist · Brand Storyteller · Food Lover</div>
+</footer>
+
+
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const navBackdrop = document.getElementById('navBackdrop');
+  function setNavOpen(open) {
+    document.body.classList.toggle('nav-open', open);
+    if (navToggle) {
+      navToggle.setAttribute('aria-expanded', String(open));
+      navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+    if (navBackdrop) navBackdrop.hidden = !open;
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  if (navToggle) {
+    navToggle.addEventListener('click', () => {
+      setNavOpen(!document.body.classList.contains('nav-open'));
+    });
+  }
+  if (navBackdrop) navBackdrop.addEventListener('click', () => setNavOpen(false));
+  document.querySelectorAll('#nav-menu a').forEach(a => {
+    a.addEventListener('click', () => setNavOpen(false));
+  });
+</script>
+
+</body>
+</html>

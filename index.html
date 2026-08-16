@@ -45,7 +45,7 @@
 
 html {
   scroll-behavior: auto;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 5.75rem;
   -webkit-text-size-adjust: 100%;
 }
 
@@ -222,8 +222,8 @@ nav {
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 200;
-  padding: 1.1rem 2rem;
-  padding-top: max(1.1rem, env(safe-area-inset-top));
+  padding: 1.15rem 2rem;
+  padding-top: max(1.15rem, env(safe-area-inset-top));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -239,9 +239,9 @@ nav.nav-scrolled {
   display: none;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
-  width: var(--touch-min);
-  height: var(--touch-min);
+  gap: 6px;
+  width: 48px;
+  height: 48px;
   padding: 10px;
   border: none;
   background: transparent;
@@ -251,15 +251,15 @@ nav.nav-scrolled {
 }
 .nav-toggle-bar {
   display: block;
-  width: 22px;
-  height: 2px;
+  width: 26px;
+  height: 2.5px;
   background: var(--burgundy);
   border-radius: 1px;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-body.nav-open .nav-toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+body.nav-open .nav-toggle-bar:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
 body.nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
-body.nav-open .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+body.nav-open .nav-toggle-bar:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
 .nav-backdrop {
   display: none;
   position: fixed;
@@ -269,18 +269,38 @@ body.nav-open .nav-toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(
 }
 body.nav-open .nav-backdrop { display: block; }
 .nav-menu { display: flex; align-items: center; }
+.nav-drawer-close {
+  display: none;
+  position: absolute;
+  top: max(0.85rem, env(safe-area-inset-top));
+  right: 0.85rem;
+  width: 48px;
+  height: 48px;
+  border: none;
+  background: transparent;
+  color: var(--burgundy);
+  font-size: 1.55rem;
+  line-height: 1;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  border-radius: 8px;
+}
+.nav-drawer-close:hover { background: rgba(92, 29, 50, 0.08); }
 .nav-logo {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.55rem;
   font-weight: 700;
   letter-spacing: 0.02em;
   color: var(--burgundy);
   text-decoration: none;
 }
-.nav-links { display: flex; gap: 1.75rem; list-style: none; }
+.nav-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; justify-content: flex-end; }
 .nav-links a, .nav-link {
-  font-size: 0.68rem;
-  letter-spacing: 0.12em;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--brown);
   text-decoration: none;
@@ -289,7 +309,10 @@ body.nav-open .nav-backdrop { display: block; }
   background: none;
   border: none;
   font-family: inherit;
-  padding: 0;
+  padding: 0.35rem 0;
+  min-height: var(--touch-min);
+  display: inline-flex;
+  align-items: center;
 }
 .nav-links a:hover, .nav-link:hover { color: var(--burgundy); }
 
@@ -1251,36 +1274,44 @@ footer {
     box-sizing: border-box;
   }
 }
-@media (max-width: 768px) {
-  nav {
-    padding-inline: var(--space-gutter);
-  }
-  .nav-toggle { display: flex; }
+@media (max-width: 900px) {
+  .nav-toggle { display: flex; position: relative; z-index: 190; }
   .nav-menu {
     position: fixed;
     top: 0; right: 0;
-    width: min(320px, 86vw);
+    width: min(340px, 88vw);
     height: 100dvh;
     background: var(--cream);
-    padding: max(5rem, calc(env(safe-area-inset-top) + 4rem)) 1.5rem max(2rem, env(safe-area-inset-bottom));
+    padding: max(5.5rem, calc(env(safe-area-inset-top) + 4.5rem)) 1.5rem max(2rem, env(safe-area-inset-bottom));
     transform: translateX(105%);
     transition: transform 0.3s ease;
     z-index: 180;
     box-shadow: -8px 0 30px rgba(0,0,0,0.12);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    display: block;
   }
+  .nav-drawer-close { display: inline-flex; }
   body.nav-open .nav-menu { transform: translateX(0); }
-  .nav-links { flex-direction: column; gap: 0; }
+  .nav-links { flex-direction: column; gap: 0; flex-wrap: nowrap; }
   .nav-links li { border-bottom: 1px solid rgba(92,29,50,0.1); }
-  .nav-links .nav-link {
+  .nav-links .nav-link,
+  .nav-links a {
     display: flex;
     align-items: center;
     width: 100%;
-    min-height: var(--touch-min);
-    padding: 0.85rem 0;
-    font-size: 0.85rem;
+    min-height: 52px;
+    padding: 0.95rem 0;
+    font-size: 1.05rem;
     text-align: left;
+  }
+}
+@media (max-width: 768px) {
+  nav {
+    padding-inline: var(--space-gutter);
+  }
+  .nav-logo {
+    font-size: 1.45rem;
   }
   .scrapbook-hide-sm { display: none !important; }
   .polaroid--tilt-l,
@@ -2125,6 +2156,7 @@ footer {
     <span class="nav-toggle-bar"></span>
   </button>
   <div id="nav-menu" class="nav-menu">
+    <button type="button" class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">✕</button>
     <ul class="nav-links">
       <li><button type="button" class="nav-link" data-target="about">About</button></li>
       <li><button type="button" class="nav-link" data-target="home">Videos</button></li>
@@ -2830,96 +2862,6 @@ footer {
 </div>
 
 
-<!-- BLOG -->
-<section class="blog" id="blog">
-  <div class="reveal">
-    <p class="section-label">Writing</p>
-    <h2 class="section-title">Words that<br><em>rank & resonate</em></h2>
-    <p class="section-lede">SEO articles published on Clientjoy.</p>
-  </div>
-  <div class="blog-grid reveal">
-    <div class="blog-card lift-target">
-      <div class="blog-card-img">
-        <picture>
-          <source srcset="assets/images/blog/influencer-marketing-strategies.webp" type="image/webp">
-          <img src="assets/images/blog/influencer-marketing-strategies.jpg" alt="Best Influencer Marketing Strategies to Use in 2023" width="1920" height="1080" loading="lazy" decoding="async" />
-        </picture>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-tag">Social Media</div>
-        <div class="blog-card-title">Best Influencer Marketing Strategies to Use in 2023</div>
-        <a href="https://www.clientjoy.io/blog/influencer-marketing-strategies-2021" target="_blank" class="blog-card-link">Read article →</a>
-      </div>
-    </div>
-    <div class="blog-card lift-target">
-      <div class="blog-card-img">
-        <picture>
-          <source srcset="assets/images/blog/data-driven-social-media.webp" type="image/webp">
-          <img src="assets/images/blog/data-driven-social-media.jpg" alt="Why You Need to Rely on Data Instead of Guesswork for Social Media" width="1280" height="853" loading="lazy" decoding="async" />
-        </picture>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-tag">Strategy</div>
-        <div class="blog-card-title">Why You Need to Rely on Data Instead of Guesswork for Social Media</div>
-        <a href="https://www.clientjoy.io/blog/data-driven-social-media-strategy" target="_blank" class="blog-card-link">Read article →</a>
-      </div>
-    </div>
-    <div class="blog-card lift-target">
-      <div class="blog-card-img">
-        <picture>
-          <source srcset="assets/images/blog/ultimate-guide-freelancer.webp" type="image/webp">
-          <img src="assets/images/blog/ultimate-guide-freelancer.jpg" alt="The Ultimate Guide To Being A Freelancer" width="937" height="522" loading="lazy" decoding="async" />
-        </picture>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-tag">Freelancing</div>
-        <div class="blog-card-title">The Ultimate Guide To Being A Freelancer</div>
-        <a href="https://www.clientjoy.io/blog/ultimate-guide-to-become-freelancer" target="_blank" class="blog-card-link">Read article →</a>
-      </div>
-    </div>
-    <div class="blog-card lift-target">
-      <div class="blog-card-img">
-        <picture>
-          <source srcset="assets/images/blog/start-agency-guide.webp" type="image/webp">
-          <img src="assets/images/blog/start-agency-guide.jpg" alt="How To Start An Agency: The Ultimate Guide" width="1920" height="1080" loading="lazy" decoding="async" />
-        </picture>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-tag">Agency</div>
-        <div class="blog-card-title">How To Start An Agency: The Ultimate Guide</div>
-        <a href="https://www.clientjoy.io/blog/ultimate-guide-to-starting-an-agency" target="_blank" class="blog-card-link">Read article →</a>
-      </div>
-    </div>
-    <div class="blog-card lift-target">
-      <div class="blog-card-img">
-        <picture>
-          <source srcset="assets/images/blog/sales-funnel-guide.webp" type="image/webp">
-          <img src="assets/images/blog/sales-funnel-guide.jpg" alt="Sales Funnel: The Ultimate Guide For Beginners [2023]" width="1920" height="1080" loading="lazy" decoding="async" />
-        </picture>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-tag">Marketing</div>
-        <div class="blog-card-title">Sales Funnel: The Ultimate Guide For Beginners [2023]</div>
-        <a href="https://www.clientjoy.io/blog/beginners-guide-to-sales-funnel" target="_blank" class="blog-card-link">Read article →</a>
-      </div>
-    </div>
-    <div class="blog-card lift-target">
-      <div class="blog-card-img">
-        <picture>
-          <source srcset="assets/images/blog/agency-freelancer-tools.webp" type="image/webp">
-          <img src="assets/images/blog/agency-freelancer-tools.jpg" alt="Tools for Agencies & Freelancers To Scale Their Business" width="1920" height="1280" loading="lazy" decoding="async" />
-        </picture>
-      </div>
-      <div class="blog-card-body">
-        <div class="blog-card-tag">Tools</div>
-        <div class="blog-card-title">Tools for Agencies & Freelancers To Scale Their Business</div>
-        <a href="https://www.clientjoy.io/blog/tools-for-agencies-and-freelancers-to-scale-their-business" target="_blank" class="blog-card-link">Read article →</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-
 <div class="stripe-border" aria-hidden="true"></div>
 
 <!-- CONTACT -->
@@ -3030,6 +2972,10 @@ footer {
     navToggle.addEventListener('click', () => {
       setNavOpen(!document.body.classList.contains('nav-open'));
     });
+  }
+  const navDrawerClose = document.getElementById('navDrawerClose');
+  if (navDrawerClose) {
+    navDrawerClose.addEventListener('click', () => setNavOpen(false));
   }
   if (navBackdrop) {
     navBackdrop.addEventListener('click', () => setNavOpen(false));
